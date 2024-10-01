@@ -16,6 +16,7 @@ export const mailService = {
     remove,
     deleteMail,
     save,
+    getDefaultFilter,
     getEmptyMail
 }
 
@@ -89,4 +90,66 @@ function getDefaultFilter() {
         folder: 'inbox',
         txt: ''       
     } 
+}
+
+function getEmptyMail() {
+    return {
+        id: utilService.makeId(),
+        subject: '', 
+        body: '',
+        isRead: false, 
+        isStarred: false, 
+        sentAt: null,
+        removedAt: null, 
+        from: '', 
+        to: '',
+    }
+}
+
+function _createMails() {
+    console.log("hola")
+    let mails = utilService.loadFromStorage(MAIL_KEY)
+    if (!mails || !mails.length) {
+        mails = []
+        // Create 100 mails as a base for inbox
+        for (let i = 0; i < 100; i++) {
+            mails.push(_createMail())
+        }
+        // Create 10 mails for trash
+        for (let i = 0; i < 10; i++) {
+            mails.push(_createTrashMail())
+        }
+        // Create 15 mails for starred
+        for (let i = 0; i < 15; i++) {
+            mails.push(_createStarredMail())
+        }
+        utilService.saveToStorage(MAIL_KEY, mails)
+        console.log("Mails created and saved:", mails)
+    }
+}
+
+function _createMail() {
+    return {
+        id: utilService.makeId(),
+        subject: utilService.makeLorem(5), 
+        body: utilService.makeLorem(50), 
+        isRead: Math.random() > 0.5, 
+        isStarred: false, 
+        sentAt: Date.now(), 
+        removedAt: null, 
+        from: utilService.makeLorem(1) + "@gmail.com",
+        to: loggedinUser.email 
+    }
+}
+
+function _createTrashMail() {
+    const mail = _createMail()
+    mail.removedAt = Date.now()
+    return mail
+}
+
+function _createStarredMail() {
+    const mail = _createMail()
+    mail.isStarred = true
+    return mail
 }
