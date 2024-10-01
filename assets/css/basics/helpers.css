@@ -1,3 +1,4 @@
+/* Flexbox-related classes */
 .flex {
     display: flex;
 }
@@ -6,18 +7,40 @@
     flex-direction: column;
 }
 
-.justify-center {
-    justify-content: center;
+.wrap {
+    flex-wrap: wrap;
 }
 
-.align-center {
-    align-items: center;
+/* Flexbox alignment */
+.justify-center {
+    justify-content: center;
 }
 
 .space-between {
     justify-content: space-between;
 }
 
+.space-around {
+    justify-content: space-around;
+}
+
+.align-center {
+    align-items: center;
+}
+
+/* Grid-related class */
 .grid {
     display: grid;
+}
+
+/* List-related utility */
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Visibility-related utility */
+.hidden {
+    visibility: hidden;
 }
