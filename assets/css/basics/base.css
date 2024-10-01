@@ -1,23 +1,48 @@
-body {
-    margin: 0;
+/* Universal box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+/* Reset margin and padding for body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Reset margin and padding for headings and paragraphs */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p {
     margin: 0;
+    padding: 0;
 }
 
+/* Image fit and scaling */
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Reset link styles */
 a {
     text-decoration: none;
     color: inherit;
 }
 
-img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+/* Button pointer cursor */
+button {
+    cursor: pointer;
+}
+
+/* Inherit font for input and select elements */
+input,
+select {
+  font-family: inherit;
 }
