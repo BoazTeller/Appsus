@@ -1,4 +1,5 @@
 import { eventBusService } from "../services/event-bus.service.js"
+
 const { useState, useEffect, useRef } = React
 
 export function UserMsg() {
@@ -10,12 +11,15 @@ export function UserMsg() {
     const unsubscribe = eventBusService.on('show-user-msg', (msg) => {
       console.log('Got msg', msg)
       setMsg(msg)
+      
       if (timeoutIdRef.current) {
-        timeoutIdRef.current = null
         clearTimeout(timeoutIdRef.current)
+        timeoutIdRef.current = null
       }
+
       timeoutIdRef.current = setTimeout(closeMsg, 3000)
     })
+
     return unsubscribe
   }, [])
 
@@ -24,6 +28,7 @@ export function UserMsg() {
   }
 
   if (!msg) return <span></span>
+  
   return (
     <section className={`user-msg ${msg.type}`}>
       <button onClick={closeMsg}>x</button>
@@ -31,4 +36,3 @@ export function UserMsg() {
     </section>
   )
 }
-
