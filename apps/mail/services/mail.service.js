@@ -33,14 +33,19 @@ function get(mailId) {
 }
 
 // Move to Trash if removedAt is null otherwise delete permanently
+// Function returns status for controller user feedback
 function remove(mailId) {
     return storageService.get(MAIL_KEY, mailId)
         .then(mail => {
             if (!mail.removedAt) {
-                const toTrashMail = { ...mail, removedAt: Date.now()}
+                const toTrashMail = { ...mail, removedAt: Date.now() }
                 return storageService.put(MAIL_KEY, toTrashMail)
+                    // Return status after moving mail to trash
+                    .then(() => ({ status: 'removed', mail: toTrashMail }))
             } else {
                 return storageService.remove(MAIL_KEY, mailId)
+                    // Return status after permanently deleting mail
+                    .then(() => ({ status: 'deleted_permanently', mailId }))
             }
         })
 }

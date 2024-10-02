@@ -7,6 +7,7 @@ import { mailService } from "../services/mail.service.js"
 
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailList } from "../cmps/MailList.jsx"
+import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 
@@ -41,6 +42,17 @@ export function MailIndex() {
             })
             .catch((err) => {
                 console.error('Error updating mail star status:', err)
+            })
+    }
+
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+            .then((res) => {
+                if (res.msg === 'moved_to_trash') {
+                    showSuccessMsg('Mail moved to trash')
+                } else if (res.msg === 'deleted_permanently') {
+                    showSuccessMsg('Mail deleted permanently')
+                }
             })
     }
 
