@@ -20,10 +20,11 @@ export const mailService = {
     getEmptyMail
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             mails = _getFilteredMails(mails, filterBy)
+            mails = _getSortedMails(mails, sortBy)
             return mails
         })
 }
@@ -88,6 +89,25 @@ function _getFilteredMails(mails, filterBy) {
     }
 
     return mails
+}
+
+function _getSortedMails(mails, sortBy) {
+    // Sort alphabetically by To Sender address
+    if (sortBy.to) {
+        mails.sort((mail1, mail2) => mail1.to.localeCompare(mail2.to) * sortBy.to)
+    }
+    // Sort alphabetically by From Sender address
+    if (sortBy.from) {
+        mails.sort((mail1, mail2) => mail1.from.localeCompare(mail2.from) * sortBy.from)
+    }
+    // Sort alphabetically by mail subject
+    if (sortBy.subject) {
+        mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject) * sortBy.subject)
+    }
+    // Sort alphabetically by date mail was sent
+    if (sortBy.date) {
+        mails.sort((mail1, mail2) => (mail1.sentAt - mail2.sentAt) * sortBy.sentAt)
+    }
 }
 
 function getDefaultFilter() {
