@@ -6,6 +6,7 @@ and side filter for different folders) */}
 import { mailService } from "../services/mail.service.js"
 
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
+import { MailList } from "../cmps/MailList.jsx"
 
 const { useState, useEffect } = React
 
@@ -29,10 +30,25 @@ export function MailIndex() {
             })
     }
 
+    function onToggleStarred(mail) {
+        const updatedMail = { ...mail, isStarred: !mail.isStarred }
+
+        mailService.save(updatedMail)
+            .then(updatedMail => {
+                setMails(prevMails =>
+                    prevMails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
+                )
+            })
+            .catch((err) => {
+                console.error('Error updating mail star status:', err)
+            })
+    }
+
     return (
         <section className="mail-index">
             <MailFolderList />
 
+            <MailList mails={mails} />
         </section>
     )
 }
