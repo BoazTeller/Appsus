@@ -1,6 +1,18 @@
 {/* <MailList>
 • Renders a list of <MailPreview> pass down a mail prop */}
 
-export function MailList() {
-    return <div>Mail list</div>
+export function MailList({ mails }) {
+
+    return (
+        <table className="mail-list">
+            <tbody>
+                {mails.map(mail => 
+                    <MailPreview 
+                        key={mail.id}
+                        mail={mail}
+                    />
+                )}
+            </tbody>
+        </table>
+    )
 }
