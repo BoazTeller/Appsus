@@ -1,0 +1,74 @@
+.notes-section {
+    width: 100vw;
+    height: 100vh;
+}
+
+.notes-section .inputs-grid {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.notes-section .inputs-grid .main-input {
+    height: 3em;
+    font-family: var(--note-input-font);
+    letter-spacing: 0.1em;
+    width: 40em;
+    border: 1px solid lightgray;
+    padding-left: 10px;
+}
+
+.main-input:focus{
+    outline: none;
+}
+
+.main-input.title-input {
+    border-bottom: none !important;
+}
+
+.main-input.new-note-input {
+    height: 3em;
+    font-family: var(--note-input-font);
+    letter-spacing: 0.1em;
+    min-width: 5ch; /* Minimum width based on character width */
+    width: auto; /* Allow width to auto-adjust */
+    transition: width 0.2s; /* Smooth transition */
+    border: 1px solid lightgray;
+    padding-left: 10px;
+    border-top: none !important;
+}
+
+.new-note-input:focus{
+    outline: none;
+}
+
+.title-input:focus{
+    outline: none;
+}
+
+.submit-btn {
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  color: #36395A;
+  cursor: pointer;
+  font-family: var(--note-input-font);
+  height: 2em;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.icon{
+    background: none;
+    border: none;
+    position: absolute;
+    font-size: 1.3em;
+    margin-left: 500px;
+    /* background-color: red; */
+}
