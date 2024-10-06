@@ -1,5 +1,6 @@
 const { useState, useEffect} = React
 import { noteService } from "../services/note-service.js"
+import { ImgInput } from "./ImgInput.jsx"
 import { InitialInput } from "./InitialInput.jsx"
 import { TextInput } from "./TextInput.jsx"
 
@@ -11,6 +12,7 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     useEffect(()=>{
         if(inputType){
             const emptyNote = noteService._getEmptyNote(inputType)
+            console.log(`getting empty note from service with type ${emptyNote.type}`)
             setNewNote(emptyNote)
         }
     },[inputType])
@@ -19,7 +21,7 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     function onSubmitForm(ev) {
         ev.preventDefault()
         onAddNote(newNote)
-        setNewNote({ title: '', content: '' })
+        setNewNote({})
         setIsOpen(false)
     }
 
@@ -39,11 +41,10 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     else if(newNote && newNote.type === 'NoteTxt') return (
         <TextInput handleInput={handleInput} onSubmitForm={onSubmitForm} newNote={newNote}/>
     )
-    else if (newNote && newNote.type === 'NoteImg'){
-        
-    }
-
-    else {
+    else if (newNote && newNote.type === 'NoteImg')return (
+        <ImgInput handleInput={handleInput} newNote={newNote} onSubmitForm={onSubmitForm}></ImgInput>
+    )
+    else return(
         <div>loading. . . .</div>
-    }
+    )
 }

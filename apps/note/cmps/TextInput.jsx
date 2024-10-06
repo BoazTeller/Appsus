@@ -10,5 +10,4 @@ export function TextInput({ handleInput, onSubmitForm, newNote }) {
             </form>
         </div>
     )
-
 }

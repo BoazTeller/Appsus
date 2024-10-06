@@ -6,16 +6,29 @@ import {storageService} from "../../../services/async-storage.service.js"
 export const noteService = {
     query,
     post,
+    remove,
     _getEmptyNote
 }
 
 function post(newNote){
     console.log('new note in the service: ', newNote)
-    storageService.post(NOTES_DB, newNote)
+    return storageService.post(NOTES_DB, newNote)
 }
 
 function query(){
-    
+    return storageService.query(NOTES_DB)
+    .then(notes => {
+        console.log(notes)
+        return notes
+    })
+}
+
+function remove(noteId){
+    console.log('removing note with id ' + noteId)
+    return storageService.remove(NOTES_DB, noteId).then(notes => {
+        console.log('notes after remove', notes)
+        return notes
+    })
 }
 
 function _getEmptyNote(type){
