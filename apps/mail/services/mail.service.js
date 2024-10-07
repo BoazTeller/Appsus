@@ -134,14 +134,14 @@ function getDefaultSortBy() {
 
 function getEmptyMail() {
     return {
-        id: utilService.makeId(),
+        id: '',
         subject: '', 
         body: '',
         isRead: false, 
         isStarred: false, 
         sentAt: null,
         removedAt: null, 
-        from: '', 
+        from: loggedinUser.email, 
         to: '',
     }
 }
