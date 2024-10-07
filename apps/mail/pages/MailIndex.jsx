@@ -110,12 +110,18 @@ export function MailIndex() {
             />
 
             {!params.mailId &&
-                <MailList 
+                <div>
+                    <MailList 
                         mails={mails} 
+                        onSetSortBy={onSetSortBy}
+                        sortBy={sortBy}
+                        onSetFilterBy={onSetFilterBy} 
+                        filterBy={{ isRead }} 
                         onToggleStarred={onToggleStarred}
                         folder={folder}
                         isLoading={isLoading}
-                />
+                    />
+                </div>
             }      
         </section>
     )
