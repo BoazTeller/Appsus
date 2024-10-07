@@ -12,15 +12,15 @@ import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
 import { MailEdit } from "../cmps/MailEdit.jsx"
 
 const { useState, useEffect } = React
-const { useParams, useSearchParams } = ReactRouterDOM
+const { useParams, useSearchParams, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
 
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const [isMailEdit, setIsMailEdit] = useState(false)
     const [mails, setMails] = useState(null)
+    const [isMailEdit, setIsMailEdit] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [unreadCount, setUnreadCount] = useState(0)
 
@@ -137,6 +137,10 @@ export function MailIndex() {
                     />
                 </div>
             }        
+
+            {params.mailId && 
+                <Outlet />
+            }     
         </section>
     )
 }
