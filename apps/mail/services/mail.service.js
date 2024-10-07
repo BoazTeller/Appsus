@@ -16,7 +16,8 @@ export const mailService = {
     remove,
     save,
     getDefaultFilter,
-    getEmptyMail
+    getEmptyMail,
+    getUnreadMailsCount
 }
 
 function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
@@ -136,6 +137,16 @@ function getEmptyMail() {
         from: '', 
         to: '',
     }
+}
+
+function getUnreadMailsCount() { 
+    return storageService.query(MAIL_KEY)
+        .then(mails => mails.reduce((acc, mail) => {
+            if (!mail.isRead && !mail.removedAt && mail.to === loggedinUser.email) {
+                    acc++
+            }
+            return acc
+        }, 0))
 }
 
 function _createMails() {
