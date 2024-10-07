@@ -6,6 +6,7 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    getFormattedDate,
     loadFromStorage,
     saveToStorage
 }
@@ -70,4 +71,23 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function getFormattedDate(timeStamp) {
+    const sentDate = new Date(timeStamp)
+    const now = new Date()
+    const twentyFourHoursAgo  = new Date(now.getTime() - 86400000)
+
+    if (sentDate > twentyFourHoursAgo) {
+        return sentDate.getHours().toString().padStart(2, '0') + 
+               ':' + 
+               sentDate.getMinutes().toString().padStart(2, '0')
+    }
+
+    if (sentDate.getFullYear() >= now.getFullYear()) {
+        return sentDate.getDate() + ' ' + 
+               sentDate.toLocaleString('default', { month: 'short' })
+    }
+
+    return sentDate.toLocaleDateString('en-IL')
 }
