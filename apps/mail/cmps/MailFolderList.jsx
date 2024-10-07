@@ -4,7 +4,7 @@
 const { useState, useEffect } = React
 const { useNavigate } = ReactRouterDOM
 
-export function MailFolderList({ onSetFilterBy, filterBy, unreadCount }) {
+export function MailFolderList({ onSetFilterBy, filterBy, unreadCount, onOpenMailEdit }) {
 
     const navigate = useNavigate()
 
@@ -21,7 +21,7 @@ export function MailFolderList({ onSetFilterBy, filterBy, unreadCount }) {
 
     return (
         <div className="sidebar">
-            <button className="compose-btn">Compose</button>
+            <button className="compose-btn" onClick={() => onOpenMailEdit()}>Compose</button>
             <ul className="menu">
                 <li className="menu-item active" onClick={() => handleFilter('inbox')}><span>Inbox</span><span className="unread-count">{unreadCount || ''}</span></li>
                 <li className="menu-item" onClick={() => handleFilter('starred')}><span>Starred</span></li>

@@ -108,7 +108,14 @@ export function MailIndex() {
                 onSetFilterBy={onSetFilterBy} 
                 filterBy={{ folder }} 
                 unreadCount={unreadCount}
+                onOpenMailEdit={() => setIsMailEdit(true)}
             />
+
+            {isMailEdit &&
+                <MailEdit 
+                    onCloseMailEdit={() => setIsMailEdit(false)}
+                />
+            }
 
             {!params.mailId &&
                 <div>
