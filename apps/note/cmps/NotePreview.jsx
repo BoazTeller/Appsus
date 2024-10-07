@@ -16,7 +16,7 @@
 // • Bonus:
 //      o <NoteRecording>
 
-export function NotePreview({ note, onRemoveNote }) {
+export function NotePreview({ note, onRemoveNote, onEditNote }) {
     const { type } = note
     switch (type) {
         case 'NoteTxt':
@@ -27,8 +27,8 @@ export function NotePreview({ note, onRemoveNote }) {
             return <NoteImg onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note} />
     }
 
-    function onEditNoteClick(noteId) {
-        console.log(noteId)
+    function onEditNoteClick(note) {
+        onEditNote(note)
     }
 
     function onDeleteNoteClick(noteId) {
@@ -36,21 +36,20 @@ export function NotePreview({ note, onRemoveNote }) {
     }
 }
 
-
 function NoteTxt({ onDeleteNoteClick, onEditNoteClick, note }) {
     return (
         <div className="card txt-card">
-            <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} noteId={note.id}></Dropdown>
+            <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note}></Dropdown>
             <h2 className="note-title">{note.info.title}</h2>
             <p className="note-txt">{note.info.txt}</p>
         </div>
-    );
+    )
 }
 
 function NoteImg({ onDeleteNoteClick, onEditNoteClick, note }) {
     return (
         <div className="card image-card">
-            <Dropdown onDeleteNoteClick={onDeleteNoteClick} noteId={note.id}></Dropdown>
+            <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note}></Dropdown>
             <h2><span className="note-label">Title:</span>{note.info.title}</h2>
             <img className="note-img" src={note.info.url} />
         </div>
@@ -61,13 +60,13 @@ function renderLog(note) {
     console.log(`DEBUG: rendring ${note.type} note with id ${note.id}`)
 }
 
-function Dropdown({ onDeleteNoteClick, onEditNoteClick, noteId }) {
+function Dropdown({ onDeleteNoteClick, onEditNoteClick, note }) {
     return (
         <div className="more-options">
             <button className="three-dots">⋮</button>
             <div className="dropdown">
-                <button className="edit-btn" onClick={() => onEditNoteClick(noteId)}>Edit</button>
-                <button className="delete-btn" onClick={() => onDeleteNoteClick(noteId)}>Delete</button>
+                <button className="edit-btn" onClick={() => onEditNoteClick(note)}>Edit</button>
+                <button className="delete-btn" onClick={() => onDeleteNoteClick(note.id)}>Delete</button>
             </div>
         </div>
     )

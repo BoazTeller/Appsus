@@ -7,6 +7,7 @@ export const noteService = {
     query,
     post,
     remove,
+    put,
     _getEmptyNote
 }
 
@@ -29,6 +30,11 @@ function remove(noteId){
         console.log('notes after remove', notes)
         return notes
     })
+}
+
+function put(newNote){
+    console.log('DEBUG: service got edited note to handle with id: ' + newNote.id)
+    return storageService.put(NOTES_DB, newNote).then(newNote)
 }
 
 function _getEmptyNote(type){

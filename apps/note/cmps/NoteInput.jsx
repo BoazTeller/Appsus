@@ -4,23 +4,23 @@ import { ImgInput } from "./ImgInput.jsx"
 import { InitialInput } from "./InitialInput.jsx"
 import { TextInput } from "./TextInput.jsx"
 
-export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAddNote }) {
+export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAddNote, isEditing, noteToEdit, onUpdateNote }) {
 
-    const [newNote, setNewNote] = useState(null)
+    const [newNote, setNewNote] = useState(noteService._getEmptyNote(inputType))
 
 
     useEffect(()=>{
-        if(inputType){
-            const emptyNote = noteService._getEmptyNote(inputType)
-            console.log(`getting empty note from service with type ${emptyNote.type}`)
-            setNewNote(emptyNote)
+        if(noteToEdit){
+            setNewNote(noteToEdit)
         }
-    },[inputType])
-
+        else if(inputType){
+            setNewNote(noteService._getEmptyNote(inputType))
+        }
+    },[noteToEdit,inputType])
 
     function onSubmitForm(ev) {
         ev.preventDefault()
-        onAddNote(newNote)
+        isEditing ? onUpdateNote(newNote) : onAddNote(newNote)
         setNewNote({})
         setIsOpen(false)
     }
@@ -36,13 +36,13 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     }
 
     if (!isInputOpen || !inputType) return (
-         <InitialInput onOpenInput={onOpenInput}/>
+        <InitialInput onOpenInput={onOpenInput}/>
     )
     else if(newNote && newNote.type === 'NoteTxt') return (
-        <TextInput handleInput={handleInput} onSubmitForm={onSubmitForm} newNote={newNote}/>
+        <TextInput handleInput={handleInput} onSubmitForm={onSubmitForm} newNote={newNote} isEditing={isEditing}/>
     )
     else if (newNote && newNote.type === 'NoteImg')return (
-        <ImgInput handleInput={handleInput} newNote={newNote} onSubmitForm={onSubmitForm}></ImgInput>
+        <ImgInput handleInput={handleInput} newNote={newNote} onSubmitForm={onSubmitForm} isEditing={isEditing}></ImgInput>
     )
     else return(
         <div>loading. . . .</div>
