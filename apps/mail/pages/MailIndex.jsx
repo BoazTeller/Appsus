@@ -46,6 +46,26 @@ export function MailIndex() {
             })
     }
 
+    
+    function onSetFilterBy(fieldsToUpdate) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
+    }
+
+    function onSetSortBy(sortType) {
+        const currDir = sortBy[sortType]
+        let newDir
+
+        if (currDir === 1) {
+            newDir = -1
+        } else if (currDir === -1) {  
+            newDir = null
+        } else {
+            newDir = 1
+        }
+    
+        setSortBy({ [sortType]: newDir })
+    }
+
     function onToggleStarred(mail) {
         const updatedMail = { ...mail, isStarred: !mail.isStarred }
 
