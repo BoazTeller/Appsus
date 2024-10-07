@@ -16,6 +16,7 @@ export const mailService = {
     remove,
     save,
     getDefaultFilter,
+    getDefaultSortBy,
     getEmptyMail,
     getUnreadMailsCount
 }
@@ -122,6 +123,12 @@ function getDefaultFilter() {
         folder: 'inbox',
         txt: '',
         isRead: ''
+    } 
+}
+
+function getDefaultSortBy() {
+    return {
+        date: -1
     } 
 }
 
