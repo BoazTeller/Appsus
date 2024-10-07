@@ -1,8 +1,6 @@
 import { NoteInput } from "../cmps/NoteInput.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note-service.js"
-import { NotePreview } from "../cmps/DynamicComponent.jsx"
-import { NoteEdit } from "../cmps/NoteEdit.jsx"
 
 const { useState, useEffect, useRef } = React
 
@@ -61,6 +59,25 @@ export function NoteIndex() {
         })
     }
 
+    function onEditBackgroundColor(noteId, backgroundColor){
+        console.log(`for note with id ${noteId} background color will change to ${backgroundColor}`)
+        noteService.get(noteId)
+        .then(note => {
+            const updatedNote = {
+                ...note,
+                style: {
+                    ...note.style,
+                    backgroundColor: backgroundColor
+                }
+            }
+            noteService.put(updatedNote).then(savedNote => {
+                console.log('Note Updated successfully', savedNote)
+                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id? savedNote:note))
+            })
+        })
+        .catch(err=>console.log(err))
+    }
+
     return (
         <section className="notes-section">
             {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
@@ -76,7 +93,7 @@ export function NoteIndex() {
                 />
             </div>
             <div className="notes-container">
-                <NoteList onRemoveNote={onRemoveNote} notes={notes} onEditNote={onEditNote}></NoteList>
+                <NoteList onRemoveNote={onRemoveNote} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor}></NoteList>
             </div>
         </section>
     )

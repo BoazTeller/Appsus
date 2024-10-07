@@ -1,34 +1,42 @@
-// This component renders the <NotePreview> component that allow viewing the notes
-// preview, and also changing color, pin, etc.
-
-// The <NotePreview> component, uses a dynamic component to show different types
-// of notes:
-//      o <NoteTxt>
-//      o <NoteImg>
-//      o <NoteVideo>
-//      o <NoteTodos>
-
-// • Extra:
-//      o <NoteAudio>
-//      o <NoteCanvas>
-//      o <NoteMap>
-
-// • Bonus:
-//      o <NoteRecording>
-
 import { NoteImg } from "./NoteImg.jsx"
-import {NoteTxt} from "./NoteTxt.jsx"
+import { NoteTxt } from "./NoteTxt.jsx"
 
-export function DynamicComponent({ note, onRemoveNote, onEditNote }) {
+const { useState } = React
+
+export function DynamicComponent({ note, onRemoveNote, onEditNote, onEditBackgroundColor }) {
+
+    const [isPaletteOpen, setIsPaletteOpen] = useState(false)
+
     const { type } = note
     switch (type) {
         case 'NoteTxt':
-            renderLog(note)
-            return <NoteTxt onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note} />
+            return (
+                <NoteTxt
+                    onDeleteNoteClick={onDeleteNoteClick}
+                    onEditNoteClick={onEditNoteClick}
+                    note={note}
+                    onPaletteClick={onPaletteClick}
+                    isPaletteOpen={isPaletteOpen}
+                    onEditBackgroundColor={onEditBackgroundColor}
+                    setIsPaletteOpen={setIsPaletteOpen}
+                />
+            )
         case 'NoteImg':
-            renderLog(note)
-            return <NoteImg onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note} />
+            return (
+                <NoteImg
+                    onDeleteNoteClick={onDeleteNoteClick}
+                    onEditNoteClick={onEditNoteClick}
+                    note={note}
+                    onPaletteClick={onPaletteClick}
+                    isPaletteOpen={isPaletteOpen}
+                    onEditBackgroundColor={onEditBackgroundColor}
+                    setIsPaletteOpen={setIsPaletteOpen}
+                />
+            )
+        default:
+            return null; // Handle cases where 'type' doesn't match 'NoteTxt' or 'NoteImg'
     }
+
 
     function onEditNoteClick(note) {
         onEditNote(note)
@@ -38,8 +46,9 @@ export function DynamicComponent({ note, onRemoveNote, onEditNote }) {
         ev.stopPropagation()
         onRemoveNote(noteId)
     }
-}
 
-function renderLog(note) {
-    console.log(`DEBUG: rendring ${note.type} note with id ${note.id}`)
+    function onPaletteClick(ev) {
+        setIsPaletteOpen(!isPaletteOpen)
+        ev.stopPropagation()
+    }
 }
