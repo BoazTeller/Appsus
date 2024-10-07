@@ -16,6 +16,7 @@ export const mailService = {
     remove,
     save,
     getDefaultFilter,
+    getFilterFromParams,
     getDefaultSortBy,
     getEmptyMail,
     getUnreadMailsCount
@@ -143,6 +144,18 @@ function getEmptyMail() {
         removedAt: null, 
         from: loggedinUser.email, 
         to: '',
+    }
+}
+
+function getFilterFromParams(searchParams = {}) {
+    const folder = searchParams.get('folder') || 'inbox'
+    const txt = searchParams.get('txt') || ''
+    const isRead = searchParams.get('isRead') || ''
+
+    return {
+        folder,
+        txt,
+        isRead: ''
     }
 }
 
