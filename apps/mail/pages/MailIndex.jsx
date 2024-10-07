@@ -19,9 +19,17 @@ export function MailIndex() {
 
     const [mails, setMails] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [unreadCount, setUnreadCount] = useState(0)
 
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
+
+    mailService.getUnreadMailsCount()
+        .then(unreadMailsCount =>
+            setUnreadCount(unreadMailsCount))
+        .catch(err => {
+            console.error('Had issues getting unread mails count', err)
+    })
 
     useEffect(() => {
         setSearchParams(filterBy)
