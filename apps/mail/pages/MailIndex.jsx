@@ -11,16 +11,26 @@ import { MailList } from "../cmps/MailList.jsx"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
+const { useSearchParams } = ReactRouterDOM
 
 export function MailIndex() {
 
+    const [searchParams, setSearchParams] = useSearchParams()
+
     const [mails, setMails] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
-    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
+    const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
+
+    useEffect(() => {
+        setSearchParams(filterBy)
+        loadMails()
+    }, [filterBy])
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [sortBy])
 
     function loadMails() {
         setIsLoading(true)
