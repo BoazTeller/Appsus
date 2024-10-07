@@ -8,13 +8,13 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailList } from "../cmps/MailList.jsx"
-import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
-const { useSearchParams } = ReactRouterDOM
+const { useParams, useSearchParams } = ReactRouterDOM
 
 export function MailIndex() {
 
+    const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
 
     const [mails, setMails] = useState(null)
@@ -99,11 +99,18 @@ export function MailIndex() {
             })
     }
 
+    const { folder, txt, isRead } = filterBy
+    
     return (
         <section className="mail-index">
-            <MailFolderList />
+            <MailFolderList 
+                onSetFilterBy={onSetFilterBy} 
+                filterBy={{ folder }} 
+                unreadCount={unreadCount}
+            />
 
-            <MailList mails={mails} />
+         
+            {/* <MailList mails={mails} /> */}
         </section>
     )
 }
