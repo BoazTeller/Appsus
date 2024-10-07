@@ -18,6 +18,7 @@ export function MailIndex() {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
 
+    const [isMailEdit, setIsMailEdit] = useState(false)
     const [mails, setMails] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [unreadCount, setUnreadCount] = useState(0)
