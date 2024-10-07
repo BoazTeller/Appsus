@@ -19,6 +19,7 @@
 /*** Mail ***/
 /* Mail Pages */
 @import './apps/mail/pages/MailIndex.css';
+@import './apps/mail/pages/MailDetails.css';
 
 /* Mail Cmps */
 @import './apps/mail/cmps/MailList.css';
