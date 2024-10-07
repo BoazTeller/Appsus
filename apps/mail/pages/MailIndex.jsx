@@ -9,6 +9,7 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
+import { MailEdit } from "../cmps/MailEdit.jsx"
 
 const { useState, useEffect } = React
 const { useParams, useSearchParams } = ReactRouterDOM
@@ -135,7 +136,7 @@ export function MailIndex() {
                         isLoading={isLoading}
                     />
                 </div>
-            }      
+            }        
         </section>
     )
 }
