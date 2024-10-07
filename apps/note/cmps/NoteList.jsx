@@ -1,10 +1,10 @@
-import { NotePreview } from "../cmps/NotePreview.jsx"
+import { DynamicComponent } from "./DynamicComponent.jsx"
 
 
 export function NoteList({ onRemoveNote, notes, onEditNote}) {
 
     return <div className="note-list">{notes.map(note =>
-        <NotePreview onRemoveNote={onRemoveNote} note={note} onEditNote={onEditNote}></NotePreview>
+        <DynamicComponent onRemoveNote={onRemoveNote} note={note} onEditNote={onEditNote}></DynamicComponent>
     )}
     </div>
 }

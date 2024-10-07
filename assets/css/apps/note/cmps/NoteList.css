@@ -1,6 +1,25 @@
 .note-list{
     margin: 100px;
     display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 50px;
+    grid-template-columns: repeat(6,1fr);
+    gap: 20px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.5); /* Grey background with transparency */
+    z-index: 1; /* Ensures it stays on top of the notes-container */
+}
+
+.input-section {
+    position: relative;
+    z-index: 2; /* Keeps the input section on top of the overlay */
+}
+.notes-container {
+    position: relative;
+    z-index: 0; /* Stays beneath the overlay */
 }

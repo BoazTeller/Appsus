@@ -1,7 +1,7 @@
 import { NoteInput } from "../cmps/NoteInput.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note-service.js"
-import { NotePreview } from "../cmps/NotePreview.jsx"
+import { NotePreview } from "../cmps/DynamicComponent.jsx"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 
 const { useState, useEffect, useRef } = React
@@ -37,14 +37,21 @@ export function NoteIndex() {
         setIsEditing(true)
     }
 
-    function onUpdateNote(newNote){
+    function onUpdateNote(newNote) {
         console.log(newNote)
-        noteService.put(newNote).then(savedNote =>{
-            setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note ))
+        noteService.put(newNote).then(savedNote => {
+            setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
             setIsEditing(false)
             setIsOpen(false)
             setNoteToEdit(null)
         })
+    }
+
+    function onOverlayClick(){
+        setIsEditing(false)
+        setIsOpen(false)
+        setInputType(null)
+        setNoteToEdit(null)
     }
 
     function onAddNote(newNote) {
@@ -56,13 +63,13 @@ export function NoteIndex() {
 
     return (
         <section className="notes-section">
+            {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
             <div className="input-section">
                 <NoteInput isInputOpen={isInputOpen}
                     inputType={inputType}
                     setIsOpen={setIsOpen}
                     onOpenInput={onOpenInput}
                     onAddNote={onAddNote}
-
                     isEditing={isEditing}
                     noteToEdit={noteToEdit}
                     onUpdateNote={onUpdateNote}

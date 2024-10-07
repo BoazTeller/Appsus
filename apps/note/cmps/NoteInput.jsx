@@ -21,8 +21,9 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     function onSubmitForm(ev) {
         ev.preventDefault()
         isEditing ? onUpdateNote(newNote) : onAddNote(newNote)
-        setNewNote({})
+        setNewNote(noteService._getEmptyNote(inputType))
         setIsOpen(false)
+        
     }
 
     function handleInput({ target }) {
