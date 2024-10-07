@@ -8,6 +8,7 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailList } from "../cmps/MailList.jsx"
+import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
 
 const { useState, useEffect } = React
 const { useParams, useSearchParams } = ReactRouterDOM
@@ -53,7 +54,6 @@ export function MailIndex() {
                 setIsLoading(false)
             })
     }
-
     
     function onSetFilterBy(fieldsToUpdate) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
@@ -111,6 +111,11 @@ export function MailIndex() {
 
             {!params.mailId &&
                 <div>
+                    <MailFilterSearch 
+                        onSetFilterBy={onSetFilterBy} 
+                        filterBy={{ txt }} 
+                    />
+
                     <MailList 
                         mails={mails} 
                         onSetSortBy={onSetSortBy}
