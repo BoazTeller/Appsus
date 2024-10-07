@@ -109,8 +109,14 @@ export function MailIndex() {
                 unreadCount={unreadCount}
             />
 
-         
-            {/* <MailList mails={mails} /> */}
+            {!params.mailId &&
+                <MailList 
+                        mails={mails} 
+                        onToggleStarred={onToggleStarred}
+                        folder={folder}
+                        isLoading={isLoading}
+                />
+            }      
         </section>
     )
 }
