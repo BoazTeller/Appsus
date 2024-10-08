@@ -8,15 +8,16 @@ import { mailService } from "../services/mail.service.js"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
-const { useParams, useNavigate } = ReactRouter
+const { useParams, useNavigate, useOutletContext } = ReactRouter
 
 export function MailDetails() {
 
     const { mailId } = useParams()
 	const navigate = useNavigate()
+    const { onOpenMailEdit } = useOutletContext()
 
-	const [isLoading, setIsLoading] = useState(true)
 	const [mail, setMail] = useState(null)
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		loadMail()
@@ -61,7 +62,8 @@ export function MailDetails() {
             </section>
 
             <section className="mail-actions">
-                <button className="btn-delte">
+                {!mail.sentAt && <button className="btn-edit" onClick={onOpenMailEdit}>Edit</button>}
+                <button className="btn-delete">
                     {!mail.removedAt ? 'Delete' : 'Delete Permanently'}
                 </button>
                 <button className="btn-back-inbox">Inbox</button>

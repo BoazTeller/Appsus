@@ -118,10 +118,8 @@ export function MailIndex() {
             />
 
             {isMailEdit &&
-                <MailEdit 
-                    onCloseMailEdit={() => setIsMailEdit(false)}
-                />
-            }
+                <MailEdit onCloseMailEdit={() => setIsMailEdit(false)} />
+             }
 
             {!params.mailId &&
                 <div>
@@ -144,7 +142,7 @@ export function MailIndex() {
             }        
 
             {params.mailId && 
-                <Outlet />
+                <Outlet context={{ onOpenMailEdit: () => setIsMailEdit(true) }} />
             }     
         </section>
     )
