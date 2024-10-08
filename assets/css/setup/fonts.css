@@ -1,8 +1,10 @@
+/* GoogleSans */
 @font-face {
     font-family: 'GoogleSans-Reg';
-    src: url('../../fonts/GoogleSans-Regular.ttf');
+    src: url('../../fonts/GoogleSans/GoogleSans-Regular.ttf');
 }
 
+/* Roboto */
 @font-face {
     font-family: RobotoThin;
     src: url(../../fonts/Roboto/Roboto-Thin.ttf);
@@ -21,4 +23,53 @@
 @font-face {
     font-family: RobotoBold;
     src: url(../../fonts/Roboto/Roboto-Bold.ttf);
+}
+
+/* Font Awesome */
+@font-face {
+  font-family: 'fa';
+  src: url('../../fonts/fa/fa-regular-400.ttf');
+}
+
+@font-face {
+  font-family: 'solid';
+  src: url('../../fonts/fa/fa-solid-900.ttf');
+}
+
+@font-face {
+  font-family: 'fa-brands';
+  src: url('../../fonts/fa/fa-brands-400.ttf');
+}
+
+.fa::before {
+    font-family: 'fa'; 
+}
+
+.solid::before {
+    font-family: 'solid'; 
+}
+
+.solid::after {
+    font-family: 'solid'; 
+}
+
+.fa.star::before {
+    content: '\f005';
+}
+
+.solid.yellow-star::before {
+    content: '\f005';
+    color: #f7ca4c;
+}
+
+.solid.magnifying-glass::before {
+    content: '\f002';
+}
+
+.solid.caret-up::after {
+    content: '\f0d8';
+}
+
+.solid.caret-down::after {
+    content: '\f0d7';
 }

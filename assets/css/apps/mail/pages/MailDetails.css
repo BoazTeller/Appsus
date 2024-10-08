@@ -1,0 +1,123 @@
+.mail-details {
+    background-color: #fff;
+    font-weight: 400;
+
+    min-height: 500px;
+    min-width:300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    
+    padding: 2em;
+    margin: 15px;
+}
+
+.mail-details > * {
+    font-weight: 400;
+}
+
+.mail-details .mail-send-info > * {
+    font-weight: 400;
+}
+
+.mail-details span {
+    font-weight: 600;
+}
+
+.mail-details .mail-subject {
+    font-size: 1.375rem; /* 22px */
+    line-height: 1.75rem; /* 28px */
+    color: #1f1f1f;
+    -webkit-font-smoothing: antialiased;
+
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* to, from */
+.mail-details :is(.mail-from, .mail-to)  {
+    font-size: 1rem;
+}
+
+.mail-details .mail-from span {
+    /* font-size: 30px; 
+    color: #5E5E5E; 
+    line-height: 20px; 
+
+    padding-right: 8px; 
+    vertical-align: top;
+
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap; */
+}
+.mail-details .mail-body {
+    flex-grow: 1;
+
+}
+.mail-details .mail-body pre {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    font-size: 0.9rem;
+
+}
+
+
+/* 
+.mail-details .mail-send-info::before {
+    grid-row: span 2;
+    font-size: 2rem;
+}
+
+.mail-details .mail-send-info {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: 20px 20px;
+} */
+
+.mail-details .mail-actions {
+    display: flex;
+    gap: 1em;
+
+
+    margin-top: end;
+}
+
+.mail-details .mail-actions button {
+    font-family: 'GoogleSans-Reg';
+    color: #444746;
+    font-weight: 600;
+    font-size: 0.875rem; /* 14px */
+    background: none;
+    padding: 6px 16px;
+    line-height: 20px;
+
+    height: 36px;
+
+    -webkit-font-smoothing: antialiased;
+
+    border: 0.909091px solid rgb(116, 119, 117);
+    border-radius: 18px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+
+    align-self: end;
+    justify-self: end;
+}
+
+.mail-details .mail-actions button:hover {
+    background-color: rgba(32, 33, 36, .06);
+}
+
+.mail-details .mail-actions button:focus {
+    background-color: rgba(32, 33, 36, .12);
+    box-shadow: inset 0 0 0 1px rgb(189, 193, 198);
+}
+
+.mail-details .mail-actions button:active {
+    background-color: rgba(32, 33, 36, 0.06); 
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+

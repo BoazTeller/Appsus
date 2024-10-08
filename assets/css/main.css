@@ -19,10 +19,15 @@
 /*** Mail ***/
 /* Mail Pages */
 @import './apps/mail/pages/MailIndex.css';
+@import './apps/mail/pages/MailDetails.css';
 
 /* Mail Cmps */
 @import './apps/mail/cmps/MailList.css';
 @import './apps/mail/cmps/MailFolderList.css';
+@import './apps/mail/cmps/MailPreview.css';
+@import './apps/mail/cmps/MailSort.css';
+@import './apps/mail/cmps/MailFilterSearch.css';
+@import './apps/mail/cmps/MailEdit.css';
 
 /*** Note ***/
 /* Note Pages */

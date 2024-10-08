@@ -1,18 +1,16 @@
 .sidebar {
-    width: 256px; /* Set the width of the sidebar */
+    width: 256px; 
     color: #202124;
-    -webkit-font-smoothing: antialiased
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
 }
   
 .compose-btn {
     display: block;
-    width: 100%; /* Full width relative to the sidebar */
+    width: 100%; 
     height: 80px;
     background-color: #fff; 
-    /* color: inherit; */
     border: none;
-    /* outline: none; */
-    /* cursor: pointer; */
 }
 
 .compose-btn:hover, .compose-btn:focus {
