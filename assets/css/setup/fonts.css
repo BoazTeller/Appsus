@@ -40,10 +40,10 @@
   font-family: 'fa-brands';
   src: url('../../fonts/fa/fa-brands-400.ttf');
 }
-
+/* 
 .fa::before {
     font-family: 'fa'; 
-}
+} */
 
 .solid::before {
     font-family: 'solid'; 
