@@ -87,6 +87,7 @@ export function MailIndex() {
             })
             .catch((err) => {
                 console.error('Error updating mail star status:', err)
+                showErrorMsg('Couldn\'t update starred status')
             })
     }
 
@@ -98,6 +99,10 @@ export function MailIndex() {
                 } else if (res.msg === 'deleted_permanently') {
                     showSuccessMsg('Mail deleted permanently')
                 }
+            })
+            .catch(err => {
+                console.error('Error trying to remove mail', err)
+                showErrorMsg('Couldn\'t delete mail')
             })
     }
 
