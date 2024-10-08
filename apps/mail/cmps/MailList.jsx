@@ -6,7 +6,19 @@ import { MailSort } from "./MailSort.jsx"
 
 const { Link } = ReactRouterDOM
 
-export function MailList({ mails, onSetSortBy, sortBy, onSetFilterBy, filterBy, onToggleStarred, folder, isLoading }) {
+export function MailList(props) {
+
+    const {
+        mails,
+        onRemoveMail,
+        onToggleStarred,
+        onSetFilterBy,
+        filterBy,
+        onSetSortBy,
+        sortBy,
+        folder,
+        isLoading
+    } = props
 
     return (
         <React.Fragment>
@@ -32,6 +44,7 @@ export function MailList({ mails, onSetSortBy, sortBy, onSetFilterBy, filterBy, 
                             <Link to={`/mail/${mail.id}`}>
                                 <MailPreview 
                                     mail={mail}
+                                    onRemoveMail={onRemoveMail}
                                     onToggleStarred={onToggleStarred}
                                 />
                             </Link>

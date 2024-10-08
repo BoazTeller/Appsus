@@ -6,7 +6,7 @@
 
 import { utilService } from "../../../services/util.service.js"
 
-export function MailPreview({ mail, onToggleStarred }) {
+export function MailPreview({ mail, onToggleStarred, onRemoveMail }) {
   
   function onStarClick(ev) {
     // preventDefault otherwise clicking star will enter MailDetails
