@@ -78,6 +78,21 @@ export function NoteIndex() {
         .catch(err=>console.log(err))
     }
 
+    function setIsPinned(noteId){
+        console.log(`setting note with id ${noteId} to pinned . . .`)
+        noteService.get(noteId)
+        .then(note => {
+            const updatedNote ={
+                ...note,
+                isPinned : !note.isPinned
+            }
+            noteService.put(updatedNote).then(savedNote => {
+                console.log('Updated pinned note successuflly'+ savedNote.id)
+                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote: note))
+            })
+        })
+    }
+
     return (
         <section className="notes-section">
             {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
@@ -93,7 +108,7 @@ export function NoteIndex() {
                 />
             </div>
             <div className="notes-container">
-                <NoteList onRemoveNote={onRemoveNote} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor}></NoteList>
+                <NoteList onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor}></NoteList>
             </div>
         </section>
     )

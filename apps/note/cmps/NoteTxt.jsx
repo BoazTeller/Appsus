@@ -2,7 +2,7 @@
 import { Dropdown } from "./Dropdown.jsx"
 import { PalleteColor } from "./PalleteColor.jsx"
 
-export function NoteTxt({ onDeleteNoteClick, onEditNoteClick, note, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen }) {
+export function NoteTxt({ onDeleteNoteClick, onEditNoteClick, note, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen }) {
     return (
         <div className="card txt-card" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onEditNoteClick(note)}>
             <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note}></Dropdown>
@@ -13,6 +13,7 @@ export function NoteTxt({ onDeleteNoteClick, onEditNoteClick, note, onPaletteCli
                     setIsPaletteOpen={setIsPaletteOpen}
                     isPaletteOpen={isPaletteOpen} />
             }
+            <button className="fa fa-thumbtack" onClick={(ev) => onPinClick(ev, note.id)}/>
             <h2 className="note-title">{note.info.title}</h2>
             <p className="note-txt">{note.info.txt}</p>
             <div className="card-navbar">

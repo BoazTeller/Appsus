@@ -3,7 +3,7 @@ import { NoteTxt } from "./NoteTxt.jsx"
 
 const { useState } = React
 
-export function DynamicComponent({ note, onRemoveNote, onEditNote, onEditBackgroundColor }) {
+export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor }) {
 
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
 
@@ -19,6 +19,8 @@ export function DynamicComponent({ note, onRemoveNote, onEditNote, onEditBackgro
                     isPaletteOpen={isPaletteOpen}
                     onEditBackgroundColor={onEditBackgroundColor}
                     setIsPaletteOpen={setIsPaletteOpen}
+                    setIsPinned={setIsPinned}
+                    onPinClick={onPinClick}
                 />
             )
         case 'NoteImg':
@@ -31,6 +33,8 @@ export function DynamicComponent({ note, onRemoveNote, onEditNote, onEditBackgro
                     isPaletteOpen={isPaletteOpen}
                     onEditBackgroundColor={onEditBackgroundColor}
                     setIsPaletteOpen={setIsPaletteOpen}
+                    setIsPinned={setIsPinned}
+                    onPinClick={onPinClick}
                 />
             )
         default:
@@ -40,6 +44,11 @@ export function DynamicComponent({ note, onRemoveNote, onEditNote, onEditBackgro
 
     function onEditNoteClick(note) {
         onEditNote(note)
+    }
+
+    function onPinClick(ev, noteId) {
+        ev.stopPropagation()
+        setIsPinned(noteId)
     }
 
     function onDeleteNoteClick(ev, noteId) {

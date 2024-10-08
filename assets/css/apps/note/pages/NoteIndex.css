@@ -2,3 +2,8 @@
 @import '../cmps/NoteList.css';
 @import '../cmps/NotePreview.css';
 @import '../cmps/PaletteColor.css';
+
+.notes-section{
+    width: 100%;
+    height: 100%;
+}

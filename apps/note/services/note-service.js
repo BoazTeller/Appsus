@@ -48,13 +48,12 @@ function put(newNote){
 function _getEmptyNote(type){
     switch(type) {
         case 'NoteTxt':
-            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#00d'}, info:{title:'', txt:''}}
+            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#ffffff'}, info:{title:'', txt:''}}
         case 'NoteImg':
-            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#00d'}, info:{url:'', title:''}}
+            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#fffff'}, info:{url:'', title:''}}
         case 'NoteTodos':
-            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#00d'}, info:{todos:[{txt:'',done:false}], title:''}}
+            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#fffff'}, info:{todos:[{txt:'',done:false}], title:''}}
     }
-    // return {type: '', createdAt: '', isPinned:false, style:{}, info:{txt:'initial note text'}}
 }
 
 

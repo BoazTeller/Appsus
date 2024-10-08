@@ -1,15 +1,42 @@
 import { DynamicComponent } from "./DynamicComponent.jsx"
 
 
-export function NoteList({ onRemoveNote, notes, onEditNote, onEditBackgroundColor }) {
-    return <div className="note-list">{notes.map(note =>
-        <DynamicComponent
-            key={note.id}
-            onRemoveNote={onRemoveNote}
-            note={note}
-            onEditNote={onEditNote}
-            onEditBackgroundColor={onEditBackgroundColor}
-        ></DynamicComponent>
-    )}
-    </div>
+export function NoteList({ onRemoveNote, setIsPinned, notes, onEditNote, onEditBackgroundColor }) {
+    const pinnedNotes = notes.filter(note => note.isPinned)
+    const notPinnedNotes = notes.filter(note => !note.isPinned)
+    console.log('pinned notes in NoteList', pinnedNotes)
+
+    return (
+        <div className="note-list">
+            {pinnedNotes.length > 0 && (
+                <React.Fragment>
+                    <div className="pinned-notes">
+                        <h2 className="note-type-label">Pinned:</h2>
+                        {renderNotes(pinnedNotes)}
+                    </div>
+                </React.Fragment>
+            )}
+            {notPinnedNotes.length > 0 && (
+                <div className="unpinned-notes">
+                    <h2 className="note-type-label">Other notes:</h2>
+                    {renderNotes(notPinnedNotes)}
+                </div>
+            )}
+        </div>
+    )
+
+    function renderNotes(notesArr) {
+        return notesArr.map(note => {
+            return (
+                <DynamicComponent
+                    key={note.id}
+                    onRemoveNote={onRemoveNote}
+                    note={note}
+                    onEditNote={onEditNote}
+                    onEditBackgroundColor={onEditBackgroundColor}
+                    setIsPinned={setIsPinned}
+                />
+            )
+        })
+    }
 }
