@@ -38,10 +38,15 @@ a {
 
 /* Button pointer cursor */
 button {
+    border: none;
     cursor: pointer;
 }
 
 /* Inherit font for input and select elements */
+input {
+  border: none;
+}
+
 input,
 select {
   font-family: inherit;

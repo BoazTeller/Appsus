@@ -1,0 +1,45 @@
+.mail-sort {
+    display: flex;
+
+    border-bottom: 1px solid #e1e7ee;
+    padding-inline-start: 1em;
+    padding-block: 0.5em;
+}
+
+.mail-sort button {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(95, 99, 104);
+    border: 1px solid rgb(95, 99, 104);
+    padding: 0.5em 1em;
+    margin: 0.3em;
+    gap: 8px;
+    font-size: 0.875rem;
+}
+
+.mail-list button:hover {
+    background-color: #eaebede8;
+}
+
+.mail-sort select {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(95, 99, 104);
+    border: 1px solid rgb(95, 99, 104);
+    padding: 0.5em 1em;
+    margin: 0.3em;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.mail-sort select::-ms-expand {
+    display: none; 
+}
+.mail-sort select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}

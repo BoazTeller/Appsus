@@ -1,0 +1,18 @@
+.mail-filter-search {
+    height: 20px;
+    display: flex;
+}
+
+.search-icon { 
+    display: inline;
+    color: green;
+}
+
+.search-input {
+    background-color: #eaf1fb; 
+
+}
+
+.search-input:focus {
+    background-color: #fff; 
+} 

@@ -14,17 +14,21 @@ export const mailService = {
     query,
     get,
     remove,
-    deleteMail,
     save,
     getDefaultFilter,
-    getEmptyMail
+    getFilterFromParams,
+    getDefaultSortBy,
+    getEmptyMail,
+    getUnreadMailsCount
 }
 
-function query(filterBy = {}, sortBy = {}) {
+function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             mails = _getFilteredMails(mails, filterBy)
+
             mails = _getSortedMails(mails, sortBy)
+
             return mails
         })
 }
@@ -77,15 +81,18 @@ function _getFilteredMails(mails, filterBy) {
         mails = mails.filter(mail => mail.removedAt)
     }
     
-    // Text search - Mail Subject / Body
+    // Text search - Mail Subject / Body / From / To
     if (filterBy.txt) {
-        const regExp = new RegExp(filterBy.status, 'i')
-        mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+        const regExp = new RegExp(filterBy.txt, 'i')
+        mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) ||
+                regExp.test(mail.from) || regExp.test(mail.to))
     }
 
-    // Filter mails by readStatus (true for read, false for unread, no filter if undefined)
-    if (filterBy.readStatus !== undefined) {
-        mails = mails.filter(mail => mail.isRead === filterBy.readStatus)
+    if (filterBy.isRead === 'read') {
+        mails = mails.filter(mail => mail.isRead)
+    }
+    if (filterBy.isRead === 'unread') {
+        mails = mails.filter(mail => !mail.isRead)
     }
 
     return mails
@@ -106,46 +113,76 @@ function _getSortedMails(mails, sortBy) {
     }
     // Sort alphabetically by date mail was sent
     if (sortBy.date) {
-        mails.sort((mail1, mail2) => (mail1.sentAt - mail2.sentAt) * sortBy.sentAt)
+        mails.sort((mail1, mail2) => (mail1.sentAt - mail2.sentAt) * sortBy.date)
     }
+
+    return mails
 }
 
 function getDefaultFilter() {
     return {
         folder: 'inbox',
-        txt: ''       
+        txt: '',
+        isRead: ''
+    } 
+}
+
+function getDefaultSortBy() {
+    return {
+        date: -1
     } 
 }
 
 function getEmptyMail() {
     return {
-        id: utilService.makeId(),
+        id: '',
         subject: '', 
         body: '',
         isRead: false, 
         isStarred: false, 
         sentAt: null,
         removedAt: null, 
-        from: '', 
+        from: loggedinUser.email, 
         to: '',
     }
 }
 
+function getFilterFromParams(searchParams = {}) {
+    const folder = searchParams.get('folder') || 'inbox'
+    const txt = searchParams.get('txt') || ''
+    const isRead = searchParams.get('isRead') || ''
+
+    return {
+        folder,
+        txt,
+        isRead: ''
+    }
+}
+
+function getUnreadMailsCount() { 
+    return storageService.query(MAIL_KEY)
+        .then(mails => mails.reduce((acc, mail) => {
+            if (!mail.isRead && !mail.removedAt && mail.to === loggedinUser.email) {
+                    acc++
+            }
+            return acc
+        }, 0))
+}
+
 function _createMails() {
-    console.log("hola")
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
-        // Create 100 mails as a base for inbox
-        for (let i = 0; i < 100; i++) {
+        // Create mails as a base for inbox
+        for (let i = 0; i < 50; i++) {
             mails.push(_createMail())
         }
-        // Create 10 mails for trash
+        // Create mails for trash
         for (let i = 0; i < 10; i++) {
             mails.push(_createTrashMail())
         }
-        // Create 15 mails for starred
-        for (let i = 0; i < 15; i++) {
+        // Create mails for starred
+        for (let i = 0; i < 1; i++) {
             mails.push(_createStarredMail())
         }
         utilService.saveToStorage(MAIL_KEY, mails)
