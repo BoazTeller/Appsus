@@ -78,9 +78,8 @@ export function MailIndex() {
 
     function onToggleStarred(mail) {
         const updatedMail = { ...mail, isStarred: !mail.isStarred }
-
         mailService.save(updatedMail)
-            .then(updatedMail => {
+            .then(() => {
                 setMails(prevMails =>
                     prevMails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
                 )
@@ -92,17 +91,44 @@ export function MailIndex() {
     }
 
     function onRemoveMail(mailId) {
+        const mail = mails.find(m => m.id === mailId)
+        if (!mail) {
+            console.error('Mail not found')
+            showErrorMsg('Mail not found')
+            return
+        } 
+
+        mail.removedAt ? removeMail(mail.id) : moveToTrash(mail)  
+    }
+    
+    function moveToTrash(mail) {
+        const mailToTrash = { ...mail, removedAt: Date.now() }
+        mailService.save(mailToTrash)
+            .then(() => {
+                setMails(prevMails =>
+                    prevMails.map(mail => mail.id === mailToTrash.id ? mailToTrash : mail)
+            )
+            showSuccessMsg(`Conversation moved to Trash.`)
+            navigate('/mail')
+        })
+        .catch(err => {
+            console.error('Had issues removing mail', err)
+            showErrorMsg(`Could not remove mail`)
+        })
+    }
+    
+    function removeMail(mailId) {
         mailService.remove(mailId)
-            .then((res) => {
-                if (res.msg === 'moved_to_trash') {
-                    showSuccessMsg('Mail moved to trash')
-                } else if (res.msg === 'deleted_permanently') {
-                    showSuccessMsg('Mail deleted permanently')
-                }
+            .then(() => {
+                setMails(prevMails =>
+                    prevMails.filter(mail => mail.id !== mailId)
+                )
+                showSuccessMsg('Conversation deleted forever.')
+                navigate('/mail')
             })
             .catch(err => {
-                console.error('Error trying to remove mail', err)
-                showErrorMsg('Couldn\'t delete mail')
+                console.error('Had issues removing mail', err)
+                showErrorMsg('Could not remove mail')
             })
     }
 
@@ -134,6 +160,7 @@ export function MailIndex() {
                         sortBy={sortBy}
                         onSetFilterBy={onSetFilterBy} 
                         filterBy={{ isRead }} 
+                        onRemoveMail={onRemoveMail}
                         onToggleStarred={onToggleStarred}
                         folder={folder}
                         isLoading={isLoading}
