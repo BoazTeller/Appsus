@@ -113,7 +113,7 @@ function _getSortedMails(mails, sortBy) {
     }
     // Sort alphabetically by date mail was sent
     if (sortBy.date) {
-        mails.sort((mail1, mail2) => (mail1.sentAt - mail2.sentAt) * sortBy.sentAt)
+        mails.sort((mail1, mail2) => (mail1.sentAt - mail2.sentAt) * sortBy.date)
     }
 
     return mails
