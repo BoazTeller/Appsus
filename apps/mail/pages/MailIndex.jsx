@@ -62,6 +62,14 @@ export function MailIndex() {
         const newDir = getNewSortDir(currDir)
         setSortBy({ [sortType]: newDir })
     }
+
+    function onOpenMailEdit() {
+        setIsMailEdit(true)
+    }
+
+    function onCloseMailEdit() {
+        setIsMailEdit(false)
+    }
     
     function onToggleStarred(mail) {
         const updatedMail = { ...mail, isStarred: !mail.isStarred }
@@ -127,11 +135,11 @@ export function MailIndex() {
                 onSetFilterBy={onSetFilterBy} 
                 filterBy={{ folder }} 
                 unreadCount={unreadCount}
-                onOpenMailEdit={() => setIsMailEdit(true)}
+                onOpenMailEdit={onOpenMailEdit}
             />
 
             {isMailEdit &&
-                <MailEdit onCloseMailEdit={() => setIsMailEdit(false)} />
+                <MailEdit onCloseMailEdit={onCloseMailEdit} />
              }
 
             {!params.mailId &&
@@ -158,7 +166,7 @@ export function MailIndex() {
             {params.mailId && (
                 <Outlet 
                     context={{
-                        onOpenMailEdit: () => setIsMailEdit(true),
+                        onOpenMailEdit,
                         onRemoveMail
                     }} 
                 />

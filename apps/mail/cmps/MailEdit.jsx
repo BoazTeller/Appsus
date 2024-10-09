@@ -1,49 +1,77 @@
-import { mailService } from '../services/mail.service.js'
-import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
-
 const { useState, useEffect, useRef } = React
 const { useParams } = ReactRouterDOM
 
-export function MailEdit({ onCloseMailEdit }) {
+import { mailService } from '../services/mail.service.js'
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
-    const params = useParams()
+export function MailEdit({ onCloseMailEdit }) {
+    const params = useParams() 
 
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
-    const toInputRef = useRef() 
+    const [draftSubject, setDraftSubject] = useState('New Message')
+    const [isLoading, setIsLoading] = useState(true)
+    const [isDraftUpdated, setIsDraftUpdated] = useState(false) 
+    
+    const isSentRef = useRef(false)
     const intervalRef = useRef()
+    const mailBackUpRef = useRef()
+    const toInputRef = useRef() 
 
     useEffect(() => {
         if (params.mailId) {
             loadMail()
+        } else {
+            setIsLoading(false)
         }
     }, [])
 
     useEffect(() => {
-        toInputRef.current.focus()
-    }, [])
+        if (!isLoading && toInputRef.current) {
+            toInputRef.current.focus()
+        }
+    }, [isLoading])
 
-    useEffect(() => {
+    useEffect(() => {    
         intervalRef.current = setInterval(() => {
-            if (mailToEdit.to || mailToEdit.subject || mailToEdit.body) {
-                const draftMail = { ...mailToEdit }
-                mailService.save(draftMail)
-                    .then((savedDraft) => {
-                        if (!mailToEdit.id) {
-                            setMailToEdit(savedDraft)
-                        }
-                    })  
-            }
+            saveDraft()
         }, 1000) 
-
+    
         return () => clearInterval(intervalRef.current)
     }, [mailToEdit])
 
+    function isDraftReadyToSave() {
+        return !isSentRef.current && (mailToEdit.to || mailToEdit.subject || mailToEdit.body)
+    }
+
+    function saveDraft() {
+        if (isDraftReadyToSave()) {
+            const draftMail = { ...mailToEdit }
+            mailService.save(draftMail)
+                .then((savedDraft) => {
+                    if (!mailToEdit.id) { 
+                    // After the first save, the draft gets a unique ID from storage
+                    // Set the mailId in the component state so we can use it for future updates
+                        setMailToEdit(prevDraft => ({ ...prevDraft, id: savedDraft.id })) 
+                    }
+                })
+                .catch(err => {
+                    console.error(`Error saving draft:`, err)
+                    showErrorMsg(`Couldn't save draft`)
+                })
+        }
+    }
+
     function loadMail() {
         mailService.get(params.mailId)
-            .then(mail => setMailToEdit(mail))
+            .then(mail => {
+                setMailToEdit(mail)
+                setDraftSubject(mail.subject)
+                setIsLoading(false)                
+            })
             .catch(err => {
-                console.error('Coundn\'t load saved draft to edit', err)
-                showErrorMsg('Couldn\'t load saved draft')
+                console.error(`Coundn't load saved draft to edit`, err)
+                showErrorMsg(`Couldn't load saved draft`)
+                setIsLoading(false)  
             })
     }
 
@@ -52,15 +80,32 @@ export function MailEdit({ onCloseMailEdit }) {
         setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
     }
 
+    function hasChanges() {
+        return JSON.stringify(mailToEdit) !== JSON.stringify(mailBackUpRef)
+    }
+
+    function handleCloseEdit() {
+        if (hasChanges() && isDraftReadyToSave()) {
+            saveDraft()
+            showSuccessMsg('Draft saved')
+        }
+        onCloseMailEdit()
+    }
+
     function onSendMail(ev) {
         ev.preventDefault()
+        isSentRef.current = true
 
-        const mailToSend = { ...mailToEdit, sentAt: Date.now() }
+        const mailToSend = { 
+            ...mailToEdit, 
+            sentAt: Date.now(),
+            isRead: false 
+        }
+
         mailService.save(mailToSend)
             .then(() => {
-                showSuccessMsg('Mail sent successfully!')
-                setMailToEdit(null)
                 onCloseMailEdit()
+                showSuccessMsg('Mail sent successfully')
             })
             .catch(err => {
                 console.error('Had issues sending mail', err)
@@ -73,44 +118,47 @@ export function MailEdit({ onCloseMailEdit }) {
     return (
         <section className="mail-edit">
             <header>
-                <h1>New Message</h1>
-                <button onClick={() => onCloseMailEdit()}>x</button>
+                <h1>{isLoading ? 'Loading draft...' : draftSubject}</h1>
+                <button onClick={() => handleCloseEdit()}>x</button>
             </header>
 
-            <form onSubmit={onSendMail} >
-                <div className="email">
-                    <input
-                        ref={toInputRef}
-                        type="email"
-                        placeholder="To"
-                        name="to"
-                        onChange={handleChange}
-                        value={to}
-                    />
-                </div>
+            {isLoading && <span className="loader1"></span>}
 
-                <div className="subject">
-                    <input
-                        type="text"
-                        placeholder="Subject"
-                        name="subject"
-                        onChange={handleChange}
-                        value={subject}
-                    />
-                </div>
+            {!isLoading && 
+                <form onSubmit={onSendMail} >
+                    <div className="email">
+                        <input
+                            ref={toInputRef}
+                            type="email"
+                            placeholder="To"
+                            name="to"
+                            onChange={handleChange}
+                            value={to}
+                        />
+                    </div>
 
-                <div className="body">
-                    <textarea
-                        type="text"
-                        placeholder="Compose mail"
-                        name="body"
-                        onChange={handleChange}
-                        value={body}
-                    />
-                </div>
+                    <div className="subject">
+                        <input
+                            type="text"
+                            placeholder="Subject"
+                            name="subject"
+                            onChange={handleChange}
+                            value={subject}
+                        />
+                    </div>
 
-                <button className="send-btn">Send</button>
-            </form>
+                    <div className="body">
+                        <textarea
+                            type="text"
+                            placeholder="Compose mail"
+                            name="body"
+                            onChange={handleChange}
+                            value={body}
+                        />
+                    </div>
+                    <button className="send-btn">Send</button>
+                </form>
+            }
         </section>
     )
 }

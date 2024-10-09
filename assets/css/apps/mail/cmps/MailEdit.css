@@ -90,6 +90,10 @@
     outline: none;
 }
 
+.mail-edit .loader1 {
+    margin-top: 2em;
+}
+
 @media (min-width: 550px) {
     .mail-edit {
         position: absolute;
