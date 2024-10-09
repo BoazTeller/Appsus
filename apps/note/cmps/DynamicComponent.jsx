@@ -4,53 +4,41 @@ import { NoteTodos } from "./NoteTodos.jsx"
 
 const { useState } = React
 
-export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor,setIsTodoDone }) {
+export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor, setIsTodoDone }) {
 
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
-
     const { type } = note
+
+    const sharedProps = {
+        note,
+        onDeleteNoteClick,
+        onEditNoteClick,
+        onPaletteClick,
+        isPaletteOpen,
+        onEditBackgroundColor,
+        setIsPaletteOpen,
+        setIsPinned,
+        onPinClick
+    };
+
+
     switch (type) {
         case 'NoteTxt':
             return (
                 <NoteTxt
-                    onDeleteNoteClick={onDeleteNoteClick}
-                    onEditNoteClick={onEditNoteClick}
-                    note={note}
-                    onPaletteClick={onPaletteClick}
-                    isPaletteOpen={isPaletteOpen}
-                    onEditBackgroundColor={onEditBackgroundColor}
-                    setIsPaletteOpen={setIsPaletteOpen}
-                    setIsPinned={setIsPinned}
-                    onPinClick={onPinClick}
+                    {...sharedProps}
                 />
             )
         case 'NoteImg':
             return (
                 <NoteImg
-                    onDeleteNoteClick={onDeleteNoteClick}
-                    onEditNoteClick={onEditNoteClick}
-                    note={note}
-                    onPaletteClick={onPaletteClick}
-                    isPaletteOpen={isPaletteOpen}
-                    onEditBackgroundColor={onEditBackgroundColor}
-                    setIsPaletteOpen={setIsPaletteOpen}
-                    setIsPinned={setIsPinned}
-                    onPinClick={onPinClick}
+                    {...sharedProps}
                 />
             )
         case 'NoteTodos':
             return (
                 <NoteTodos
-                    onDeleteNoteClick={onDeleteNoteClick}
-                    onEditNoteClick={onEditNoteClick}
-                    note={note}
-                    onPaletteClick={onPaletteClick}
-                    isPaletteOpen={isPaletteOpen}
-                    onEditBackgroundColor={onEditBackgroundColor}
-                    setIsPaletteOpen={setIsPaletteOpen}
-                    setIsPinned={setIsPinned}
-                    onPinClick={onPinClick}
-                    onCheckboxClick={onCheckboxClick}
+                    {...sharedProps} onCheckboxClick={onCheckboxClick}
                 />
             )
 
@@ -78,7 +66,7 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
         ev.stopPropagation()
     }
 
-    function onCheckboxClick(ev, todoId, noteId){
+    function onCheckboxClick(ev, todoId, noteId) {
         ev.stopPropagation()
         setIsTodoDone(todoId, noteId)
     }

@@ -97,21 +97,19 @@ export function NoteIndex() {
         console.log(`todo with id ${todoId} is done in ${noteId}`)
         noteService.get(noteId)
         .then(note => {
-            const updatedTodos = note.info.todos.map(todo => {
+            const updatedTodos = note.info.todos.map(todo => { //getting updated todo with done:true
                 if(todo.id === todoId){
                     return {...todo, done : !todo.done}
                 }
                 return todo
             })
-            
-            const updatedNote = {
+            const updatedNote = { //getting the relevant note and updating todos in it
                 ...note,
                 info:{
                     ...note.info,
                     todos:updatedTodos
                 }
             }
-
             console.log('the updated note is:',updatedNote)
             noteService.put(updatedNote).then(savedNote => {
                 setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
