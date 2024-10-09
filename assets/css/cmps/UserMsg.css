@@ -1,3 +1,82 @@
+/* Base structure for user-msg / msg span / close btn */
+.user-msg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 24px;
+    margin-left: 24px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    min-height: 52px;
+    max-width: 640px;
+    padding: 8px 8px 8px 24px;
+
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 
+                0 4px 8px 3px rgba(60, 64, 67, 0.15);
+}
+
+
+.user-msg span {
+    font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    font-size: 0.875rem; /* 14px */
+    font-weight: 400;
+    line-height: 1em; /* 16px */
+
+    white-space: normal;
+    
+    margin: 10px 52px 10px 0px;
+}
+
+.user-msg button {
+    width: 40px;
+    height: 40px;
+
+    background-color: transparent;
+    border-radius: 50%;
+
+    transition: background-color 0.15s ease;
+}
+
+/* Varying colors if success or error msg */
+.user-msg.success {
+    background-color: rgb(32, 33, 36);
+}
+
+.user-msg.success span {
+    color: #FFF;
+}
+
+.user-msg.success button i{
+    color: #5f6368;
+}
+
+.user-msg.success button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-msg.error {
+    background-color: lightpink;
+}
+
+.user-msg.error span {
+    color: #b33a3a;
+}
+
+.user-msg.error button i {
+    color: #a94442;
+}
+
+.user-msg.error button:hover {
+    background-color: rgba(255, 99, 71, 0.2);
+}
+
+/* Original starter UserMsg */
+/*
 .user-msg {
     background-color: lightgray;
     padding: 1em;
@@ -17,4 +96,5 @@
 .user-msg button{
     float: right;
     margin: 1em;
-}
+} 
+*/
