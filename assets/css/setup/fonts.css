@@ -26,7 +26,7 @@
 }
 
 /* Font Awesome */
-@font-face {
+/* @font-face {
   font-family: 'fa';
   src: url('../../fonts/fa/fa-regular-400.ttf');
 }
@@ -39,13 +39,13 @@
 @font-face {
   font-family: 'fa-brands';
   src: url('../../fonts/fa/fa-brands-400.ttf');
-}
+} */
 /* 
 .fa::before {
     font-family: 'fa'; 
 } */
 
-.solid::before {
+/* .solid::before {
     font-family: 'solid'; 
 }
 
@@ -72,4 +72,4 @@
 
 .solid.caret-down::after {
     content: '\f0d7';
-}
+} */
