@@ -3,6 +3,7 @@ import { noteService } from "../services/note-service.js"
 import { ImgInput } from "./ImgInput.jsx"
 import { InitialInput } from "./InitialInput.jsx"
 import { TextInput } from "./TextInput.jsx"
+import {TodosInput} from "./TodosInput.jsx"
 
 export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAddNote, isEditing, noteToEdit, onUpdateNote }) {
 
@@ -19,11 +20,11 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     },[noteToEdit,inputType])
 
     function onSubmitForm(ev) {
+        console.log('newNote', newNote)
         ev.preventDefault()
         isEditing ? onUpdateNote(newNote) : onAddNote(newNote)
         setNewNote(noteService._getEmptyNote(inputType))
         setIsOpen(false)
-        
     }
 
     function handleInput({ target }) {
@@ -42,8 +43,11 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     else if(newNote && newNote.type === 'NoteTxt') return (
         <TextInput handleInput={handleInput} onSubmitForm={onSubmitForm} newNote={newNote} isEditing={isEditing}/>
     )
-    else if (newNote && newNote.type === 'NoteImg')return (
+    else if (newNote && newNote.type === 'NoteImg') return (
         <ImgInput handleInput={handleInput} newNote={newNote} onSubmitForm={onSubmitForm} isEditing={isEditing}></ImgInput>
+    )
+    else if (newNote && newNote.type === 'NoteTodos') return (
+        <TodosInput handleInput={handleInput} newNote={newNote} onSubmitForm={onSubmitForm} isEditing={isEditing}></TodosInput>
     )
     else return(
         <div>loading. . . .</div>

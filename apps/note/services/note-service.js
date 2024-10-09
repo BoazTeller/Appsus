@@ -52,7 +52,7 @@ function _getEmptyNote(type){
         case 'NoteImg':
             return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#fffff'}, info:{url:'', title:''}}
         case 'NoteTodos':
-            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#fffff'}, info:{todos:[{txt:'',done:false}], title:''}}
+            return {type, createdAt: '', isPinned:false, style:{backgroundColor:'#fffff'}, info:{todos:[{id:0, txt:'',done:false}], title:''}}
     }
 }
 

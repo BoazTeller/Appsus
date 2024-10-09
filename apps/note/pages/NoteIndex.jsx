@@ -93,6 +93,33 @@ export function NoteIndex() {
         })
     }
 
+    function setIsTodoDone(todoId, noteId){
+        console.log(`todo with id ${todoId} is done in ${noteId}`)
+        noteService.get(noteId)
+        .then(note => {
+            const updatedTodos = note.info.todos.map(todo => {
+                if(todo.id === todoId){
+                    return {...todo, done : !todo.done}
+                }
+                return todo
+            })
+            
+            const updatedNote = {
+                ...note,
+                info:{
+                    ...note.info,
+                    todos:updatedTodos
+                }
+            }
+
+            console.log('the updated note is:',updatedNote)
+            noteService.put(updatedNote).then(savedNote => {
+                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
+            })
+        })
+        .catch(err => console.error('Error updating todo:', err))
+    }
+
     return (
         <section className="notes-section">
             {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
@@ -108,7 +135,7 @@ export function NoteIndex() {
                 />
             </div>
             <div className="notes-container">
-                <NoteList onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor}></NoteList>
+                <NoteList onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
             </div>
         </section>
     )

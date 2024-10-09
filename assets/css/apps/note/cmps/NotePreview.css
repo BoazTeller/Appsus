@@ -89,3 +89,11 @@
     background-color: rgb(197, 197, 197);  /* Background fills in */
     border: 1px solid rgb(197, 197, 197); /* Visible border on hover */
 }
+
+/*todo-card*/
+
+.todo-txt{
+    display: flex;
+    gap: 0.4em;
+    align-items: center;
+}

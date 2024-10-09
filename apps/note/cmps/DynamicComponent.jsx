@@ -1,9 +1,10 @@
 import { NoteImg } from "./NoteImg.jsx"
 import { NoteTxt } from "./NoteTxt.jsx"
+import { NoteTodos } from "./NoteTodos.jsx"
 
 const { useState } = React
 
-export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor }) {
+export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor,setIsTodoDone }) {
 
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
 
@@ -37,8 +38,24 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
                     onPinClick={onPinClick}
                 />
             )
+        case 'NoteTodos':
+            return (
+                <NoteTodos
+                    onDeleteNoteClick={onDeleteNoteClick}
+                    onEditNoteClick={onEditNoteClick}
+                    note={note}
+                    onPaletteClick={onPaletteClick}
+                    isPaletteOpen={isPaletteOpen}
+                    onEditBackgroundColor={onEditBackgroundColor}
+                    setIsPaletteOpen={setIsPaletteOpen}
+                    setIsPinned={setIsPinned}
+                    onPinClick={onPinClick}
+                    onCheckboxClick={onCheckboxClick}
+                />
+            )
+
         default:
-            return null; // Handle cases where 'type' doesn't match 'NoteTxt' or 'NoteImg'
+            return null
     }
 
 
@@ -59,5 +76,10 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
     function onPaletteClick(ev) {
         setIsPaletteOpen(!isPaletteOpen)
         ev.stopPropagation()
+    }
+
+    function onCheckboxClick(ev, todoId, noteId){
+        ev.stopPropagation()
+        setIsTodoDone(todoId, noteId)
     }
 }
