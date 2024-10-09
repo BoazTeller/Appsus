@@ -1,11 +1,12 @@
 const { useState, useEffect, useRef } = React
-const { useParams } = ReactRouterDOM
+const { useParams, useNavigate } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
-export function MailEdit({ onCloseMailEdit }) {
+export function MailEdit({ onCloseMailEdit, onSendMail }) {
     const params = useParams() 
+    const navigate = useNavigate()
 
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
     const [draftSubject, setDraftSubject] = useState('New Message')
@@ -85,32 +86,16 @@ export function MailEdit({ onCloseMailEdit }) {
     }
 
     function handleCloseEdit() {
-        if (hasChanges() && isDraftReadyToSave()) {
-            saveDraft()
-            showSuccessMsg('Draft saved')
-        }
-        onCloseMailEdit()
+        const shouldSaveDraft = hasChanges() && isDraftReadyToSave()
+
+        shouldSaveDraft ? onCloseMailEdit(mailToEdit) : onCloseMailEdit()  
     }
 
-    function onSendMail(ev) {
+    function onSubmitMail(ev) {
         ev.preventDefault()
+        clearInterval(intervalRef.current)
         isSentRef.current = true
-
-        const mailToSend = { 
-            ...mailToEdit, 
-            sentAt: Date.now(),
-            isRead: false 
-        }
-
-        mailService.save(mailToSend)
-            .then(() => {
-                onCloseMailEdit()
-                showSuccessMsg('Mail sent successfully')
-            })
-            .catch(err => {
-                console.error('Had issues sending mail', err)
-                showErrorMsg('Had issues sending mail')
-            })
+        onSendMail(mailToEdit)
     }
 
     const { to, subject, body } = mailToEdit
@@ -125,7 +110,7 @@ export function MailEdit({ onCloseMailEdit }) {
             {isLoading && <span className="loader1"></span>}
 
             {!isLoading && 
-                <form onSubmit={onSendMail} >
+                <form onSubmit={onSubmitMail} >
                     <div className="email">
                         <input
                             ref={toInputRef}
