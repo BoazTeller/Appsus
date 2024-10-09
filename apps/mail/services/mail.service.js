@@ -49,8 +49,19 @@ function save(mail) {
     }
 }
 
+// Unread count for Inbox mails
+function getUnreadMailsCount() { 
+    return storageService.query(MAIL_KEY)
+        .then(mails => mails.reduce((acc, mail) => {
+            if (!mail.isRead && !mail.removedAt && mail.to === loggedinUser.email) {
+                    acc++
+            }
+            return acc
+        }, 0))
+}
+
 function _getFilteredMails(mails, filterBy) {
-    // Folder filtering
+    // Folder (status) filtering
     if (filterBy.folder === 'inbox') {
         mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt)
     }
@@ -74,6 +85,7 @@ function _getFilteredMails(mails, filterBy) {
                 regExp.test(mail.from) || regExp.test(mail.to))
     }
 
+    // Filter by read/unread (skip if empty)
     if (filterBy.isRead === 'read') {
         mails = mails.filter(mail => mail.isRead)
     }
@@ -105,6 +117,7 @@ function _getSortedMails(mails, sortBy) {
     return mails
 }
 
+/// Factory and Utility functions ///
 function getDefaultFilter() {
     return {
         folder: 'inbox',
@@ -145,22 +158,13 @@ function getFilterFromParams(searchParams = {}) {
     }
 }
 
-function getUnreadMailsCount() { 
-    return storageService.query(MAIL_KEY)
-        .then(mails => mails.reduce((acc, mail) => {
-            if (!mail.isRead && !mail.removedAt && mail.to === loggedinUser.email) {
-                    acc++
-            }
-            return acc
-        }, 0))
-}
-
+// Initial setup and data creation functions
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
         // Create mails as a base for inbox
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 10; i++) {
             mails.push(_createMail())
         }
         // Create mails for trash

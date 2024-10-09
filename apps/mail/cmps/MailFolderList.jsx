@@ -1,13 +1,8 @@
-{/* <MailFolderList>
-• Allow filtering by different folders: inbox / sent / trash/ draft */}
-
 const { useState, useEffect } = React
 const { useNavigate } = ReactRouterDOM
 
 export function MailFolderList({ onSetFilterBy, filterBy, unreadCount, onOpenMailEdit }) {
-
     const navigate = useNavigate()
-
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {

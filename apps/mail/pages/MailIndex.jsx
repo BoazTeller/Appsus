@@ -1,9 +1,8 @@
-{/* <MailIndex>
-• Gets mails to show from service
-• Renders the list and the filter components (both top filter with search,
-and side filter for different folders) */}
+const { useState, useEffect } = React
+const { useParams, useSearchParams, useNavigate, Outlet } = ReactRouterDOM
 
 import { mailService } from "../services/mail.service.js"
+import { utilService } from "../../../services/util.service.js"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
@@ -11,22 +10,18 @@ import { MailList } from "../cmps/MailList.jsx"
 import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
 import { MailEdit } from "../cmps/MailEdit.jsx"
 
-const { useState, useEffect } = React
-const { useParams, useSearchParams, useNavigate, Outlet } = ReactRouterDOM
-
 export function MailIndex() {
-
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const navigate = useNavigate()
 
     const [mails, setMails] = useState(null)
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
+    const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
+
     const [isMailEdit, setIsMailEdit] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [unreadCount, setUnreadCount] = useState(0)
-
-    const [filterBy, setFilterBy] = useState(mailService.getFilterFromParams(searchParams))
-    const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
 
     mailService.getUnreadMailsCount()
         .then(unreadMailsCount =>
@@ -36,7 +31,7 @@ export function MailIndex() {
     })
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        setSearchParams(utilService.getTruthyValues(filterBy))
         loadMails()
     }, [filterBy])
 
@@ -171,6 +166,3 @@ export function MailIndex() {
         </section>
     )
 }
-
-
-

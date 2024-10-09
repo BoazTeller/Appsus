@@ -1,20 +1,13 @@
-{/* <MailDetails>
-• Routable component (page)
-• show the entire mail
-• Allow deleting a mail (using the service)
-• Allow navigating back to the list */}
+const { useState, useEffect } = React
+const { useParams, useOutletContext, useNavigate  } = ReactRouter
 
 import { mailService } from "../services/mail.service.js"
-import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
-
-const { useState, useEffect } = React
-const { useParams, useNavigate, useOutletContext } = ReactRouter
+import { showErrorMsg } from "../../../services/event-bus.service.js"
 
 export function MailDetails() {
-
     const { mailId } = useParams()
-	const navigate = useNavigate()
     const { onOpenMailEdit, onRemoveMail } = useOutletContext()
+	const navigate = useNavigate()
 
 	const [mail, setMail] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)

@@ -1,24 +1,12 @@
-{/* <MailList>
-• Renders a list of <MailPreview> pass down a mail prop */}
-
-import { MailPreview } from "./MailPreview.jsx"
-import { MailSort } from "./MailSort.jsx"
-
 const { Link } = ReactRouterDOM
 
-export function MailList(props) {
+import { MailSort } from "./MailSort.jsx"
+import { MailPreview } from "./MailPreview.jsx"
 
-    const {
-        mails,
-        onRemoveMail,
-        onToggleStarred,
-        onSetFilterBy,
-        filterBy,
-        onSetSortBy,
-        sortBy,
-        folder,
-        isLoading
-    } = props
+export function MailList({
+    mails, filterBy, sortBy, folder, isLoading,
+    onRemoveMail, onToggleStarred, onSetFilterBy, onSetSortBy
+}) {
 
     return (
         <React.Fragment>

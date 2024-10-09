@@ -8,6 +8,7 @@ export const utilService = {
     getMonthName,
     getFormattedDate,
     getNewSortDir,
+    getTruthyValues,
     loadFromStorage,
     saveToStorage
 }
@@ -101,4 +102,14 @@ function getNewSortDir(currDir) {
     } else {
         return 1
     }
+}
+
+function getTruthyValues(obj) {
+    return Object.keys(obj).reduce((acc, key) => {
+        const value = obj[key]
+        if (value || value === 0) {
+            acc[key] = value
+        }
+        return acc
+    }, {})
 }

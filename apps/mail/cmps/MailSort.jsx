@@ -1,17 +1,11 @@
 const { useState, useEffect } = React
 
 export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
-
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
         onSetFilterBy(filterByToEdit)
     }, [filterByToEdit])
-
-    function handleReadFilterChange({ target }) {
-        const { value, name: field } = target
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
-    }
 
     function getSortDirClass(key) {
         if (sortBy[key]) {
@@ -20,6 +14,11 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
             return dirClass
         }
         return ''
+    }
+
+    function handleReadFilterChange({ target }) {
+        const { value, name: field } = target
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
   
     const sortBtns = [
@@ -51,4 +50,3 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
         </section>
     )
 }
-  
