@@ -22,6 +22,8 @@ export const mailService = {
     getUnreadMailsCount
 }
 
+window.ms = mailService
+
 function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
@@ -53,8 +55,8 @@ function save(mail) {
 function getUnreadMailsCount() { 
     return storageService.query(MAIL_KEY)
         .then(mails => mails.reduce((acc, mail) => {
-            if (!mail.isRead && !mail.removedAt && mail.to === loggedinUser.email) {
-                    acc++
+            if (!mail.removedAt && mail.to === loggedinUser.email && !mail.isRead && mail.sentAt) {
+                acc++
             }
             return acc
         }, 0))
@@ -63,7 +65,12 @@ function getUnreadMailsCount() {
 function _getFilteredMails(mails, filterBy) {
     // Folder (status) filtering
     if (filterBy.folder === 'inbox') {
-        mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt)
+        mails = mails.filter(mail => 
+            mail.to === loggedinUser.email &&   
+            !mail.removedAt &&                  
+            mail.sentAt &&                      
+            (mail.from !== loggedinUser.email || mail.to === loggedinUser.email) 
+        )
     }
     if (filterBy.folder === 'starred') {
         mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
@@ -168,11 +175,11 @@ function _createMails() {
             mails.push(_createMail())
         }
         // Create mails for trash
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 3; i++) {
             mails.push(_createTrashMail())
         }
         // Create mails for starred
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 3; i++) {
             mails.push(_createStarredMail())
         }
         utilService.saveToStorage(MAIL_KEY, mails)
