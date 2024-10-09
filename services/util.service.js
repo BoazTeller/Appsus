@@ -7,6 +7,7 @@ export const utilService = {
     getDayName,
     getMonthName,
     getFormattedDate,
+    getNewSortDir,
     loadFromStorage,
     saveToStorage
 }
@@ -90,4 +91,14 @@ function getFormattedDate(timeStamp) {
     }
 
     return sentDate.toLocaleDateString('en-IL')
+}
+
+function getNewSortDir(currDir) {
+    if (currDir === 1) {
+        return -1
+    } else if (currDir === -1) {
+        return null
+    } else {
+        return 1
+    }
 }

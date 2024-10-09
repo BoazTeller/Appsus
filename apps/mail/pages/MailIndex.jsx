@@ -12,12 +12,13 @@ import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
 import { MailEdit } from "../cmps/MailEdit.jsx"
 
 const { useState, useEffect } = React
-const { useParams, useSearchParams, Outlet } = ReactRouterDOM
+const { useParams, useSearchParams, useNavigate, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
 
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
+    const navigate = useNavigate()
 
     const [mails, setMails] = useState(null)
     const [isMailEdit, setIsMailEdit] = useState(false)
@@ -63,19 +64,10 @@ export function MailIndex() {
 
     function onSetSortBy(sortType) {
         const currDir = sortBy[sortType]
-        let newDir
-
-        if (currDir === 1) {
-            newDir = -1
-        } else if (currDir === -1) {  
-            newDir = null
-        } else {
-            newDir = 1
-        }
-    
+        const newDir = getNewSortDir(currDir)
         setSortBy({ [sortType]: newDir })
     }
-
+    
     function onToggleStarred(mail) {
         const updatedMail = { ...mail, isStarred: !mail.isStarred }
         mailService.save(updatedMail)
@@ -86,7 +78,7 @@ export function MailIndex() {
             })
             .catch((err) => {
                 console.error('Error updating mail star status:', err)
-                showErrorMsg('Couldn\'t update starred status')
+                showErrorMsg(`Couldn't update starred status`)
             })
     }
 
@@ -168,9 +160,14 @@ export function MailIndex() {
                 </div>
             }        
 
-            {params.mailId && 
-                <Outlet context={{ onOpenMailEdit: () => setIsMailEdit(true) }} />
-            }     
+            {params.mailId && (
+                <Outlet 
+                    context={{
+                        onOpenMailEdit: () => setIsMailEdit(true),
+                        onRemoveMail
+                    }} 
+                />
+            )}    
         </section>
     )
 }

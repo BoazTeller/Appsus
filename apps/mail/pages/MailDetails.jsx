@@ -14,7 +14,7 @@ export function MailDetails() {
 
     const { mailId } = useParams()
 	const navigate = useNavigate()
-    const { onOpenMailEdit } = useOutletContext()
+    const { onOpenMailEdit, onRemoveMail } = useOutletContext()
 
 	const [mail, setMail] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
@@ -63,10 +63,10 @@ export function MailDetails() {
 
             <section className="mail-actions">
                 {!mail.sentAt && <button className="btn-edit" onClick={onOpenMailEdit}>Edit</button>}
-                <button className="btn-delete">
-                    {!mail.removedAt ? 'Delete' : 'Delete Permanently'}
+                <button className="btn-delete" onClick={() => onRemoveMail(mail.id)}>
+                    {!mail.removedAt ? 'Delete' : 'Delete Forever'}
                 </button>
-                <button className="btn-back-inbox">Inbox</button>
+                <button className="btn-back-inbox" onClick={() => {navigate('/mail')}}>Back</button>
             </section>
         </section>
     )

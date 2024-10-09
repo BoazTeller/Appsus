@@ -60,7 +60,7 @@ function _getFilteredMails(mails, filterBy) {
     if (filterBy.folder === 'sent') {
         mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt)
     }
-    if (filterBy.folder === 'draft') {
+    if (filterBy.folder === 'drafts') {
         mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.sentAt && !mail.removedAt)
     }
     if (filterBy.folder === 'trash') {
