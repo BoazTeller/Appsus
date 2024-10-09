@@ -19,15 +19,9 @@ export function MailDetails() {
 	function loadMail() {
 		setIsLoading(true)
 	    mailService.get(mailId)
-			.then(mail => {
-                if (!mail.isRead) {
-                    const readMail = { ...mail, isRead: true }
-                    return mailService.save(readMail)
-                } else {
-                    return mail
-                }
+            .then(mail => {
+                setMail(mail)
             })
-            .then(mail => setMail(mail))
 			.catch(err => {
 				console.error('Had issues loading mail', err)
                 showErrorMsg('Had issues loading mail')
