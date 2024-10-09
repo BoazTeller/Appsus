@@ -59,7 +59,7 @@ export function MailIndex() {
 
     function onSetSortBy(sortType) {
         const currDir = sortBy[sortType]
-        const newDir = getNewSortDir(currDir)
+        const newDir = utilService.getNewSortDir(currDir)
         setSortBy({ [sortType]: newDir })
     }
 
@@ -67,10 +67,70 @@ export function MailIndex() {
         setIsMailEdit(true)
     }
 
-    function onCloseMailEdit() {
+    function onCloseMailEdit(draftToSave = null) {
         setIsMailEdit(false)
+        if (!draftToSave) return
+
+        mailService.save(draftToSave)
+            .then(() => {
+                setMails(prevMails => [draftToSave, ...mails])
+                showSuccessMsg('Draft saved')
+            })
+            .catch(err => {
+                console.error('Had issues saving draft', err)
+                showErrorMsg(`Couldn't save draft`)
+            })
+    }
+
+    function onSendMail(newMail) {
+        const mailToSend = { 
+            ...newMail, 
+            sentAt: Date.now(),
+            isRead: false 
+        }
+
+        mailService.save(mailToSend)
+            .then(() => {
+                setMails(prevMails => [mailToSend, ...prevMails])
+                onCloseMailEdit()
+                showSuccessMsg('Mail sent successfully')
+            })
+            .catch(err => {
+                console.error('Had issues sending mail', err)
+                showErrorMsg('Had issues sending mail')
+            })
+    }
+
+    function onReadMail(mail) {
+        const updatedMail = { ...mail, isRead: true }
+        mailService.save(updatedMail)
+        .then(() => {
+            setMails(prevMails =>
+                prevMails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
+            )
+        })
+        .catch((err) => {
+            console.error('Error updating mail read status to true:', err)
+            showErrorMsg(`Couldn't update read status`)
+        })
+        
     }
     
+    function onToggleRead(mail) {
+        const updatedMail = { ...mail, isRead: !mail.isRead }
+        
+        mailService.save(updatedMail)
+            .then(() => {
+                setMails(prevMails =>
+                    prevMails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
+                )
+            })
+            .catch((err) => {
+                console.error('Error updating mail read status:', err)
+                showErrorMsg(`Couldn't update read status`)
+            })
+    }
+
     function onToggleStarred(mail) {
         const updatedMail = { ...mail, isStarred: !mail.isStarred }
         mailService.save(updatedMail)
@@ -139,7 +199,10 @@ export function MailIndex() {
             />
 
             {isMailEdit &&
-                <MailEdit onCloseMailEdit={onCloseMailEdit} />
+                <MailEdit 
+                    onCloseMailEdit={onCloseMailEdit} 
+                    onSendMail={onSendMail}
+                />
              }
 
             {!params.mailId &&
@@ -157,6 +220,8 @@ export function MailIndex() {
                         filterBy={{ isRead }} 
                         onRemoveMail={onRemoveMail}
                         onToggleStarred={onToggleStarred}
+                        onToggleRead={onToggleRead}
+                        onReadMail={onReadMail}
                         folder={folder}
                         isLoading={isLoading}
                     />
