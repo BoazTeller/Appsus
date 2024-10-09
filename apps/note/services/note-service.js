@@ -54,7 +54,8 @@ function _createNotes() {
 
 function _createDummyTxtNote(title, txt) {
     const dummyTxtNote = _getEmptyNote('NoteTxt');
-    
+    dummyTxtNote.id= utilService.makeId()
+
     dummyTxtNote.type = 'NoteTxt';
     dummyTxtNote.createdAt = Date.now();
     dummyTxtNote.isPinned = true;
@@ -69,7 +70,8 @@ function _createDummyTxtNote(title, txt) {
 
 function _createDummyImgNote(title, url) {
     const dummyImgNote = _getEmptyNote('NoteImg');
-    
+    dummyImgNote.id= utilService.makeId()
+
     dummyImgNote.type = 'NoteImg';
     dummyImgNote.createdAt = Date.now();
     dummyImgNote.isPinned = false;
@@ -84,7 +86,8 @@ function _createDummyImgNote(title, url) {
 
 function _createDummyTodoNote(title, todos) {
     const dummyTodoNote = _getEmptyNote('NoteTodos');
-    
+
+    dummyTodoNote.id= utilService.makeId()
     dummyTodoNote.type = 'NoteTodos';
     dummyTodoNote.createdAt = Date.now();
     dummyTodoNote.isPinned = false;
