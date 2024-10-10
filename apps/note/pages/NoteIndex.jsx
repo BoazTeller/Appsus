@@ -1,7 +1,7 @@
 import { NoteInput } from "../cmps/NoteInput.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { Logo } from "../cmps/Logo.jsx"
-import {NoteFilter} from "../cmps/NoteFilter.jsx"
+import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { noteService } from "../services/note-service.js"
 
 
@@ -53,6 +53,7 @@ export function NoteIndex() {
         setIsOpen(false)
         setInputType(null)
         setNoteToEdit(null)
+        console.log('overlkaytclick')
     }
 
     function onAddNote(newNote) {
@@ -121,9 +122,9 @@ export function NoteIndex() {
     }
 
 
-    function filterByTxt(txtToFilter){
+    function filterByTxt(txtToFilter) {
         const filteredNotes = noteService.query(txtToFilter)
-        .then(notes => setNotes(notes))
+            .then(notes => setNotes(notes))
     }
 
     return (
@@ -133,7 +134,8 @@ export function NoteIndex() {
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
             <section className="notes-section">
-                {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
+                {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
+                {isInputOpen && <div className="overlay" onClick={onOverlayClick}></div>}
                 <div className="input-section">
                     <NoteInput isInputOpen={isInputOpen}
                         inputType={inputType}

@@ -34,17 +34,20 @@ export function TodosInput({ handleInput, newNote, onSubmitForm, isEditing }) {
         <div className="inputs-grid">
             <form action="submit" onSubmit={onSubmitForm}>
                 <div className="inputs-grid">
-                    <input type="text" placeholder="Title" name="title" value={newNote.info.title} className="main-input title-input" onInput={handleInput}></input>
+                    <div className="input-container" style={{ backgroundColor: newNote.style.backgroundColor }}>
+                    <input type="text" placeholder="Title" name="title" style={{ backgroundColor: newNote.style.backgroundColor }} value={newNote.info.title} className="main-input title-input" onInput={handleInput}></input> 
                     {todos.map((todo,index) => {
                         return (
                             <ItemInput
+                                backgroundColor = {newNote.style.backgroundColor}
                                 key={`todo-${todo.id}`}
                                 handleInput={(ev)=> handleItemInput(ev,index)}
                                 value={todo.txt}
                                 name={`todo-${index}`}>
                             </ItemInput>
                         )
-                    })}
+                    })}                       
+                    </div>
                     <button type="button" className="fa fa-plus" onClick={onPlusItemClick}></button>
 
 
