@@ -1,8 +1,11 @@
 import { NoteInput } from "../cmps/NoteInput.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
+import { Logo } from "../cmps/Logo.jsx"
+import {NoteFilter} from "../cmps/NoteFilter.jsx"
 import { noteService } from "../services/note-service.js"
 
-const { useState, useEffect, useRef } = React
+
+const { useState, useEffect } = React
 
 export function NoteIndex() {
 
@@ -45,7 +48,7 @@ export function NoteIndex() {
         })
     }
 
-    function onOverlayClick(){
+    function onOverlayClick() {
         setIsEditing(false)
         setIsOpen(false)
         setInputType(null)
@@ -59,82 +62,93 @@ export function NoteIndex() {
         })
     }
 
-    function onEditBackgroundColor(noteId, backgroundColor){
+    function onEditBackgroundColor(noteId, backgroundColor) {
         console.log(`for note with id ${noteId} background color will change to ${backgroundColor}`)
         noteService.get(noteId)
-        .then(note => {
-            const updatedNote = {
-                ...note,
-                style: {
-                    ...note.style,
-                    backgroundColor: backgroundColor
+            .then(note => {
+                const updatedNote = {
+                    ...note,
+                    style: {
+                        ...note.style,
+                        backgroundColor: backgroundColor
+                    }
                 }
-            }
-            noteService.put(updatedNote).then(savedNote => {
-                console.log('Note Updated successfully', savedNote)
-                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id? savedNote:note))
+                noteService.put(updatedNote).then(savedNote => {
+                    console.log('Note Updated successfully', savedNote)
+                    setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
+                })
             })
-        })
-        .catch(err=>console.log(err))
+            .catch(err => console.log(err))
     }
 
-    function setIsPinned(noteId){
+    function setIsPinned(noteId) {
         console.log(`setting note with id ${noteId} to pinned . . .`)
         noteService.get(noteId)
-        .then(note => {
-            const updatedNote ={
-                ...note,
-                isPinned : !note.isPinned
-            }
-            noteService.put(updatedNote).then(savedNote => {
-                console.log('Updated pinned note successuflly'+ savedNote.id)
-                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote: note))
+            .then(note => {
+                const updatedNote = {
+                    ...note,
+                    isPinned: !note.isPinned
+                }
+                noteService.put(updatedNote).then(savedNote => {
+                    console.log('Updated pinned note successuflly' + savedNote.id)
+                    setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
+                })
             })
-        })
     }
 
-    function setIsTodoDone(todoId, noteId){
-        console.log(`todo with id ${todoId} is done in ${noteId}`)
+    function setIsTodoDone(todoId, noteId) {
         noteService.get(noteId)
-        .then(note => {
-            const updatedTodos = note.info.todos.map(todo => { //getting updated todo with done:true
-                if(todo.id === todoId){
-                    return {...todo, done : !todo.done}
+            .then(note => {
+                const updatedTodos = note.info.todos.map(todo => { //getting updated todo with done:true
+                    if (todo.id === todoId) {
+                        return { ...todo, done: !todo.done }
+                    }
+                    return todo
+                })
+                const updatedNote = { //getting the relevant note and updating todos in it
+                    ...note,
+                    info: {
+                        ...note.info,
+                        todos: updatedTodos
+                    }
                 }
-                return todo
+                console.log('the updated note is:', updatedNote)
+                noteService.put(updatedNote).then(savedNote => {
+                    setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
+                })
             })
-            const updatedNote = { //getting the relevant note and updating todos in it
-                ...note,
-                info:{
-                    ...note.info,
-                    todos:updatedTodos
-                }
-            }
-            console.log('the updated note is:',updatedNote)
-            noteService.put(updatedNote).then(savedNote => {
-                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
-            })
-        })
-        .catch(err => console.error('Error updating todo:', err))
+            .catch(err => console.error('Error updating todo:', err))
+    }
+
+
+    function filterByTxt(txtToFilter){
+        const filteredNotes = noteService.query(txtToFilter)
+        .then(notes => setNotes(notes))
     }
 
     return (
-        <section className="notes-section">
-            {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
-            <div className="input-section">
-                <NoteInput isInputOpen={isInputOpen}
-                    inputType={inputType}
-                    setIsOpen={setIsOpen}
-                    onOpenInput={onOpenInput}
-                    onAddNote={onAddNote}
-                    isEditing={isEditing}
-                    noteToEdit={noteToEdit}
-                    onUpdateNote={onUpdateNote}
-                />
-            </div>
-            <div className="notes-container">
-                <NoteList onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
-            </div>
-        </section>
+        <React.Fragment>
+            <section className="header-section">
+                <Logo></Logo>
+                <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
+            </section>
+            <section className="notes-section">
+                {isEditing && <div className="overlay" onClick={onOverlayClick}></div>}
+                <div className="input-section">
+                    <NoteInput isInputOpen={isInputOpen}
+                        inputType={inputType}
+                        setIsOpen={setIsOpen}
+                        onOpenInput={onOpenInput}
+                        onAddNote={onAddNote}
+                        isEditing={isEditing}
+                        noteToEdit={noteToEdit}
+                        onUpdateNote={onUpdateNote}
+                    />
+                </div>
+                <div className="notes-container">
+                    <NoteList onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
+                </div>
+            </section>
+        </React.Fragment>
     )
 }

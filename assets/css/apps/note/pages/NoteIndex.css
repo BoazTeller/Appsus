@@ -1,6 +1,7 @@
 @import '../cmps/NoteInput.css';
 @import '../cmps/NoteList.css';
 @import '../cmps/NotePreview.css';
+@import '../cmps/NotesHeader.css';
 @import '../cmps/PaletteColor.css';
 
 .notes-section{

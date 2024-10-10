@@ -9,44 +9,6 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
     const { type } = note
 
-    const sharedProps = {
-        note,
-        onDeleteNoteClick,
-        onEditNoteClick,
-        onPaletteClick,
-        isPaletteOpen,
-        onEditBackgroundColor,
-        setIsPaletteOpen,
-        setIsPinned,
-        onPinClick
-    };
-
-
-    switch (type) {
-        case 'NoteTxt':
-            return (
-                <NoteTxt
-                    {...sharedProps}
-                />
-            )
-        case 'NoteImg':
-            return (
-                <NoteImg
-                    {...sharedProps}
-                />
-            )
-        case 'NoteTodos':
-            return (
-                <NoteTodos
-                    {...sharedProps} onCheckboxClick={onCheckboxClick}
-                />
-            )
-
-        default:
-            return null
-    }
-
-
     function onEditNoteClick(note) {
         onEditNote(note)
     }
@@ -69,5 +31,35 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
     function onCheckboxClick(ev, todoId, noteId) {
         ev.stopPropagation()
         setIsTodoDone(todoId, noteId)
+    }
+
+    const sharedProps = {
+        note,
+        onDeleteNoteClick,
+        onEditNoteClick,
+        onPaletteClick,
+        isPaletteOpen,
+        onEditBackgroundColor,
+        setIsPaletteOpen,
+        setIsPinned,
+        onPinClick
+    }
+
+    switch (type) {
+        case 'NoteTxt':
+            return (
+                <NoteTxt {...sharedProps}/>
+            )
+        case 'NoteImg':
+            return (
+                <NoteImg {...sharedProps}/>
+            )
+        case 'NoteTodos':
+            return (
+                <NoteTodos {...sharedProps} onCheckboxClick={onCheckboxClick}/>
+            )
+
+        default:
+            return null
     }
 }

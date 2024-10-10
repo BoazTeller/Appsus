@@ -1,0 +1,47 @@
+.header-section{
+    display: flex;
+    /* grid-auto-columns: repeat(2,2fr,1fr) ; */
+    border-bottom: rgba(136, 136, 136, 0.4) solid 1px;
+    align-items: center;
+    height: 64px;
+    gap: 30px;
+}
+
+.logo{
+    grid-column: 2;
+    justify-self: end;
+    padding-right: 40px;
+    padding-left: 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+.keep{
+    color: #5F6368;
+    font-size: 22px;
+    font-family: 'GoogleSans-Reg';
+    padding-right: 8px;
+}
+
+.input-filter-container{
+    position: relative;
+}
+
+.fa-search{
+    top: 50%; /* Center the icon vertically */
+    left: 16px;
+    transform: translateY(-50%); /* Correct vertical alignment */
+    position: absolute;
+    color: #5F6368;
+}
+
+.input-filter-container input{
+    width: 722px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: rgb(241, 243, 244);
+    font-size: 16px;
+    font-family: var( --note-input-font);
+    padding-left: 60px;
+}

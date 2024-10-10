@@ -34,7 +34,7 @@ function _createNotes() {
 
     if(!dummyNotes || !dummyNotes.length) {
         dummyNotes = []
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             const txtNote = _createDummyTxtNote(`Title ${i}`, `Text content ${i}`);
             const imgNote = _createDummyImgNote(`Image ${i + 1}`, imageUrls[i]);
             const todoNote = _createDummyTodoNote(`Todo ${i}`, [
@@ -101,16 +101,37 @@ function _createDummyTodoNote(title, todos) {
 }
 
 function post(newNote){
-    console.log('new note in the service: ', newNote)
     return storageService.post(NOTES_DB, newNote)
 }
 
-function query(){
+function query(filterBy = ''){
     return storageService.query(NOTES_DB)
     .then(notes => {
-        console.log(notes)
+        if(filterBy === '') return notes
+        notes =  _getFilteredNotesByTxt(notes,filterBy)
         return notes
     })
+}
+
+function _getFilteredNotesByTxt(notes,filterBy){
+    let filteredNotes = []
+    filterBy = filterBy.toLowerCase()
+
+    notes.filter(note => {
+        const title = note.info.title.toLowerCase()
+        const noteTxt = note.info.txt
+        let todosTxt = ''
+        if(note.info.todos) {
+            todosTxt = note.info.todos.map(todo => todo.txt ? todo.txt.toLowerCase() : '').join(' ') // join all the todos.txt info a string
+        }
+
+        const combinedItems = `${title} ${noteTxt} ${todosTxt}`
+
+        if(combinedItems.includes(filterBy)) {
+            filteredNotes.push(note)
+        }
+    })
+    return filteredNotes
 }
 
 function remove(noteId){
