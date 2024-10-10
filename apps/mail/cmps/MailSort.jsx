@@ -9,7 +9,7 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
 
     function getSortDirClass(key) {
         if (sortBy[key]) {
-            let dirClass = 'solid '
+            let dirClass = 'faSolid '
             dirClass += sortBy[key] > 0 ? 'caret-up' : 'caret-down'
             return dirClass
         }
@@ -22,10 +22,10 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
     }
   
     const sortBtns = [
-      { key: 'from', label: 'From' }, 
-      { key: 'subject', label: 'Subject' },
-      { key: 'to', label: 'To' }, 
-      { key: 'date', label: 'Date' }
+        { key: 'date', label: 'Date' },
+        { key: 'from', label: 'From' }, 
+        { key: 'subject', label: 'Subject' },
+        { key: 'to', label: 'To' }
     ]
   
     return (

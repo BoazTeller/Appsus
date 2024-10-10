@@ -21,14 +21,14 @@ export function MailIndex() {
 
     const [isMailEdit, setIsMailEdit] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    const [unreadCount, setUnreadCount] = useState(0)
+    const [mailCount, setMailCount] = useState(0)
 
-    mailService.getUnreadMailsCount()
-        .then(unreadMailsCount =>
-            setUnreadCount(unreadMailsCount))
-        .catch(err => {
-            console.error('Had issues getting unread mails count', err)
-    })
+    mailService.getUnreadAndDraftCounts()
+        .then(count =>
+            setMailCount(count))
+            .catch(err => {
+                console.error('Had issues getting unread mails and drafts count', err)
+            })
 
     useEffect(() => {
         setSearchParams(utilService.getTruthyValues(filterBy))
@@ -52,7 +52,7 @@ export function MailIndex() {
                 setIsLoading(false)
             })
     }
-    
+
     function onSetFilterBy(fieldsToUpdate) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
@@ -188,13 +188,12 @@ export function MailIndex() {
     }
 
     const { folder, txt, isRead } = filterBy
-    
     return (
         <section className="mail-index">
             <MailFolderList 
                 onSetFilterBy={onSetFilterBy} 
                 filterBy={{ folder }} 
-                unreadCount={unreadCount}
+                mailCount={mailCount}
                 onOpenMailEdit={onOpenMailEdit}
             />
 

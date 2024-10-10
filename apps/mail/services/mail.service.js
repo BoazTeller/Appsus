@@ -19,7 +19,9 @@ export const mailService = {
     getFilterFromParams,
     getDefaultSortBy,
     getEmptyMail,
-    getUnreadMailsCount
+    getUnreadMailsCount,
+    getDraftMailsCount,
+    getUnreadAndDraftCounts
 }
 
 window.ms = mailService
@@ -51,11 +53,36 @@ function save(mail) {
     }
 }
 
+// Inbox unread and drafts count
+function getUnreadAndDraftCounts() {
+    return storageService.query(MAIL_KEY)
+        .then(mails => mails.reduce((acc, mail) => {
+            if (!mail.removedAt && mail.to === loggedinUser.email && !mail.isRead && mail.sentAt) {
+                acc.unreadCount = (acc.unreadCount || 0) + 1
+            }
+            else if (!mail.removedAt && mail.from === loggedinUser.email && !mail.sentAt) {
+                acc.draftsCount = (acc.draftsCount || 0) + 1
+            }
+            return acc
+        }, { unreadCount: 0, draftsCount: 0 }))
+}
+
 // Unread count for Inbox mails
 function getUnreadMailsCount() { 
     return storageService.query(MAIL_KEY)
         .then(mails => mails.reduce((acc, mail) => {
             if (!mail.removedAt && mail.to === loggedinUser.email && !mail.isRead && mail.sentAt) {
+                acc++
+            }
+            return acc
+        }, 0))
+}
+
+// Mail count inside Drafts
+function getDraftMailsCount() { 
+    return storageService.query(MAIL_KEY)
+        .then(mails => mails.reduce((acc, mail) => {
+            if (!mail.removedAt && mail.from === loggedinUser.email && !mail.sentAt) {
                 acc++
             }
             return acc

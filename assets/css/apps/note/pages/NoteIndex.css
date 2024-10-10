@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import '../cmps/NoteInput.css';
 @import '../cmps/NoteList.css';
 @import '../cmps/NotePreview.css';
@@ -5,6 +6,8 @@
 @import '../cmps/PaletteColor.css';
 @import '../cmps/Navbar.css';
 
+=======
+>>>>>>> 0fddbdef7524daea898258a091b2db4daf409323
 .notes-section{
     display: grid;
     grid-template-columns: 1fr 4fr;

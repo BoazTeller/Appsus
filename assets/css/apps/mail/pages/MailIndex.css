@@ -1,8 +1,16 @@
 .mail-index {
     display: grid;
     grid-template-columns: 256px 1fr;
+    grid-template-rows: 1fr 1fr;
 
-    font-family: 'GoogleSans-Reg', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    background-color: #f6f8fc;
+    font-family: var(--mail-font1);
+    background-color: var(--mail-color1);
+
+    font-size: 14px;
+    /* max-height: 100%;  */
 }
+
+.materials {
+    font-family: 'Material Symbols Outlined';
+}
+
