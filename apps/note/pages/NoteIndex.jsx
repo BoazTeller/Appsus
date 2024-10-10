@@ -2,6 +2,8 @@ import { NoteInput } from "../cmps/NoteInput.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { Logo } from "../cmps/Logo.jsx"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
+import { Navbar } from "../cmps/Navbar.jsx"
+
 import { noteService } from "../services/note-service.js"
 
 
@@ -134,6 +136,7 @@ export function NoteIndex() {
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
             <section className="notes-section">
+                <Navbar></Navbar>
                 {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
                 {isInputOpen && <div className="overlay" onClick={onOverlayClick}></div>}
                 <div className="input-section">

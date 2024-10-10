@@ -3,8 +3,12 @@
 @import '../cmps/NotePreview.css';
 @import '../cmps/NotesHeader.css';
 @import '../cmps/PaletteColor.css';
+@import '../cmps/Navbar.css';
 
 .notes-section{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+
     width: 100%;
     height: 100%;
 }

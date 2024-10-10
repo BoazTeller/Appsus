@@ -2,6 +2,7 @@
     display: flex;
     /* grid-auto-columns: repeat(2,2fr,1fr) ; */
     border-bottom: rgba(136, 136, 136, 0.4) solid 1px;
+
     align-items: center;
     height: 64px;
     gap: 30px;

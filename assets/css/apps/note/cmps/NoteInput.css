@@ -1,11 +1,12 @@
-.notes-section {
-    width: 100vw;
-    height: 100vh;
-}
-
 .notes-section .input-section {
     display: flex;
     justify-content: center;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.navbar{
+    grid-column: 1;
 }
 
 .notes-section .inputs-grid {
