@@ -1,4 +1,4 @@
-.app .home {
+.home {
     display: grid;
     grid-template-rows: 7fr 3fr 2fr;
     justify-content: center;
