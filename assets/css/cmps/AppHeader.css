@@ -1,24 +1,31 @@
-header {
-    background: lightcyan;
-    border-bottom: 2px solid white;
-}
 
 .app-header {
     display: flex;
+    align-items: baseline;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 1em;
+    background-color: var(--mail-color1);
+}
+
+.app-header .logo {
+    font-size: 1.3rem;
+    font-weight: lighter;
+    color: var(--logo-clr-blue);
+    padding-inline-start: 0.5em;
+    font-family: GoogleSans-Bold;
 }
 
 nav a {
-    margin: .5em;
+    color: #5F6267;
+    font-family: GoogleSans-Med;
+    padding: 0.4em 0.6em;
 }
 
-nav a:active {
-    color: purple;
+nav a:hover {
+    background-color: var(--mail-gray3);
+    border-radius: 20px;
 }
 
 nav a.active {
-    color: darkblue;
-    font-weight: bold;
-    text-decoration: overline;
+    color: var(--logo-clr-blue);
 }
