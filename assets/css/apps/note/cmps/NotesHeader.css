@@ -2,7 +2,7 @@
     display: flex;
     /* grid-auto-columns: repeat(2,2fr,1fr) ; */
     border-bottom: rgba(136, 136, 136, 0.4) solid 1px;
-
+    background-color: var(--mail-color1);
     align-items: center;
     height: 64px;
     gap: 30px;
@@ -12,7 +12,7 @@
     grid-column: 2;
     justify-self: end;
     padding-right: 40px;
-    padding-left: 20px;
+    padding-left: 26px;
 
     display: flex;
     align-items: center;
@@ -27,6 +27,8 @@
 
 .input-filter-container{
     position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    border-radius: 10px;
 }
 
 .fa-search{
@@ -45,4 +47,12 @@
     font-size: 16px;
     font-family: var( --note-input-font);
     padding-left: 60px;
+    border-radius: 10px;
+}
+
+.input-filter-container input:focus{
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Slight shadow increase on focus */
+    border-bottom-color: #888; 
+    outline: none
 }

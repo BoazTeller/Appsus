@@ -125,8 +125,16 @@ export function NoteIndex() {
 
 
     function filterByTxt(txtToFilter) {
-        const filteredNotes = noteService.query(txtToFilter)
+        return noteService.query(txtToFilter)
             .then(notes => setNotes(notes))
+    }
+
+    function onFilterType(ev, noteType){
+        ev.stopPropagation()
+        console.log('filtering for type:', noteType)
+
+        const filteredNotes = noteService.filterByType(noteType)
+        .then(notes => setNotes(notes))
     }
 
     return (
@@ -136,7 +144,7 @@ export function NoteIndex() {
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
             <section className="notes-section">
-                <Navbar></Navbar>
+                <Navbar onFilterType={onFilterType}></Navbar>
                 {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
                 {isInputOpen && <div className="overlay" onClick={onOverlayClick}></div>}
                 <div className="input-section">
