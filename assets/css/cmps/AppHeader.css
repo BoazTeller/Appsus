@@ -15,17 +15,17 @@
     font-family: GoogleSans-Bold;
 }
 
-nav a {
+.app-header nav a {
     color: #5F6267;
     font-family: GoogleSans-Med;
     padding: 0.4em 0.6em;
 }
 
-nav a:hover {
+.app-header nav a:hover {
     background-color: var(--mail-gray3);
     border-radius: 20px;
 }
 
-nav a.active {
+.app-header nav a.active {
     color: var(--logo-clr-blue);
 }
