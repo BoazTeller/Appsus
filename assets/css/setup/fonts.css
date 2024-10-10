@@ -4,6 +4,16 @@
     src: url('../../fonts/GoogleSans/GoogleSans-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'GoogleSans-Med';
+    src: url('../../fonts/GoogleSans/GoogleSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'GoogleSans-Bold';
+    src: url('../../fonts/GoogleSans/GoogleSans-Bold.ttf');
+}
+
 /* Roboto */
 @font-face {
     font-family: RobotoThin;
@@ -26,50 +36,37 @@
 }
 
 /* Font Awesome */
-/* @font-face {
-  font-family: 'fa';
+@font-face {
+  font-family: 'faRegular';
   src: url('../../fonts/fa/fa-regular-400.ttf');
 }
 
 @font-face {
-  font-family: 'solid';
+  font-family: 'faSolid';
   src: url('../../fonts/fa/fa-solid-900.ttf');
 }
 
 @font-face {
-  font-family: 'fa-brands';
+  font-family: 'faBrands';
   src: url('../../fonts/fa/fa-brands-400.ttf');
-} */
-/* 
-.fa::before {
-    font-family: 'fa'; 
-} */
-
-/* .solid::before {
-    font-family: 'solid'; 
 }
 
-.solid::after {
-    font-family: 'solid'; 
+.faRegular::before {
+    font-family: 'faRegular'; 
+} 
+
+.faSolid::before {
+    font-family: 'faSolid'; 
 }
 
-.fa.star::before {
-    content: '\f005';
+.faSolid::after {
+    font-family: 'faSolid'; 
 }
 
-.solid.yellow-star::before {
-    content: '\f005';
-    color: #f7ca4c;
-}
-
-.solid.magnifying-glass::before {
-    content: '\f002';
-}
-
-.solid.caret-up::after {
+.faSolid.caret-up::after {
     content: '\f0d8';
 }
 
-.solid.caret-down::after {
+.faSolid.caret-down::after {
     content: '\f0d7';
-} */
+}
