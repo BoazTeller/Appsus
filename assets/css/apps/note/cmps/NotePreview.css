@@ -73,9 +73,9 @@
     position: absolute;
     visibility: hidden;
     top: 0;
-    left: 0;
+    right: 0;
     padding: 5px;
-    color: white;
+    color: rgb(150, 148, 148);
     opacity: 0.6;  /* Initial opacity */
     width: 32px;
     background-color: transparent;
@@ -86,8 +86,8 @@
 
 .fa-thumbtack:hover {
     opacity: 1;  /* Change opacity to 1 on hover */
-    background-color: rgb(197, 197, 197);  /* Background fills in */
-    border: 1px solid rgb(197, 197, 197); /* Visible border on hover */
+    background-color: rgb(230, 227, 227);  /* Background fills in */
+    outline-color: black;
 }
 
 /*todo-card*/
