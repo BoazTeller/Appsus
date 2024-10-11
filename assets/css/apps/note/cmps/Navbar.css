@@ -12,6 +12,10 @@
     padding-top: 20px;
 } 
 
+.nav-items-container{
+    position: fixed;
+}
+
 .type-filter{
     background:none;
     font-family: var(--note-input-font);

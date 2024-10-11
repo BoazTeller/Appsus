@@ -36,16 +36,16 @@
 .pinned-notes {
     grid-column: 1 / -1; /* Span the entire grid width */
     display: grid;
+
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
 }
-
 .unpinned-notes {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-auto-rows: minmax(min-content, max-content); /* Force rows to adapt to content */
     gap: 20px;
-
-    grid-column: 1 / -1; /* Span the entire grid width */
 }
 
 h2 {
