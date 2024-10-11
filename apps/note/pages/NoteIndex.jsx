@@ -16,6 +16,7 @@ export function NoteIndex() {
     const [inputType, setInputType] = useState(null)
     const [isEditing, setIsEditing] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
+    const [isFilteredByType, setIsFilteredByType] = useState(false)
 
     useEffect(() => {
         noteService.query().then(notes => setNotes(notes))
@@ -130,6 +131,13 @@ export function NoteIndex() {
     }
 
     function onFilterType(ev, noteType){
+        if(!noteType) {
+            return noteService.query().then(notes => {
+                setNotes(notes)
+                setIsFilteredByType(false)
+            })
+        }
+        setIsFilteredByType(true)
         ev.stopPropagation()
         console.log('filtering for type:', noteType)
 
@@ -144,7 +152,7 @@ export function NoteIndex() {
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
             <section className="notes-section">
-                <Navbar onFilterType={onFilterType}></Navbar>
+                <Navbar isFilteredByType={isFilteredByType} onFilterType={onFilterType}></Navbar>
                 {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
                 {isInputOpen && <div className="overlay" onClick={onOverlayClick}></div>}
                 <div className="input-section">
