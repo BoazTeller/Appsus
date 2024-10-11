@@ -5,7 +5,7 @@ const Router = ReactRouterDOM.HashRouter
 import { AppHeader } from "./cmps/AppHeader.jsx"
 
 // Page Views
-import { Home } from "./pages/Home.jsx"
+import { Home } from "./pages/Home1.jsx"
 import { About } from "./pages/About.jsx"
 
 // Mail App Components
@@ -22,24 +22,26 @@ import { NotFound } from "./cmps/NotFound.jsx"
 export function App() {
     return (
         <Router>
-            <main className="app">
+            <section className="app">
                 <AppHeader />
-                
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
 
-                    <Route path="/mail" element={<MailIndex />} >
-                        <Route path="/mail/:mailId" element={<MailDetails />} />
-                    </Route>
+                <main className="app-content">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
 
-                    <Route path="/note" element={<NoteIndex />} />
-                
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </main>
+                        <Route path="/mail" element={<MailIndex />} >
+                            <Route path="/mail/:mailId" element={<MailDetails />} />
+                        </Route>
 
-            <UserMsg />
+                        <Route path="/note" element={<NoteIndex />} />
+                    
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </main>
+
+                <UserMsg />
+            </section>
         </Router>
     )
 }

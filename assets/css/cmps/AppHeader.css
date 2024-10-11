@@ -5,6 +5,7 @@
     justify-content: space-between;
     padding: 1em;
     background-color: var(--mail-color1);
+    max-height: 56px;
 }
 
 .app-header .logo {

@@ -1,16 +1,51 @@
-.mail-index {
+/* .mail-index {
     display: grid;
-    grid-template-columns: 256px 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 256px 1fr 16px;
+    grid-template-rows: 56px 1fr auto; 
+    height: 100vh; 
+    overflow: hidden; 
 
     font-family: var(--mail-font1);
     background-color: var(--mail-color1);
-
     font-size: 14px;
-    /* max-height: 100%;  */
-}
-
+} */
 .materials {
     font-family: 'Material Symbols Outlined';
 }
 
+/* Full height for the app container, minus the header height */
+section .app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Main content (below the header) takes up the rest of the height */
+main .app-content {
+    flex-grow: 1; /* Fills remaining space */
+    overflow-y: auto; /* Makes the content scrollable if needed */
+}
+
+/* Mail index layout */
+.mail-index {
+    display: grid;
+    grid-template-columns: 256px 1fr 16px; /* Sidebar, main content, padding */
+    grid-template-rows: 1fr auto; /* Main content and footer */
+    height: 100%; /* Fills the available space */
+    overflow: hidden; /* Prevent scroll overflow issues */
+    font-family: var(--mail-font1);
+    background-color: var(--mail-color1);
+    font-size: 14px;
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: var(--mail-color1);
+    height: 56px; /* Fixed header height */
+    max-height: 56px; /* Ensures height consistency */
+}
