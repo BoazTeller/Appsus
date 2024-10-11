@@ -198,7 +198,7 @@ function _createMails() {
     if (!mails || !mails.length) {
         mails = []
         // Create mails as a base for inbox
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 1; i++) {
             mails.push(_createMail())
         }
         // Create mails for trash

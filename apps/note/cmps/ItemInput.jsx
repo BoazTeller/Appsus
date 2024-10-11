@@ -7,7 +7,9 @@ export function ItemInput({ handleInput, value, name, backgroundColor }) {
             value={value}
             className="main-input title-input"
             name={name}
-            onInput={handleInput}>
+            onInput={handleInput}
+            required
+            >
         </input>
     )
 }

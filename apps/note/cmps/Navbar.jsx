@@ -12,7 +12,7 @@ export function Navbar({ onFilterType, isFilteredByType }) {
             </div>
             <div className="type-filter-container" onClick={(ev) => onFilterType(ev, 'NoteTodos')}>
                 <button className="type-filter todos">Todos</button>
-                <button className="fa fa-check-square icon" />
+                <button className="fa-regular fa-check-square icon" />
             </div>
             {isFilteredByType && (
                 <div className="type-filter-container" onClick={(ev) => onFilterType(ev, null)}>

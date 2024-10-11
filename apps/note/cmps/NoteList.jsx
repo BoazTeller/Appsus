@@ -1,7 +1,7 @@
 import { DynamicComponent } from "./DynamicComponent.jsx"
 
 
-export function NoteList({ onRemoveNote, setIsPinned, notes, onEditNote, onEditBackgroundColor,setIsTodoDone }) {
+export function NoteList({ onRemoveNote,onCloneNote, setIsPinned, notes, onEditNote, onEditBackgroundColor,setIsTodoDone }) {
     const pinnedNotes = notes.filter(note => note.isPinned)
     const notPinnedNotes = notes.filter(note => !note.isPinned)
 
@@ -35,6 +35,7 @@ export function NoteList({ onRemoveNote, setIsPinned, notes, onEditNote, onEditB
                     onEditBackgroundColor={onEditBackgroundColor}
                     setIsPinned={setIsPinned}
                     setIsTodoDone={setIsTodoDone}
+                    onCloneNote={onCloneNote}
                 />
             )
         })

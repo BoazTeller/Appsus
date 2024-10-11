@@ -5,6 +5,7 @@ import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { Navbar } from "../cmps/Navbar.jsx"
 
 import { noteService } from "../services/note-service.js"
+import { error } from "console"
 
 
 const { useState, useEffect } = React
@@ -68,22 +69,40 @@ export function NoteIndex() {
 
     function onEditBackgroundColor(noteId, backgroundColor) {
         console.log(`for note with id ${noteId} background color will change to ${backgroundColor}`)
-        noteService.get(noteId)
-            .then(note => {
-                const updatedNote = {
-                    ...note,
-                    style: {
-                        ...note.style,
-                        backgroundColor: backgroundColor
-                    }
-                }
-                noteService.put(updatedNote).then(savedNote => {
-                    console.log('Note Updated successfully', savedNote)
-                    setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
-                })
+
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        if (!noteToUpdate) {
+            console.error('Note with id ' + noteId + 'can not be found')
+            return
+        }
+
+        const noteBackup = structuredClone(noteToUpdate) //deep copy of noteToUpdate
+        noteToUpdate.style.backgroundColor = backgroundColor
+        setNotes(prevNotes => prevNotes.map(note => note.id === noteId ? noteToUpdate : note))
+
+        noteService.put(noteToUpdate)
+            .catch(err => {
+                setNotes(prevNotes => prevNotes.map(note => note.id === noteBackup.id ? noteBackup : note))
+                console.error('Error updating the note background color', err)
+
             })
-            .catch(err => console.log(err))
     }
+
+    // noteService.get(noteId)
+    // .then(note => {
+    //     const updatedNote = {
+    //         ...note,
+    //         style: {
+    //             ...note.style,
+    //             backgroundColor: backgroundColor
+    //         }
+    //     }
+    //     noteService.put(updatedNote).then(savedNote => {
+    //         console.log('Note Updated successfully', savedNote)
+    //         setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
+    //     })
+    // })
+    // .catch(err => console.log(err))
 
     function setIsPinned(noteId) {
         console.log(`setting note with id ${noteId} to pinned . . .`)
@@ -95,43 +114,38 @@ export function NoteIndex() {
                 }
                 noteService.put(updatedNote).then(savedNote => {
                     console.log('Updated pinned note successuflly' + savedNote.id)
-                    setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
                 })
             })
     }
+
 
     function setIsTodoDone(todoId, noteId) {
-        noteService.get(noteId)
-            .then(note => {
-                const updatedTodos = note.info.todos.map(todo => { //getting updated todo with done:true
-                    if (todo.id === todoId) {
-                        return { ...todo, done: !todo.done }
-                    }
-                    return todo
-                })
-                const updatedNote = { //getting the relevant note and updating todos in it
-                    ...note,
-                    info: {
-                        ...note.info,
-                        todos: updatedTodos
-                    }
-                }
-                console.log('the updated note is:', updatedNote)
-                noteService.put(updatedNote).then(savedNote => {
-                    setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
-                })
-            })
-            .catch(err => console.error('Error updating todo:', err))
-    }
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        if (!noteToUpdate) return
 
+        const noteBackup = structuredClone(noteToUpdate) //deep copy of noteToUpdate
+        noteToUpdate.info.todos = noteToUpdate.info.todos.map(todo => {
+            if (todo.id === todoId) {
+                return { ...todo, done: !todo.done }
+            }
+            return todo
+        })
+        setNotes(notes.map(note => note.id === noteId ? noteToUpdate : note)) //update UI
+
+        noteService.put(noteToUpdate)
+            .catch(err => {
+                console.error('Error updating todo:', err)
+                setNotes(notes.map(note => note.id === noteId ? noteBackup : note))
+            })
+    }
 
     function filterByTxt(txtToFilter) {
         return noteService.query(txtToFilter)
             .then(notes => setNotes(notes))
     }
 
-    function onFilterType(ev, noteType){
-        if(!noteType) {
+    function onFilterType(ev, noteType) {
+        if (!noteType) {
             return noteService.query().then(notes => {
                 setNotes(notes)
                 setIsFilteredByType(false)
@@ -142,7 +156,17 @@ export function NoteIndex() {
         console.log('filtering for type:', noteType)
 
         const filteredNotes = noteService.filterByType(noteType)
-        .then(notes => setNotes(notes))
+            .then(notes => setNotes(notes))
+    }
+
+    function onCloneNote(ev, note) {
+        ev.stopPropagation()
+        console.log('cloning note', note)
+        const clonedNote = {
+            ...note,
+            id: ''
+        }
+        onAddNote(clonedNote)
     }
 
     return (
@@ -167,7 +191,7 @@ export function NoteIndex() {
                     />
                 </div>
                 <div className="notes-container">
-                    <NoteList onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
+                    <NoteList onCloneNote={onCloneNote} onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
                 </div>
             </section>
         </React.Fragment>

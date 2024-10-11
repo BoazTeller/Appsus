@@ -2,7 +2,7 @@
 import { Dropdown } from "./Dropdown.jsx"
 import { PalleteColor } from "./PalleteColor.jsx"
 
-export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen,onCheckboxClick }) {
+export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note,onCloneNote, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen,onCheckboxClick }) {
     return (
         <div className="card txt-card" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onEditNoteClick(note)}>
             <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note}></Dropdown>
@@ -19,19 +19,18 @@ export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note, onPinClick
                 {note.info.todos.map(todo => {
                     return (
                         <div className="todo-item">
-                            <p className="todo-txt" onClick={(ev)=> onCheckboxClick(ev, todo.id, note.id)}>
-                                <span className={todo.done ? "fa-solid fa-check-square" : "fa-regular fa-square"}></span>
+                            <p className="todo-txt">
+                                <span onClick={(ev)=> onCheckboxClick(ev, todo.id, note.id)} className={todo.done ? "fa-solid fa-check-square" : "fa-regular fa-square"}></span>
                                 {todo.txt}
                             </p>
                         </div>
                     )
                 })}
             </div>
-
-
             <div className="card-navbar">
-                <button className="fa fa-palette" onClick={(ev) => onPaletteClick(ev, note)}></button>
-                <button className="fa fa-trash delete-btn" onClick={(ev) => onDeleteNoteClick(ev, note.id)}></button>
+                <button className="fa fa-palette action-icon" onClick={(ev) => onPaletteClick(ev, note)}></button>
+                <button className="fa fa-copy action-icon" onClick={(ev) => onCloneNote(ev,note)}></button>
+                <button className="fa fa-trash delete-btn action-icon" onClick={(ev) => onDeleteNoteClick(ev, note.id)}></button>
             </div>
         </div>
     )

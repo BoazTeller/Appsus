@@ -4,7 +4,7 @@ import { NoteTodos } from "./NoteTodos.jsx"
 
 const { useState } = React
 
-export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor, setIsTodoDone }) {
+export function DynamicComponent({ note,onCloneNote, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor, setIsTodoDone }) {
 
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
     const { type } = note
@@ -32,7 +32,7 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
         ev.stopPropagation()
         setIsTodoDone(todoId, noteId)
     }
-
+    
     const sharedProps = {
         note,
         onDeleteNoteClick,
@@ -42,7 +42,8 @@ export function DynamicComponent({ note, setIsPinned, onRemoveNote, onEditNote, 
         onEditBackgroundColor,
         setIsPaletteOpen,
         setIsPinned,
-        onPinClick
+        onPinClick,
+        onCloneNote
     }
 
     switch (type) {
