@@ -1,9 +1,9 @@
-@import '../cmps/NoteInput.css';
+/* @import '../cmps/NoteInput.css';
 @import '../cmps/NoteList.css';
 @import '../cmps/NotePreview.css';
 @import '../cmps/NotesHeader.css';
 @import '../cmps/PaletteColor.css';
-@import '../cmps/Navbar.css';
+@import '../cmps/Navbar.css'; */
 
 .notes-section{
     display: grid;

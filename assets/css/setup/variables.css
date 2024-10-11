@@ -13,6 +13,7 @@
     --mail-color3: #eaf1fb; /* Search Bar Bgc */
     --mail-color4: #eaebef; /* Folder List Hover */
     --mail-color5: #d3e3fd; /* Folder List Selected */
+    --mail-color6: #eceff1; /* Used For Empty Msg and Mail Sort Bottom Border */
 
     --mail-gray1: #202124; /* Main Font Color */
     --mail-gray2: #001D35; /* Folder List Active Color */
