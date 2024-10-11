@@ -1,7 +1,8 @@
 .navbar {
     grid-column: 1;
     width: 230px;
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100%; /* use min-height instead of height */
     border-right: 1px rgba(136, 136, 136, 0.4) solid;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.06);
     border-bottom: none;
@@ -9,7 +10,7 @@
     flex-direction: column;
     align-items: start;
     padding-top: 20px;
-}
+} 
 
 .type-filter{
     background:none;
