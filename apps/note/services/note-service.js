@@ -23,6 +23,7 @@ export const noteService = {
     query,
     post,
     get,
+    filterByType,
     remove,
     put,
     _createNotes,
@@ -111,6 +112,18 @@ function query(filterBy = ''){
         notes =  _getFilteredNotesByTxt(notes,filterBy)
         return notes
     })
+}
+
+function filterByType(typeToFilter){
+    return storageService.query(NOTES_DB).then(notes => {
+         const filteredNotes = notes.filter(note =>{
+            if(note.type === typeToFilter) {
+                return note
+            }
+         })
+         return filteredNotes
+    })
+    .catch(err => console.log('error filtering notes by type', err))
 }
 
 function _getFilteredNotesByTxt(notes,filterBy){

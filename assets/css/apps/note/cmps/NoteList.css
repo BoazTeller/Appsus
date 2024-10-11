@@ -1,3 +1,11 @@
+.notes-container {
+    grid-column: 2;
+    grid-row: 1;
+    position: relative;
+    padding-top: 50px;
+    z-index: 0; /* Stays beneath the overlay */
+}
+
 .note-list {
     display: grid;
     gap: 40px;
@@ -50,11 +58,6 @@ h2 {
     z-index: 2; /* Keeps the input section on top of the overlay */
     width: max-content;
     margin: 0 auto;
-}
-.notes-container {
-    grid-column: 2;
-    position: relative;
-    z-index: 0; /* Stays beneath the overlay */
 }
 
 .note-type-label{
