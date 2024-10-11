@@ -1,6 +1,6 @@
 export function TextInput({ handleInput, onSubmitForm, newNote, isEditing }) {
     return (
-        <div className="inputs-grid">
+        <div className={`${isEditing ? 'editing-class' : ''}`}>
             <form action="submit" onSubmit={onSubmitForm}>
                 <div className="inputs-grid">
                     <div className="input-container" style={{ backgroundColor: newNote.style.backgroundColor }}>
