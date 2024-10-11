@@ -5,7 +5,7 @@ const Router = ReactRouterDOM.HashRouter
 import { AppHeader } from "./cmps/AppHeader.jsx"
 
 // Page Views
-import { Home } from "./pages/Home1.jsx"
+import { Home } from "./pages/Home.jsx"
 import { About } from "./pages/About.jsx"
 
 // Mail App Components
