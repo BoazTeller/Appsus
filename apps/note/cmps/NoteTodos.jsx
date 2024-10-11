@@ -18,15 +18,17 @@ export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note,onCloneNote
             <div className="todos">
                 {note.info.todos.map(todo => {
                     return (
-                        <div className="todo-item">
-                            <p className="todo-txt">
-                                <span onClick={(ev)=> onCheckboxClick(ev, todo.id, note.id)} className={todo.done ? "fa-solid fa-check-square" : "fa-regular fa-square"}></span>
+                        <div className="todo-item" key={todo.id}>
+                            <p className="todo-txt" onClick={(ev) => onCheckboxClick(ev, todo.id, note.id)}>
+                                <span className={todo.done ? "fa-solid fa-check-square" : "fa-regular fa-square"}></span>
                                 {todo.txt}
                             </p>
                         </div>
                     )
                 })}
             </div>
+
+
             <div className="card-navbar">
                 <button className="fa fa-palette action-icon" onClick={(ev) => onPaletteClick(ev, note)}></button>
                 <button className="fa fa-copy action-icon" onClick={(ev) => onCloneNote(ev,note)}></button>
