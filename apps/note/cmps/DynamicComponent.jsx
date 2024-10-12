@@ -2,12 +2,12 @@ import { NoteImg } from "./NoteImg.jsx"
 import { NoteTxt } from "./NoteTxt.jsx"
 import { NoteTodos } from "./NoteTodos.jsx"
 
-const { useState } = React
+const { useState, useEffect } = React
 
 export function DynamicComponent({ note,onCloneNote, setIsPinned, onRemoveNote, onEditNote, onEditBackgroundColor, setIsTodoDone }) {
 
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
-    const { type } = note
+    const { type } = note  
 
     function onEditNoteClick(note) {
         onEditNote(note)
@@ -21,6 +21,11 @@ export function DynamicComponent({ note,onCloneNote, setIsPinned, onRemoveNote, 
     function onDeleteNoteClick(ev, noteId) {
         ev.stopPropagation()
         onRemoveNote(noteId)
+    }
+
+    function onSetIsPaletteOpen(ev){
+        ev.stopPropagation()
+        setIsPaletteOpen(false)
     }
 
     function onPaletteClick(ev) {
@@ -43,6 +48,7 @@ export function DynamicComponent({ note,onCloneNote, setIsPinned, onRemoveNote, 
         setIsPaletteOpen,
         setIsPinned,
         onPinClick,
+        onSetIsPaletteOpen,
         onCloneNote
     }
 

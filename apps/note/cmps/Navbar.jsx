@@ -22,7 +22,6 @@ export function Navbar({ onFilterType, isFilteredByType }) {
                     </div>
                 )}
             </div>
-
         </div>
     )
 }

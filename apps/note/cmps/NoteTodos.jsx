@@ -2,15 +2,18 @@
 import { Dropdown } from "./Dropdown.jsx"
 import { PalleteColor } from "./PalleteColor.jsx"
 
-export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note,onCloneNote, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen,onCheckboxClick }) {
+export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note,onCloneNote, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor,onSetIsPaletteOpen, setIsPaletteOpen,onCheckboxClick }) {
     return (
         <div className="card txt-card" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onEditNoteClick(note)}>
             {isPaletteOpen &&
-                <PalleteColor
-                    noteId={note.id}
-                    onEditBackgroundColor={onEditBackgroundColor}
-                    setIsPaletteOpen={setIsPaletteOpen}
-                    isPaletteOpen={isPaletteOpen} />
+                <React.Fragment>
+                    <div className="overlay-palette" onClick={(ev) => onSetIsPaletteOpen(ev)}></div>
+                    <PalleteColor
+                        noteId={note.id}
+                        onEditBackgroundColor={onEditBackgroundColor}
+                        setIsPaletteOpen={setIsPaletteOpen}
+                        isPaletteOpen={isPaletteOpen} />
+                </React.Fragment>
             }
             <button className="fa fa-thumbtack" onClick={(ev) => onPinClick(ev, note.id)} />
             <h2 className="note-title">{note.info.title}</h2>
