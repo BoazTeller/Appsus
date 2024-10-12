@@ -48,7 +48,7 @@ export function MailIndex() {
             })
             .catch(err => {
                 console.error('Had issues loading mails', err)
-                showErrorMsg('Had issues loading mails')
+                showErrorMsg(`Oops! Couldn't load mails. Please try again.`)
                 setIsLoading(false)
             })
     }
@@ -78,11 +78,13 @@ export function MailIndex() {
             })
             .catch(err => {
                 console.error('Had issues saving draft', err)
-                showErrorMsg(`Couldn't save draft`)
+                showErrorMsg(`Oops! Couldn't save draft. Please try again.`)
             })
     }
 
     function onSendMail(newMail) {
+        showSuccessMsg('Sending...')
+
         const mailToSend = { 
             ...newMail, 
             sentAt: Date.now(),
@@ -93,11 +95,11 @@ export function MailIndex() {
             .then(() => {
                 setMails(prevMails => [mailToSend, ...prevMails])
                 onCloseMailEdit()
-                showSuccessMsg('Mail sent successfully')
+                showSuccessMsg('Message sent')
             })
             .catch(err => {
                 console.error('Had issues sending mail', err)
-                showErrorMsg('Had issues sending mail')
+                showErrorMsg(`Oops! Couldn't send mail. Please try again.`)
             })
     }
 
@@ -110,15 +112,14 @@ export function MailIndex() {
             )
         })
         .catch((err) => {
-            console.error('Error updating mail read status to true:', err)
-            showErrorMsg(`Couldn't update read status`)
+            console.error('Error setting mail read status to true:', err)
+            showErrorMsg(`Oops! Couldn't update read status. Please try again.`)
         })
         
     }
     
     function onToggleRead(mail) {
         const updatedMail = { ...mail, isRead: !mail.isRead }
-        
         mailService.save(updatedMail)
             .then(() => {
                 setMails(prevMails =>
@@ -127,7 +128,7 @@ export function MailIndex() {
             })
             .catch((err) => {
                 console.error('Error updating mail read status:', err)
-                showErrorMsg(`Couldn't update read status`)
+                showErrorMsg(`Oops! Couldn't update read status. Please try again.`)
             })
     }
 
@@ -146,7 +147,7 @@ export function MailIndex() {
     }
 
     function onRemoveMail(mailId) {
-        const mail = mails.find(m => m.id === mailId)
+        const mail = mails.find(mail => mail.id === mailId)
         if (!mail) {
             console.error('Mail not found')
             showErrorMsg('Mail not found')
@@ -167,8 +168,8 @@ export function MailIndex() {
             navigate('/mail')
         })
         .catch(err => {
-            console.error('Had issues removing mail', err)
-            showErrorMsg(`Could not remove mail`)
+            console.error('Had issues removing mail to trash', err)
+            showErrorMsg(`Oops! Couldn't move to trash. Please try again.`)
         })
     }
     
@@ -183,7 +184,7 @@ export function MailIndex() {
             })
             .catch(err => {
                 console.error('Had issues removing mail', err)
-                showErrorMsg('Could not remove mail')
+                showErrorMsg(`Oops! Couldn't delete mail. Please try again.`)
             })
     }
 
@@ -202,7 +203,7 @@ export function MailIndex() {
                     onCloseMailEdit={onCloseMailEdit} 
                     onSendMail={onSendMail}
                 />
-             }
+            }  
 
             {!params.mailId &&
                 <div>
@@ -218,6 +219,7 @@ export function MailIndex() {
                         onSetFilterBy={onSetFilterBy} 
                         filterBy={{ isRead }} 
                         onRemoveMail={onRemoveMail}
+                        onOpenMailEdit={onOpenMailEdit}
                         onToggleStarred={onToggleStarred}
                         onToggleRead={onToggleRead}
                         onReadMail={onReadMail}
@@ -225,7 +227,7 @@ export function MailIndex() {
                         isLoading={isLoading}
                     />
                 </div>
-            }        
+            }      
 
             {params.mailId && (
                 <Outlet 
