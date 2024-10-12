@@ -92,18 +92,13 @@ function getDraftMailsCount() {
 function _getFilteredMails(mails, filterBy) {
     // Folder (status) filtering
     if (filterBy.folder === 'inbox') {
-        mails = mails.filter(mail => 
-            mail.to === loggedinUser.email &&   
-            !mail.removedAt &&                  
-            mail.sentAt &&                      
-            (mail.from !== loggedinUser.email || mail.to === loggedinUser.email) 
-        )
+        mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && mail.sentAt)
     }
     if (filterBy.folder === 'starred') {
         mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
     }
     if (filterBy.folder === 'sent') {
-        mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt)
+        mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && !mail.removedAt)
     }
     if (filterBy.folder === 'drafts') {
         mails = mails.filter(mail => mail.from === loggedinUser.email && !mail.sentAt && !mail.removedAt)
@@ -198,7 +193,7 @@ function _createMails() {
     if (!mails || !mails.length) {
         mails = []
         // Create mails as a base for inbox
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 8; i++) {
             mails.push(_createMail())
         }
         // Create mails for trash
@@ -206,7 +201,7 @@ function _createMails() {
             mails.push(_createTrashMail())
         }
         // Create mails for starred
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 0; i++) {
             mails.push(_createStarredMail())
         }
         utilService.saveToStorage(MAIL_KEY, mails)
