@@ -5,7 +5,6 @@ import { PalleteColor } from "./PalleteColor.jsx"
 export function NoteImg({ onDeleteNoteClick,onCloneNote, onEditNoteClick, note, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen }) {
     return (
         <div className="card image-card" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onEditNoteClick(note)}>
-            <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note}></Dropdown>
             {isPaletteOpen &&
                 <PalleteColor
                     noteId={note.id}

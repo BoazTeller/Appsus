@@ -88,33 +88,16 @@ export function NoteIndex() {
             })
     }
 
-    // noteService.get(noteId)
-    // .then(note => {
-    //     const updatedNote = {
-    //         ...note,
-    //         style: {
-    //             ...note.style,
-    //             backgroundColor: backgroundColor
-    //         }
-    //     }
-    //     noteService.put(updatedNote).then(savedNote => {
-    //         console.log('Note Updated successfully', savedNote)
-    //         setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
-    //     })
-    // })
-    // .catch(err => console.log(err))
-
     function setIsPinned(noteId) {
         console.log(`setting note with id ${noteId} to pinned . . .`)
-        noteService.get(noteId)
-            .then(note => {
-                const updatedNote = {
-                    ...note,
-                    isPinned: !note.isPinned
-                }
-                noteService.put(updatedNote).then(savedNote => {
-                    console.log('Updated pinned note successuflly' + savedNote.id)
-                })
+        const noteToUpdate = notes.find(note => note.id === noteId) //getting the note to update by its id
+        const noteBackup = structuredClone(noteToUpdate) // cloning it without the change
+        noteToUpdate.isPinned = !noteToUpdate.isPinned //changing the noteToUpdate
+        setNotes(notes.map(note => note.id === noteId ? noteToUpdate : note)) //Update UI
+        noteService.put(noteToUpdate) //updating db
+            .catch(err => {
+                console.error('Error updating todo:', err)
+                setNotes(notes.map(note => note.id === noteId ? noteBackup : note)) //if the update to the db is not working, rendering the backup note
             })
     }
 

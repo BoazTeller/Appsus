@@ -5,7 +5,6 @@ import { PalleteColor } from "./PalleteColor.jsx"
 export function NoteTodos({ onDeleteNoteClick, onEditNoteClick, note,onCloneNote, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor, setIsPaletteOpen,onCheckboxClick }) {
     return (
         <div className="card txt-card" style={{ backgroundColor: note.style.backgroundColor }} onClick={() => onEditNoteClick(note)}>
-            <Dropdown onDeleteNoteClick={onDeleteNoteClick} onEditNoteClick={onEditNoteClick} note={note}></Dropdown>
             {isPaletteOpen &&
                 <PalleteColor
                     noteId={note.id}
