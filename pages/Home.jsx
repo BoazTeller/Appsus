@@ -1,14 +1,15 @@
 export function Home() {
-    
+    const appName = 'Appsus'
+
     return ( 
         <section className="home">
             <header className="logo">
-                <span>A</span>
-                <span>p</span>
-                <span>p</span>
-                <span>s</span>
-                <span>u</span>
-                <span>s</span>
+                {appName
+                    .split('')
+                    .map((letter, idx) => (
+                        `<span key=${idx}>${letter}</span`
+                    ))
+                }
             </header>
 
             <h1>Welcome to our home page!</h1>

@@ -1,7 +1,8 @@
-const { Link, NavLink } = ReactRouterDOM
+const { Link } = ReactRouterDOM
+
+import { AppHeaderNavLink } from "./AppHeaderNavLink.jsx"
 
 export function AppHeader() {
-
     const navLinks = [
         { title: 'Home', path: '' },
         { title: 'About', path: 'about' },
@@ -17,14 +18,10 @@ export function AppHeader() {
 
             <nav className="app-nav">
                 {navLinks.map(navLink => 
-                    <NavLink
-                        key={navLink.path}
-                        to={`/${navLink.path}`}
-                        className="nav-link"
-                        title={`Go to ${navLink.title} page`}
-                    >
-                        {navLink.title}
-                    </NavLink>
+                    <AppHeaderNavLink 
+                        key={navLink.title} 
+                        navLink={navLink}
+                    />
                 )}
             </nav>
         </header>

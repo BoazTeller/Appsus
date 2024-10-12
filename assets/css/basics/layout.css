@@ -1,0 +1,11 @@
+section.app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+main.app-content {
+    flex-grow: 1; 
+    overflow-y: auto; 
+}

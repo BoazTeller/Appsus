@@ -1,16 +1,16 @@
 /* GoogleSans */
 @font-face {
-    font-family: 'GoogleSans-Reg';
+    font-family: GoogleSans-Reg;
     src: url('../../fonts/GoogleSans/GoogleSans-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'GoogleSans-Med';
+    font-family: GoogleSans-Med;
     src: url('../../fonts/GoogleSans/GoogleSans-Medium.ttf');
 }
 
 @font-face {
-    font-family: 'GoogleSans-Bold';
+    font-family: GoogleSans-Bold;
     src: url('../../fonts/GoogleSans/GoogleSans-Bold.ttf');
 }
 
@@ -35,32 +35,37 @@
     src: url(../../fonts/Roboto/Roboto-Bold.ttf);
 }
 
+/* Materials */
+.materials {
+    font-family: 'Material Symbols Outlined';
+}
+
 /* Font Awesome */
 @font-face {
-  font-family: 'faRegular';
+  font-family: faRegular;
   src: url('../../fonts/fa/fa-regular-400.ttf');
 }
 
 @font-face {
-  font-family: 'faSolid';
+  font-family: faSolid;
   src: url('../../fonts/fa/fa-solid-900.ttf');
 }
 
 @font-face {
-  font-family: 'faBrands';
+  font-family: faBrands;
   src: url('../../fonts/fa/fa-brands-400.ttf');
 }
 
 .faRegular::before {
-    font-family: 'faRegular'; 
+    font-family: faRegular; 
 } 
 
 .faSolid::before {
-    font-family: 'faSolid'; 
+    font-family: faSolid; 
 }
 
 .faSolid::after {
-    font-family: 'faSolid'; 
+    font-family: faSolid; 
 }
 
 .faSolid.caret-up::after {
