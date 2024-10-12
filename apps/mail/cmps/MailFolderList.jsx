@@ -1,6 +1,12 @@
 const { useState, useEffect } = React
+const { useNavigate } = ReactRouterDOM
+
+import { MailComposeButton } from "./MailComposeButton.jsx" 
+import { MailFolderItem } from "./MailFolderItem.jsx"
 
 export function MailFolderList({ onSetFilterBy, filterBy, mailCount, onOpenMailEdit }) {
+    const navigate = useNavigate()
+
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
@@ -9,36 +15,30 @@ export function MailFolderList({ onSetFilterBy, filterBy, mailCount, onOpenMailE
    
     function handleFilter(value) {
         setFilterByToEdit(prevFilter => ({...prevFilter, folder: value }))
+        navigate('/mail')
     }
     
+    const { unreadCount, draftsCount } = mailCount
     const folders = [
-        { key: 'inbox', icon: 'inbox', label: 'Inbox', count: mailCount.unreadCount },
+        { key: 'inbox', icon: 'inbox', label: 'Inbox', count: unreadCount },
         { key: 'starred', icon: 'star', label: 'Starred' },
         { key: 'sent', icon: 'send', label: 'Sent' },
-        { key: 'drafts', icon: 'draft', label: 'Drafts', count: mailCount.draftsCount },
+        { key: 'drafts', icon: 'draft', label: 'Drafts', count: draftsCount },
         { key: 'trash', icon: 'delete', label: 'Trash' }
     ]    
 
-    const { folder } = filterByToEdit 
+    const { folder: currFolder } = filterByToEdit 
     return (
         <section className="folder-list">
-            <div className="btn-compose-container">
-                <button onClick={() => onOpenMailEdit()} className="btn-compose">
-                    <div className="materials">edit</div>
-                    <span className="label">Compose</span>
-                </button>
-            </div>
+            <MailComposeButton onOpenMailEdit={onOpenMailEdit} />
 
             {folders.map(folderItem => (
-                <button 
+                <MailFolderItem 
                     key={folderItem.key}
-                    className={`btn-${folderItem.key} btn-folder ${folder === folderItem.key ? 'active' : ''}`}
-                    onClick={() => handleFilter(folderItem.key)}
-                >
-                    <div className={`materials`}>{folderItem.icon}</div>
-                    <span className="label">{folderItem.label}</span>
-                    {folderItem.count !== undefined && <span className="unread">{folderItem.count || ''}</span>}
-                </button>
+                    folderItem={folderItem}
+                    handleFilter={handleFilter}
+                    currFolder={currFolder}
+                />
             ))}
         </section>
     )
