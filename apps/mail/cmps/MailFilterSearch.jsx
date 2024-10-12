@@ -14,6 +14,7 @@ export function MailFilterSearch({ onSetFilterBy, filterBy }) {
 
     function handleFormSubmit(ev) {
         ev.preventDefault()
+        onSetFilterBy(filterByToEdit)
     }
 
     return (
@@ -29,6 +30,10 @@ export function MailFilterSearch({ onSetFilterBy, filterBy }) {
                     autoComplete="off"
                     className="search-input"
                 />
+                
+                <button className="search-btn" type="submit" aria-label="Search">
+                    <span className="materials">search</span>
+                </button>
             </form>
         </section>
     )
