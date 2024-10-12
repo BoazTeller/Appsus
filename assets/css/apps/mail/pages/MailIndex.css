@@ -9,23 +9,7 @@
     background-color: var(--mail-color1);
     font-size: 14px;
 } */
-.materials {
-    font-family: 'Material Symbols Outlined';
-}
 
-/* Full height for the app container, minus the header height */
-section.app {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-/* Main content (below the header) takes up the rest of the height */
-main.app-content {
-    flex-grow: 1; 
-    overflow-y: auto; 
-}
 
 /* Mail index layout */
 .mail-index {
@@ -37,15 +21,4 @@ main.app-content {
     font-family: var(--mail-font1);
     background-color: var(--mail-color1);
     font-size: 14px;
-}
-
-/* Header */
-.app-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding: 1em;
-    background-color: var(--mail-color1);
-    height: 56px; 
-    max-height: 56px; 
 }
