@@ -129,6 +129,7 @@ function _searchMailsByWords(mails, txt) {
         .map(word => new RegExp(word, 'i'))
 
     // Using 'every' means retrieve only mails that contain all searched words
+    // Using 'some' will retrieve all means that contain of any of the words
     return mails.filter(mail => 
         words.every(regExp => 
             regExp.test(mail.to) ||
