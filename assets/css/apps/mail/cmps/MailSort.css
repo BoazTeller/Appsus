@@ -29,6 +29,10 @@
     max-height: 32px;
 }
 
+.mail-sort select {
+    outline: none;
+}
+
 .mail-sort button:first-of-type {
     margin-inline-start: 0;
 }

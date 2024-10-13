@@ -15,6 +15,7 @@
     
     scrollbar-gutter: stables;
     background-color: white;
+    z-index: 1;
 }
 
 .mail-list .empty-folder-msg {
@@ -31,6 +32,8 @@
     cursor: pointer;
     color: #0000EE;
 }
+
+
 
 /* Scollbar */
 .mail-list::-webkit-scrollbar {

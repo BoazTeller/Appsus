@@ -22,4 +22,5 @@
     background-color: var(--mail-color1);
     font-size: 14px;
 
+    user-select: none;
 }

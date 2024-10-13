@@ -68,6 +68,15 @@
     font-family: faSolid; 
 }
 
+.faRegular.star::before {
+    content: '\f005';
+}
+
+.faSolid.yellow-star::before {
+    content: '\f005';
+    color: #f3c74b;
+}
+
 .faSolid.caret-up::after {
     content: '\f0d8';
 }
