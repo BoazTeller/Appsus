@@ -40,9 +40,13 @@ export function NoteIndex() {
     }
 
     function onEditNote(note) {
-        onOpenInput(note.type)
         setNoteToEdit(note)
-        setIsEditing(true)
+        if (note.isCanvas) {
+            onOpenCanvas()
+        } else {
+            onOpenInput(note.type)
+            setIsEditing(true)
+        }
     }
 
     function onUpdateNote(newNote) {
@@ -171,7 +175,7 @@ export function NoteIndex() {
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
             {isCanvasOpen && (
-                <CanvasDrawing onAddNote={onAddNote} onCloseCanvas={onCloseCanvas}></CanvasDrawing>
+                <CanvasDrawing onAddNote={onAddNote} noteToEdit={noteToEdit} onCloseCanvas={onCloseCanvas} onEditNote={onEditNote}></CanvasDrawing>
             )}
             {!isCanvasOpen && (
                 <section className="notes-section">
