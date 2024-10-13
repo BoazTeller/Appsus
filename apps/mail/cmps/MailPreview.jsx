@@ -92,7 +92,7 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead 
     }
     
     const starClass = mail.isStarred ? 'faSolid yellow-star starred' : 'faRegular star'
-    const readClass = !mail.isRead ? 'is-read' : 'un-read'
+    const readClass = mail.isRead ? 'is-read' : 'un-read'
 
     return (
         <article 
