@@ -92,7 +92,7 @@ function _createDummyTodoNote(title, todos) {
     dummyTodoNote.type = 'NoteTodos';
     dummyTodoNote.createdAt = Date.now();
     dummyTodoNote.isPinned = false;
-    dummyTodoNote.style = { backgroundColor: '#ffffff' };
+    dummyTodoNote.style = { backgroundColor: 'rgb(208, 185, 211)' };
     dummyTodoNote.info = {
         title: title,
         todos: todos 

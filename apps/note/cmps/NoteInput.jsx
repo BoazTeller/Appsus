@@ -5,7 +5,7 @@ import { InitialInput } from "./InitialInput.jsx"
 import { TextInput } from "./TextInput.jsx"
 import {TodosInput} from "./TodosInput.jsx"
 
-export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAddNote, isEditing, noteToEdit, onUpdateNote }) {
+export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAddNote, isEditing, noteToEdit, onUpdateNote, onOpenCanvas }) {
 
     const [newNote, setNewNote] = useState(noteService._getEmptyNote(inputType))
 
@@ -38,7 +38,7 @@ export function NoteInput({ isInputOpen, inputType, setIsOpen, onOpenInput, onAd
     }
 
     if (!isInputOpen || !inputType) return (
-        <InitialInput onOpenInput={onOpenInput}/>
+        <InitialInput onOpenCanvas={onOpenCanvas} onOpenInput={onOpenInput}/>
     )
     else if(newNote && newNote.type === 'NoteTxt') return (
         <TextInput handleInput={handleInput} onSubmitForm={onSubmitForm} newNote={newNote} isEditing={isEditing}/>

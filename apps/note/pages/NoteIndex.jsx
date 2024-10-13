@@ -3,9 +3,11 @@ import { NoteList } from "../cmps/NoteList.jsx"
 import { Logo } from "../cmps/Logo.jsx"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { Navbar } from "../cmps/Navbar.jsx"
+import { CanvasDrawing } from "../cmps/CanvasDrawing.jsx"
+
 
 import { noteService } from "../services/note-service.js"
-import { error } from "console"
+
 
 
 const { useState, useEffect } = React
@@ -18,6 +20,7 @@ export function NoteIndex() {
     const [isEditing, setIsEditing] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
     const [isFilteredByType, setIsFilteredByType] = useState(false)
+    const [isCanvasOpen, setIsCanvasOpen] = useState(false)
 
     useEffect(() => {
         noteService.query().then(notes => setNotes(notes))
@@ -152,12 +155,23 @@ export function NoteIndex() {
         onAddNote(clonedNote)
     }
 
+    function onOpenCanvas(){
+        setIsCanvasOpen(true)
+    }
+
+    function onCloseCanvas(){
+        setIsCanvasOpen(false)
+    }
+    
     return (
         <React.Fragment>
             <section className="header-section">
                 <Logo></Logo>
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
+            {isCanvasOpen && (
+                 < CanvasDrawing onCloseCanvas={onCloseCanvas}></CanvasDrawing>
+            )}
             <section className="notes-section">
                 <Navbar isFilteredByType={isFilteredByType} onFilterType={onFilterType}></Navbar>
                 {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
@@ -171,6 +185,7 @@ export function NoteIndex() {
                         isEditing={isEditing}
                         noteToEdit={noteToEdit}
                         onUpdateNote={onUpdateNote}
+                        onOpenCanvas={onOpenCanvas}
                     />
                 </div>
                 <div className="notes-container">
