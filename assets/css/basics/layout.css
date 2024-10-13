@@ -1,3 +1,5 @@
+/* Working attempt that requires a better solution in futue to fix a randomly occuring glitch 
+if the user clicks on the furthest right pixels of the screen sometimes vertical and horizonal scroll appears */ 
 html > *:not(.mail-index, .notes-section) {
     overflow: hidden;
 }
