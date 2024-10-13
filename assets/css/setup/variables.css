@@ -23,4 +23,6 @@
     --mail-font2: 'GoogleSans-Med';  /* Main Font fw500 */
     --mail-font3: 'GoogleSans-Bold';  /* Main Font fw600 */
 
+    --mail-scrollbar-width: 10px; /* Mail List scrollbar width */
+
 }

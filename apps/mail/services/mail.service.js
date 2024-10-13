@@ -109,9 +109,7 @@ function _getFilteredMails(mails, filterBy) {
     
     // Text search - Mail Subject / Body / From / To
     if (filterBy.txt) {
-        const regExp = new RegExp(filterBy.txt, 'i')
-        mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) ||
-                regExp.test(mail.from) || regExp.test(mail.to))
+        mails = _searchMailsByWords(mails, filterBy.txt)
     }
 
     // Filter by read/unread (skip if empty)
@@ -123,6 +121,22 @@ function _getFilteredMails(mails, filterBy) {
     }
 
     return mails
+}
+
+function _searchMailsByWords(mails, txt) {
+    const words = txt
+        .split(' ')
+        .map(word => new RegExp(word, 'i'))
+
+    // Using 'every' means retrieve only mails that contain all searched words
+    return mails.filter(mail => 
+        words.every(regExp => 
+            regExp.test(mail.to) ||
+            regExp.test(mail.from) ||
+            regExp.test(mail.subject) ||
+            regExp.test(mail.body)
+        )
+    )
 }
 
 function _getSortedMails(mails, sortBy) {

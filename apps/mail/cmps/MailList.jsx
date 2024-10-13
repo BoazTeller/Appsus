@@ -1,4 +1,4 @@
-const { useEffect, useRef, Fragment } = React
+const { Fragment } = React
 const { Link } = ReactRouterDOM
 
 import { MailSort } from "./MailSort.jsx"
@@ -9,15 +9,6 @@ export function MailList({
     mails, filterBy, sortBy, folder, isLoading, onOpenMailEdit,
     onRemoveMail, onToggleStarred, onSetFilterBy, onSetSortBy
 }) {
-
-    const mailListRef = useRef(null)
-
-    // useEffect(() => {
-    //     if (mailListRef.current) {
-    //         mailListRef.current.style.height = `calc(100vh - 181px)`;
-    //     }
-    // }, [mails]) 
-
     function getEmptyFolderMessage() {
         switch (folder) {
             case 'inbox':
@@ -46,7 +37,7 @@ export function MailList({
                 filterBy={filterBy} 
             />
 
-            <ul className="mail-list clean-list" ref={mailListRef}>
+            <ul className="mail-list clean-list">
                 {isLoading && <Loader />}
 
                 {!isLoading && mails && mails.length > 0 && (
