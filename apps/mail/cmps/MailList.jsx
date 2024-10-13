@@ -6,15 +6,15 @@ import { MailPreview } from "./MailPreview.jsx"
 import { Loader } from "./Loader.jsx"
 
 export function MailList({
-    mails, filterBy, sortBy, folder, isLoading, onOpenMailEdit,
-    onRemoveMail, onToggleStarred, onSetFilterBy, onSetSortBy
+    mails, filterBy, sortBy, folder, isLoading, onOpenMailEdit, onOpenMailDetails,
+    onRemoveMail, onToggleStarred, onToggleRead, onSetFilterBy, onSetSortBy
 }) {
     function getEmptyFolderMessage() {
         switch (folder) {
             case 'inbox':
                 return 'Your inbox is empty.'
             case 'sent':
-                return <Fragment>No sent messages! <a href="#" className="send-link" onClick={onOpenMailEdit}>Send</a> one now!</Fragment>
+                return <Fragment>No sent messages! <a className="send-link" onClick={onOpenMailEdit}>Send</a> one now!</Fragment>
             case 'starred':
                 return 'No starred messages. Stars let you give messages a special status to make them easier to find. ' + 
                        'To star a message, click on the star outline beside any message or conversation.'
@@ -42,14 +42,15 @@ export function MailList({
 
                 {!isLoading && mails && mails.length > 0 && (
                     mails.map(mail => (
-                        <li key={mail.id}>
-                            <Link to={`/mail/${mail.id}`}>
-                                <MailPreview 
-                                    mail={mail}
-                                    onRemoveMail={onRemoveMail}
-                                    onToggleStarred={onToggleStarred}
-                                />
-                            </Link>
+                        <li key={mail.id}
+                            onClick={() => onOpenMailDetails(mail)}
+                        >
+                            <MailPreview 
+                                mail={mail}
+                                onRemoveMail={onRemoveMail}
+                                onToggleStarred={onToggleStarred}
+                                onToggleRead={onToggleRead}
+                            />
                         </li>
                     ))
                 )}

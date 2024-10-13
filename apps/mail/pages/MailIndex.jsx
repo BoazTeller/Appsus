@@ -84,6 +84,11 @@ export function MailIndex() {
             })
     }
 
+    function onOpenMailDetails(mail) {
+        if (!mail.isRead) onReadMail(mail)
+        navigate(`/mail/${mail.id}`)
+    }
+
     function onSendMail(newMail) {
         showSuccessMsg('Sending...')
 
@@ -105,23 +110,13 @@ export function MailIndex() {
             })
     }
 
+    /**
+     * Marks the mail as read to trigger a re-render and update the unread mail count.
+     * Called only when an unread mail is opened.
+     */
     function onReadMail(mail) {
         const updatedMail = { ...mail, isRead: true }
-        mailService.save(updatedMail)
-        .then(() => {
-            setMails(prevMails =>
-                prevMails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
-            )
-        })
-        .catch((err) => {
-            console.error('Error setting mail read status to true:', err)
-            showErrorMsg(`Oops! Couldn't update read status. Please try again.`)
-        })
-        
-    }
-    
-    function onToggleRead(mail) {
-        const updatedMail = { ...mail, isRead: !mail.isRead }
+
         mailService.save(updatedMail)
             .then(() => {
                 setMails(prevMails =>
@@ -129,58 +124,55 @@ export function MailIndex() {
                 )
             })
             .catch((err) => {
-                console.error('Error updating mail read status:', err)
+                console.error('Error setting mail read status to true:', err)
                 showErrorMsg(`Oops! Couldn't update read status. Please try again.`)
             })
     }
-
-    function onToggleStarred(mail) {
-        const updatedMail = { ...mail, isStarred: !mail.isStarred }
+    
+    // Toggles read status optimistically and reverts on error
+    function onToggleRead(mail) {
+        const updatedMail = { ...mail, isRead: !mail.isRead }
+    
+        setMails(prevMails =>
+            prevMails.map(m => m.id === mail.id ? updatedMail : m)
+        )
+    
         mailService.save(updatedMail)
-            .then(() => {
+            .catch((err) => {
+                console.error('Error updating mail read status:', err)
+                showErrorMsg(`Oops! Couldn't update read status. Please try again.`)
                 setMails(prevMails =>
-                    prevMails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
+                    prevMails.map(m => m.id === mail.id ? mail : m) 
                 )
             })
+    }
+
+    // Toggles starred status optimistically and reverts on error
+    function onToggleStarred(mail) {
+        const updatedMail = { ...mail, isStarred: !mail.isStarred }
+
+        setMails(prevMails =>
+            prevMails.map(m => m.id === mail.id ? updatedMail : m)
+        )
+        
+        mailService.save(updatedMail)
             .catch((err) => {
                 console.error('Error updating mail star status:', err)
-                showErrorMsg(`Couldn't update starred status`)
+                showErrorMsg(`Oops! Couldn't update starred status. Please try again.`)
+                setMails(prevMails =>
+                    prevMails.map(m => m.id === mail.id ? mail : m) 
+                )
             })
     }
 
-    function onRemoveMail(mailId) {
-        const mail = mails.find(mail => mail.id === mailId)
-        if (!mail) {
-            console.error('Mail not found')
-            showErrorMsg('Mail not found')
-            return
-        } 
+    function onRemoveMail(mail) {
+        mail.removedAt ? removeMail(mail.id) : moveToTrash(mail)
+    }
 
-        mail.removedAt ? removeMail(mail.id) : moveToTrash(mail)  
-    }
-    
-    function moveToTrash(mail) {
-        const mailToTrash = { ...mail, removedAt: Date.now() }
-        mailService.save(mailToTrash)
-            .then(() => {
-                setMails(prevMails =>
-                    prevMails.map(mail => mail.id === mailToTrash.id ? mailToTrash : mail)
-            )
-            showSuccessMsg(`Conversation moved to Trash.`)
-            navigate('/mail')
-        })
-        .catch(err => {
-            console.error('Had issues removing mail to trash', err)
-            showErrorMsg(`Oops! Couldn't move to trash. Please try again.`)
-        })
-    }
-    
     function removeMail(mailId) {
         mailService.remove(mailId)
             .then(() => {
-                setMails(prevMails =>
-                    prevMails.filter(mail => mail.id !== mailId)
-                )
+                setMails(prevMails =>prevMails.filter(mail => mail.id !== mailId))
                 showSuccessMsg('Conversation deleted forever.')
                 navigate('/mail')
             })
@@ -190,6 +182,23 @@ export function MailIndex() {
             })
     }
 
+    function moveToTrash(mail) {
+        const updatedMail = { ...mail, removedAt: Date.now() }
+
+        mailService.save(updatedMail)
+            .then(() => {
+                setMails(prevMails =>
+                    prevMails.filter(currMail => currMail.id !== updatedMail.id)
+                )  
+                showSuccessMsg(`Conversation moved to Trash.`)
+                navigate('/mail')
+            })
+            .catch(err => {
+                console.error('Had issues removing mail to trash', err)
+                showErrorMsg(`Oops! Couldn't move to trash. Please try again.`)
+            })
+    }
+    
     const { folder, txt, isRead } = filterBy
     return (
         <section className="mail-index">
@@ -222,6 +231,7 @@ export function MailIndex() {
                         filterBy={{ isRead }} 
                         onRemoveMail={onRemoveMail}
                         onOpenMailEdit={onOpenMailEdit}
+                        onOpenMailDetails={onOpenMailDetails}
                         onToggleStarred={onToggleStarred}
                         onToggleRead={onToggleRead}
                         onReadMail={onReadMail}

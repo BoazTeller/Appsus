@@ -10,11 +10,12 @@
     /* padding-right: 50px; */
     padding-inline-end: 7px;
     
-    height: calc(100vh - 182px);
+    height: calc(100vh - 192px);
     overflow-y: scroll;
-
+    
     scrollbar-gutter: stables;
     background-color: white;
+    z-index: 1;
 }
 
 .mail-list .empty-folder-msg {
@@ -32,6 +33,8 @@
     color: #0000EE;
 }
 
+
+
 /* Scollbar */
 .mail-list::-webkit-scrollbar {
     width: var(--mail-scrollbar-width);
@@ -46,6 +49,8 @@
 .mail-list::-webkit-scrollbar-track {
     background-color: white;
     border: none;
+    border-bottom-right-radius: 1rem;
+    /* overflow: hidden; */
 }
 
 /* Hover state */
