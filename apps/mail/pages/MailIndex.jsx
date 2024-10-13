@@ -29,7 +29,7 @@ export function MailIndex() {
             .catch(err => {
                 console.error('Had issues getting unread mails and drafts count', err)
             })
-
+              
     useEffect(() => {
         setSearchParams(utilService.getTruthyValues(filterBy))
         loadMails()
@@ -70,6 +70,8 @@ export function MailIndex() {
     function onCloseMailEdit(draftToSave = null) {
         setIsMailEdit(false)
         if (!draftToSave) return
+        
+        showSuccessMsg('Saving draft...')
 
         mailService.save(draftToSave)
             .then(() => {
@@ -206,7 +208,7 @@ export function MailIndex() {
             }  
 
             {!params.mailId &&
-                <div>
+                <div className="mail-filter-and-list-container">
                     <MailFilterSearch 
                         onSetFilterBy={onSetFilterBy} 
                         filterBy={{ txt }} 

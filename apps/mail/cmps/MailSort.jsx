@@ -21,7 +21,7 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
   
-    const sortBtns = [
+    const sortOpts = [
         { key: 'date', label: 'Date' },
         { key: 'from', label: 'From' }, 
         { key: 'subject', label: 'Subject' },
@@ -31,13 +31,13 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
     return (
         <section className="mail-sort flex align-center">
             {/* Sort Buttons */}
-            {sortBtns.map(btn => (
+            {sortOpts.map(sortOpt => (
                 <button
-                    key={btn.key}
-                    className={`btn-${btn.key} ${getSortDirClass(btn.key)}`}
-                    onClick={() => onSetSortBy(btn.key)}
+                    key={sortOpt.key}
+                    className={`btn-${sortOpt.key} ${getSortDirClass(sortOpt.key)}`}
+                    onClick={() => onSetSortBy(sortOpt.key)}
                 >
-                    {btn.label}
+                    <div className="label">{sortOpt.label}</div>
                 </button>
             ))}
 
