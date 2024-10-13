@@ -1,3 +1,5 @@
+const { Fragment } = React
+
 export function Home() {
     const appName = 'Appsus'
 
@@ -6,9 +8,7 @@ export function Home() {
             <header className="logo">
                 {appName
                     .split('')
-                    .map((letter, idx) => (
-                        `<span key=${idx}>${letter}</span`
-                    ))
+                    .map((letter, idx) => <span key={idx}>{letter}</span>)
                 }
             </header>
 

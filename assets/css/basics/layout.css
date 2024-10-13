@@ -1,3 +1,7 @@
+html > *:not(.mail-index, .notes-section) {
+    overflow: hidden;
+}
+
 section.app {
     height: 100vh;
     display: flex;
