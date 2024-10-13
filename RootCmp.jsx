@@ -33,9 +33,8 @@ export function App() {
                         <Route path="/mail" element={<MailIndex />} >
                             <Route path="/mail/:mailId" element={<MailDetails />} />
                         </Route>
-
                         <Route path="/note" element={<NoteIndex />} />
-                    
+
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>

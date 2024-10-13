@@ -1,5 +1,4 @@
 
-import { Dropdown } from "./Dropdown.jsx"
 import { PalleteColor } from "./PalleteColor.jsx"
 
 export function NoteTxt({ onDeleteNoteClick, onCloneNote, onEditNoteClick, note, onPinClick, onPaletteClick, isPaletteOpen, onEditBackgroundColor,onSetIsPaletteOpen, setIsPaletteOpen }) {

@@ -5,12 +5,10 @@ import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { Navbar } from "../cmps/Navbar.jsx"
 import { CanvasDrawing } from "../cmps/CanvasDrawing.jsx"
 
-
 import { noteService } from "../services/note-service.js"
 
-
-
 const { useState, useEffect } = React
+const { useNavigate } = ReactRouter
 
 export function NoteIndex() {
 
@@ -21,6 +19,8 @@ export function NoteIndex() {
     const [noteToEdit, setNoteToEdit] = useState(null)
     const [isFilteredByType, setIsFilteredByType] = useState(false)
     const [isCanvasOpen, setIsCanvasOpen] = useState(false)
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         noteService.query().then(notes => setNotes(notes))
@@ -155,14 +155,15 @@ export function NoteIndex() {
         onAddNote(clonedNote)
     }
 
-    function onOpenCanvas(){
+    function onOpenCanvas() {
         setIsCanvasOpen(true)
     }
 
-    function onCloseCanvas(){
+    function onCloseCanvas() {
         setIsCanvasOpen(false)
+        navigate("/note")
     }
-    
+
     return (
         <React.Fragment>
             <section className="header-section">
@@ -170,28 +171,30 @@ export function NoteIndex() {
                 <NoteFilter filterByTxt={filterByTxt}></NoteFilter>
             </section>
             {isCanvasOpen && (
-                 < CanvasDrawing onCloseCanvas={onCloseCanvas}></CanvasDrawing>
+                <CanvasDrawing onAddNote={onAddNote} onCloseCanvas={onCloseCanvas}></CanvasDrawing>
             )}
-            <section className="notes-section">
-                <Navbar isFilteredByType={isFilteredByType} onFilterType={onFilterType}></Navbar>
-                {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
-                {isInputOpen && <div className="overlay" onClick={onOverlayClick}></div>}
-                <div className="input-section">
-                    <NoteInput isInputOpen={isInputOpen}
-                        inputType={inputType}
-                        setIsOpen={setIsOpen}
-                        onOpenInput={onOpenInput}
-                        onAddNote={onAddNote}
-                        isEditing={isEditing}
-                        noteToEdit={noteToEdit}
-                        onUpdateNote={onUpdateNote}
-                        onOpenCanvas={onOpenCanvas}
-                    />
-                </div>
-                <div className="notes-container">
-                    <NoteList onCloneNote={onCloneNote} onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
-                </div>
-            </section>
+            {!isCanvasOpen && (
+                <section className="notes-section">
+                    <Navbar isFilteredByType={isFilteredByType} onFilterType={onFilterType}></Navbar>
+                    {isEditing && <div className="overlay-edit" onClick={onOverlayClick}></div>}
+                    {isInputOpen && <div className="overlay" onClick={onOverlayClick}></div>}
+                    <div className="input-section">
+                        <NoteInput isInputOpen={isInputOpen}
+                            inputType={inputType}
+                            setIsOpen={setIsOpen}
+                            onOpenInput={onOpenInput}
+                            onAddNote={onAddNote}
+                            isEditing={isEditing}
+                            noteToEdit={noteToEdit}
+                            onUpdateNote={onUpdateNote}
+                            onOpenCanvas={onOpenCanvas}
+                        />
+                    </div>
+                    <div className="notes-container">
+                        <NoteList onCloneNote={onCloneNote} onRemoveNote={onRemoveNote} setIsPinned={setIsPinned} notes={notes} onEditNote={onEditNote} onEditBackgroundColor={onEditBackgroundColor} setIsTodoDone={setIsTodoDone}></NoteList>
+                    </div>
+                </section>
+            )}
         </React.Fragment>
     )
 }
