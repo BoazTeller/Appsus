@@ -1,29 +1,20 @@
 .mail-list {
-    /* overflow-y: scroll; */
-    background-color: white;
     display: flex;
     flex-direction: column;
-    /* grid-template-rows: 1fr; */
     flex-direction: column;
-    /* flex-grow: 1; */
 
-    /* height: 100%; */
-    /* max-height: 100vh; */
-    padding-block-end: 24px;
-    padding-inline-end: 6px;
-    margin-block-end: 14px;
-    
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    padding-block-end: 24px;    
+    /* padding-right: calc(16px - var(--mail-scrollbar-width)); */
+    /* padding-right: 50px; */
+    padding-inline-end: 7px;
     
-    overflow-y: auto;
-    /* max-height: calc(100% + 56px); */
-    /* max-height: 100%; */
-    /* height: 100svh; */
-    height: calc(100vh - 181px);
-    scrollbar-gutter: stable both-edges;
+    height: calc(100vh - 182px);
+    overflow-y: scroll;
 
-
+    scrollbar-gutter: stables;
+    background-color: white;
 }
 
 .mail-list .empty-folder-msg {
@@ -41,72 +32,46 @@
     color: #0000EE;
 }
 
-.loader1 {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: block;
-    margin: 30px auto;
-    position: relative;
-    box-sizing: border-box;
-    background: transparent;
-    animation: rotate 1.2s linear infinite;
-    box-shadow:
-        0px -20px 0px 0px rgba(66, 133, 244, 1), 
-        14px -14px 0px 0px rgba(234, 67, 53, 1), 
-        20px 0px 0px 0px rgba(251, 188, 5, 1),
-        14px 14px 0px 0px rgba(52, 168, 83, 1); 
+/* Scollbar */
+.mail-list::-webkit-scrollbar {
+    width: var(--mail-scrollbar-width);
 }
 
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+/* Normal state */
+.mail-list::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.1), inset 0px -1px 0px rgba(0, 0, 0, 0.07);
 }
 
-.loader2 {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: block;
-    margin: 15px auto;
-    position: relative;
-    background-color: transparent;
-    box-sizing: border-box;
-    box-shadow:
-        0 0 0 2px rgba(66, 133, 244, 0.6),
-        0 0 0 6px rgba(52, 168, 83, 0.3),
-        0 0 0 10px rgba(251, 188, 5, 0.3),
-        0 0 0 14px rgba(234, 67, 53, 0.3);
-    animation: animLoader 1s infinite linear;
+.mail-list::-webkit-scrollbar-track {
+    background-color: white;
+    border: none;
 }
 
-@keyframes animLoader {
-    0% {
-        transform: rotate(0deg);
-        box-shadow:
-            0 0 0 2px rgba(66, 133, 244, 0.6),
-            0 0 0 6px rgba(52, 168, 83, 0.3),
-            0 0 0 10px rgba(251, 188, 5, 0.3),
-            0 0 0 14px rgba(234, 67, 53, 0.3);
-    }
-    50% {
-        transform: rotate(180deg);
-        box-shadow:
-            0 0 0 2px rgba(234, 67, 53, 0.6),
-            0 0 0 6px rgba(251, 188, 5, 0.3),
-            0 0 0 10px rgba(52, 168, 83, 0.3),
-            0 0 0 14px rgba(66, 133, 244, 0.3);
-    }
-    100% {
-        transform: rotate(360deg);
-        box-shadow:
-            0 0 0 2px rgba(66, 133, 244, 0.6),
-            0 0 0 6px rgba(52, 168, 83, 0.3),
-            0 0 0 10px rgba(251, 188, 5, 0.3),
-            0 0 0 14px rgba(234, 67, 53, 0.3);
-    }
+/* Hover state */
+.mail-list::-webkit-scrollbar-thumb:hover {
+    background-color: #919191;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25); 
+}
+
+.mail-list::-webkit-scrollbar-track:hover {
+    background-color: #f2f2f2;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid #dedede;
+}
+
+/* Active state */
+.mail-list::-webkit-scrollbar-thumb:active {
+    background-color: #797979;
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mail-list::-webkit-scrollbar-track:active {
+    background-color: #f2f2f2;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+
+    border-left: 2px solid #dbdbdb;
+    border-top: 2px solid #dbdbdb;
+    border-bottom: 2px solid #dbdbdb;
+    border-right: 1px solid #e5e5e5;
 }
