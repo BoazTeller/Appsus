@@ -213,18 +213,19 @@ function _createMails() {
     if (!mails || !mails.length) {
         mails = []
         // Create mails as a base for inbox
-        for (let i = 0; i < 8; i++) {
-            mails.push(_createMail())
-        }
+        // for (let i = 0; i < 8; i++) {
+        //     mails.push(_createMail())
+        // }
         // Create mails for trash
-        for (let i = 0; i < 3; i++) {
-            mails.push(_createTrashMail())
-        }
+        // for (let i = 0; i < 3; i++) {
+        //     mails.push(_createTrashMail())
+        // }
         // Create mails for starred
-        for (let i = 0; i < 0; i++) {
-            mails.push(_createStarredMail())
-        }
-        // mails = getDemoMails()
+        // for (let i = 0; i < 0; i++) {
+        //     mails.push(_createStarredMail())
+        // }
+
+        mails = getDemoMails()
         utilService.saveToStorage(MAIL_KEY, mails)
         console.log("Mails created and saved:", mails)
     }
