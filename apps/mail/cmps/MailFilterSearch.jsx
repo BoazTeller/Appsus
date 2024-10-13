@@ -7,6 +7,10 @@ export function MailFilterSearch({ onSetFilterBy, filterBy }) {
         onSetFilterBy(filterByToEdit)
     }, [filterByToEdit])
 
+    function onClearTxt() {
+        setFilterByToEdit((prevFilter) => ({ ...prevFilter, txt: '' }))
+    }
+
     function handleChange({ target }) {
         const { value, name: field } = target
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
@@ -32,8 +36,14 @@ export function MailFilterSearch({ onSetFilterBy, filterBy }) {
                 />
                 
                 <button className="search-btn" type="submit" aria-label="Search">
-                    <span className="materials">search</span>
+                    <span className="materials" title="Search">search</span>
                 </button>
+
+                {filterByToEdit.txt &&
+                    <button className="clear-btn" type="button" aria-label="Clear">
+                        <span className="materials" title="Clear search" onClick={onClearTxt}>clear</span>
+                    </button>
+                }
             </form>
         </section>
     )

@@ -1,78 +1,136 @@
 .mail-preview {
-    width: 100%;
+    cursor: pointer;
+    position: relative;
     display: grid;
-    grid-template-columns: 40px 1fr;
-    /* font-size: 0.875rem; */
+    grid-template-columns: auto 200px 1fr minmax(85px, auto);
     align-items: center;
-    overflow: hidden;
-}
-
-.mail-content > * {
-    /* font-size: 0.875rem; */
+    color: var(--mail-gray1);
+    padding-left: 6px;
+    height: 40px;
+    background-color: #f2f6fc;
+    box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.12);
+    z-index: 1;
 }
 
 .mail-preview:hover {
-    box-shadow:
-        inset 1px 0 0 #dadce0,
-        inset -1px 0 0 #dadce0,
-        0 1px 2px 0 rgba(60, 64, 67, .3),
-        0 1px 3px 1px rgba(60, 64, 67, .15)
+    z-index: 2;
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
 }
 
-.mail-preview > * {
-    display: inline;
-    padding: 0.7em;
-    /* line-height: 1.4; */
+.mail-preview.is-read {
+    background-color: white;
+}
+
+.mail-preview.is-read .mail-subject,
+.mail-preview.is-read .mail-from,
+.mail-preview.is-read .mail-sent-at {
+    font-family: GoogleSans-Bold;
+}
+
+.mail-preview .mail-from {
+    padding-right: 32px;
 }
 
 .mail-preview .mail-content {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 20px 38px;
+    padding-right: 10px;
 }
 
-.mail-preview .mail-subject {
-    grid-row: 2;
-    overflow-y: hidden;
+.mail-preview .mail-from,
+.mail-preview .mail-content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mail-preview .mail-content p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Enter empty char at the start if mail body is rendered */
+.mail-preview .mail-body::before {
+    content: '\00a0'; 
 }
 
 .mail-preview .mail-body {
-    color: var(--mail-gray2);
-    font-weight: lighter;
+    color: var(--mail-gray4);
+}
+
+.mail-preview .mail-subject {
+    flex-shrink: 0;           
+    min-width: 0; 
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mail-preview .mail-body {
+    flex-shrink: 1;          
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--mail-gray4);
 }
 
 .mail-preview .mail-sent-at {
-    text-align: end;
-    padding-inline-end: 1.5em;
-}
-.mail-preview > * {
-    background-color: #fff;
-}
-.mail-preview.is-read>* {
-    /* font-weight: lighter; */
-    background-color: #f2f6fc;
-}
-
-.mail-preview.is-read div>* {
-    /* font-weight: inherit; */
-}
-
-.mail-preview .star {
     display: flex;
-    align-items: center;
-    margin-inline-start: 10px;
-    width: 30px;
-    height: 30px;
+    justify-content: end;
+    padding-right: 16px;
+    font-size: 0.75rem;
+}
+
+.mail-preview button {
+    background-color: inherit;
     border-radius: 50%;
-    padding: 0.5em;
-    /* font-weight: lighter; */
+    height: 39px;
+    width: 39px;
+    transition: opacity 0.2s ease;
+}
+
+.mail-preview .actions-container {
+    padding-right: 6px;
+}
+
+/* Hover buttons */
+.mail-preview .actions-container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mail-preview .actions-container button:hover {
+    background-color: rgba(230, 234, 239, 0.8); 
+}
+
+.mail-preview .actions-container .material-symbols-outlined {
+    font-weight: 500;
+    font-size: 18px; 
+    line-height: 1;
+    color: #5f6368; 
+}
+
+/* Star Button */
+
+.mail-preview .btn-star {
+    padding: 0;
+    background-clip: content-box; 
+}
+
+.mail-preview .btn-star:hover {
+    background-color: rgba(230, 234, 239, 0.5);
+}
+
+.mail-preview .btn-star:not(.starred) {
     opacity: 0.32;
+    color: #434443;
 }
 
-.mail-preview .star:hover {
-    /* background-color: var(--mail-gray1); */
-}
-
-.mail-preview:hover .star {
+.mail-preview .btn-star:not(.starred):hover {
     opacity: 1;
+}
+
+.mail-preview .btn-star.starred:hover::before {
+    color: #f4b400;
 }
