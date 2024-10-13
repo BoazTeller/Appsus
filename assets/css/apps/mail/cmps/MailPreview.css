@@ -133,12 +133,21 @@
 .mail-preview .btn-star:not(.starred) {
     opacity: 0.32;
     color: #434443;
+    /* color: #c3c4c3; */
 }
 
-.mail-preview .btn-star:not(.starred):hover {
+.mail-preview:hover .btn-star:not(.starred) {
+    color: var(--mail-gray1)
+}
+
+.mail-preview:hover .btn-star {
     opacity: 1;
 }
 
-.mail-preview .btn-star.starred:hover::before {
+.mail-preview .btn-star.starred {
+    opacity: 0.7;
+}
+
+.mail-preview:hover .btn-star.starred::before {
     color: #f4b400;
 }
