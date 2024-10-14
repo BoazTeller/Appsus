@@ -1,117 +1,124 @@
 .mail-edit {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
+    position: absolute;
+    right: 40px;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100dvh;
+    width: 450px;
+    color: white;
+    background-color: green;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12),
+                0 5px 5px -3px rgba(0, 0, 0, 0.2);
     z-index: 3;
-    background-color: #f2f6fc; 
+    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
-.mail-edit>* {
-    padding: 1em;
+#mailEdit.minimized {
+    width: 328px;
 }
 
 .mail-edit header {
-    position: relative;
-    margin-block-start: 40px;
-    margin-inline-end: 15px;
-    background-color: #f2f6fc;
-}
-
-.mail-edit header>* {
-    font-size: 0.9rem;
-    font-weight: lighter;
-}
-
-.mail-edit header button {
-    position: absolute;
-    top: 15px;
-    right: 0;
-    background-color: transparent;
-    border: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--mail-color2);
     cursor: pointer;
+}
+
+.mail-edit header h1 {
+    padding-block: 0.625rem;
+    margin-left: 1rem;
+    font-family: 'GoogleSans-Med';
+    font-weight: 500;
+    color: #041E49;
+}
+
+.mail-edit header .actions-container {
+    padding: 0 12px 0 4px;
+    display: flex;
+}
+
+.mail-edit header .actions-container button {
+    background-color: inherit;
+    padding: 0;
+    height: 1rem;
+    width: 1rem;
+    font-size: 16px;
+    color: #4d504f;
+    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+    margin-left: 10px;
+    line-height: 1;
+}
+
+.mail-edit header button:hover {
+    background-color: rgba(230, 234, 239, 0.8);
 }
 
 .mail-edit form {
-    flex-grow: 1;
-    display: grid;
-    grid-template-rows: 30px 30px 1fr 50px;
-    background-color: white;
-    padding-block: 0.2em;
-    gap: 10px;
-}
-
-.mail-edit input,
-.mail-edit textarea {
-    width: 100%;
     height: 100%;
-    padding: 0.5em;
-    border-bottom: 1px solid #222222; 
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.4em;
-    resize: none;
-    box-sizing: border-box;
+    padding-inline: 1rem;
+    background-color: white;
+    display: grid;
+    grid-template-rows: 40px 40px 1fr max(60px);
 }
 
-.mail-edit textarea {
-    border: none;
-}
-
-.mail-edit .subject {
-    display: flex;
-    align-items: flex-end;
-}
-
-.mail-edit .subject textarea {
-    border-bottom: 1px solid #222222; 
-}
-
-.mail-edit .send-btn {
-    justify-self: start;
-    color: #ffffff; 
-    background-color: #0b57d0; 
-    border: none;
-    border-radius: 30px;
-    margin-block: 10px;
-    padding: 0.2em 1.2em;
-    cursor: pointer;
-}
-
-.mail-edit .send-btn:hover {
-    background-color: #0a50bf;
-}
-
-.mail-edit input:focus, 
-.mail-edit textarea:focus, 
-.mail-edit button:focus {
+.mail-edit form input {
+    padding: 0;
+    height: 40px;
     outline: none;
+    width: 100%;
+    box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, .12);
 }
 
-.mail-edit .loader1 {
-    margin-top: 2em;
+.mail-edit form textarea {
+    outline: none;
+    padding: 10px 0;
+    color: #222222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8125rem;
+    border: none;
+    min-width: 100%;
 }
 
-@media (min-width: 550px) {
-    .mail-edit {
-        position: absolute;
-        right: 40px;
-        width: 400px;
-        height: 400px;
-        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 
-                    0 3px 14px 2px rgba(0, 0, 0, 0.12), 
-                    0 5px 5px -3px rgba(0, 0, 0, 0.2); 
-        border-radius: 5px;
-        left: unset;
-    }
+.mail-edit div.btn-container {
+    padding-top: 12px;
+    padding-bottom: 16px;
+}
 
-    .mail-edit header {
-        margin-block-start: 0;
-    }
+.mail-edit form .send-btn {
+    height: 36px;
+    font-family: GoogleSans-Med;
+    font-weight: 500;
+    color: white;
+    font-size: 1rem;
+    background-color: #0B57D0;
+    border-radius: 18px;
+    padding-inline: 33.62px;
+    max-width: fit-content;
+    border: 1px #3079ed solid;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 3px 1px -2px rgba(0, 0, 0, .12), 0px 1px 5px 0px rgba(0, 0, 0, .2);
+}
 
+/* At 1275px width and higher the form height is 576px */
+/* At 980px width and lower the form height is 428px */
+/* Header is always 40px */
+.mail-edit form {
+    height: calc(428px + (148 * ((100vw - 980px) / (1275 - 980))));
+}
+
+@media (min-width: 1275px) {
     .mail-edit form {
-        grid-template-rows: 30px 30px 1fr 50px;
+        height: 576px;
+    }
+}
+
+@media (max-width: 980px) {
+    .mail-edit form {
+        height: 428px;
     }
 }

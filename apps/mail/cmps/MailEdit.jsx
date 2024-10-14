@@ -10,6 +10,7 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
 
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
     const [draftSubject, setDraftSubject] = useState('New Message')
+    const [isMinimized, setIsMinimized] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [isDraftUpdated, setIsDraftUpdated] = useState(false) 
     
@@ -98,24 +99,51 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
         onSendMail(mailToEdit)
     }
 
-    const { to, subject, body } = mailToEdit
+    function onToggleIsMinimized() {
+        setIsMinimized(prevIsMinimized => !prevIsMinimized)
+    }
 
+    function handleKeyDown(ev) {
+        if (ev.ctrlKey && ev.key === 'Enter') {
+            onSubmitMail(ev)
+        }
+    }
+
+    const { to, subject, body } = mailToEdit
     return (
-        <section className="mail-edit">
-            <header>
+        <section 
+            id="mailEdit"
+            className={`mail-edit ${isMinimized ? 'minimized' : ''}`} 
+            title={isMinimized ? 'Maximize' : ''}
+        >
+    
+            <header className="compose-header">
                 <h1>{isLoading ? 'Loading draft...' : draftSubject}</h1>
-                <button onClick={() => handleCloseEdit()}>x</button>
+
+                <section className="actions-container">
+                    <button 
+                        onClick={onToggleIsMinimized} 
+                        title={isMinimized ? 'Maximize' : 'Minimize'}
+                    >
+                        <span className="materials">remove</span>
+                    </button>
+                    
+                    <button 
+                        onClick={() => handleCloseEdit()} 
+                        title="Save & close"
+                    >
+                            <span className="materials">close</span>
+                    </button>
+                </section>
             </header>
 
-            {isLoading && <span className="loader1"></span>}
-
-            {!isLoading && 
-                <form onSubmit={onSubmitMail} >
+            {!isMinimized && !isLoading && 
+                <form onSubmit={onSubmitMail} onKeyDown={handleKeyDown}>
                     <div className="email">
                         <input
                             ref={toInputRef}
                             type="email"
-                            placeholder="To"
+                            placeholder="Recipients"
                             name="to"
                             onChange={handleChange}
                             value={to}
@@ -131,19 +159,21 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
                             value={subject}
                         />
                     </div>
+                    
+                    <textarea
+                        type="text"
+                        name="body"
+                        onChange={handleChange}
+                        value={body}
+                    />
 
-                    <div className="body">
-                        <textarea
-                            type="text"
-                            placeholder="Compose mail"
-                            name="body"
-                            onChange={handleChange}
-                            value={body}
-                        />
+                    <div className="btn-container flex align-center">
+                        <button className="send-btn" title="Send {Ctrl-Enter}">Send</button>
                     </div>
-                    <button className="send-btn">Send</button>
                 </form>
             }
+
+            {isLoading && <span className="loader1"></span>}
         </section>
     )
 }
