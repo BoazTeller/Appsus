@@ -97,7 +97,7 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead,
 
     return (
         <article 
-            className={`mail-preview ${readClass}`}
+            className={`mail-preview ${readClass} ${!mail.sentAt ? 'draft': ''}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         

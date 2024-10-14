@@ -87,7 +87,7 @@ export function MailIndex() {
     }
 
     function onOpenMailDetails(mail) {
-        if (!mail.isRead) onReadMail(mail)
+        if (!mail.isRead && mail.sentAt) onReadMail(mail)
         navigate(`/mail/${mail.id}`)
     }
 

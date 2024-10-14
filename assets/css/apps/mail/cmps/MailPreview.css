@@ -16,27 +16,6 @@
     box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
 }
 
-.mail-preview.un-read {
-    background-color: #f2f6fc;
-
-}
-
-.mail-preview.is-read {
-    background-color: white;
-}
-
-.mail-preview.is-read .mail-subject,
-.mail-preview.is-read .mail-from,
-.mail-preview.is-read .mail-sent-at {
-    font-family: GoogleSans-Bold;
-}
-
-
-.mail-preview .mail-from.draft {
-    color: #DD4B39;
-    font-family: GoogleSans-Reg;
-}
-
 .mail-preview .mail-from {
     padding-right: 32px;
 }
@@ -154,3 +133,44 @@
     color: #f4b400;
 }
 
+/* Unread Mails */
+.mail-preview.un-read {
+    background-color: var(--mail-color2);
+}
+
+.mail-preview.un-read .mail-subject,
+.mail-preview.un-read .mail-from,
+.mail-preview.un-read .mail-sent-at {
+    font-family: GoogleSans-Bold;
+}
+
+/* Read Mails */
+.mail-preview.is-read {
+    background-color: white;
+}
+
+.mail-preview.is-read .mail-subject,
+.mail-preview.is-read .mail-from,
+.mail-preview.is-read .mail-sent-at {
+    font-family: GoogleSans-Reg;
+    font-weight: 400;
+}
+
+/* Draft Mails */
+.mail-preview.draft .mail-from {
+    color: #DD4B39;
+    font-family: GoogleSans-Reg;
+    font-weight: 400;
+}
+
+.mail-preview.draft .mail-subject,
+.mail-preview.draft .mail-sent-at {
+    font-family: GoogleSans-Reg;
+    font-weight: 400;
+}
+
+/* Drafts that are marked as read (toggle read) */
+.mail-preview.is-read.draft .mail-subject,
+.mail-preview.is-read.draft .mail-sent-at {
+    font-family: GoogleSans-Bold;
+}

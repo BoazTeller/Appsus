@@ -86,8 +86,6 @@
 .mail-details .mail-actions {
     display: flex;
     gap: 1em;
-
-
     margin-top: end;
 }
 
