@@ -19,6 +19,7 @@ export const mailService = {
     getFilterFromParams,
     getDefaultSortBy,
     getEmptyMail,
+    getSortedMails,
     getUnreadMailsCount,
     getDraftMailsCount,
     getUnreadAndDraftCounts,
@@ -32,7 +33,7 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
         .then(mails => {
             mails = _getFilteredMails(mails, filterBy)
 
-            mails = _getSortedMails(mails, sortBy)
+            mails = getSortedMails(mails, sortBy)
 
             return mails
         })
@@ -93,7 +94,12 @@ function getDraftMailsCount() {
 function _getFilteredMails(mails, filterBy) {
     // Folder (status) filtering
     if (filterBy.folder === 'inbox') {
-        mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && mail.sentAt)
+        mails = mails.filter(mail => 
+            mail.to === loggedinUser.email &&   
+            !mail.removedAt &&                  
+            mail.sentAt &&                      
+            (mail.from !== loggedinUser.email || mail.to === loggedinUser.email) 
+        )
     }
     if (filterBy.folder === 'starred') {
         mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
@@ -141,7 +147,7 @@ function _searchMailsByWords(mails, txt) {
     )
 }
 
-function _getSortedMails(mails, sortBy) {
+function getSortedMails(mails, sortBy) {
     // Sort alphabetically by To Sender address
     if (sortBy.to) {
         mails.sort((mail1, mail2) => mail1.to.localeCompare(mail2.to) * sortBy.to)
