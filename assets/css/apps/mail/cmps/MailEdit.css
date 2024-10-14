@@ -1,6 +1,8 @@
 .mail-edit {
     position: absolute;
     right: 40px;
+    position: absolute;
+    right: 40px;
     bottom: 0;
     width: 450px;
     color: white;
@@ -25,7 +27,41 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--mail-color2);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--mail-color2);
     cursor: pointer;
+}
+
+.mail-edit header h1 {
+    padding-block: 0.625rem;
+    margin-left: 1rem;
+    font-family: 'GoogleSans-Med';
+    font-weight: 500;
+    color: #041E49;
+}
+
+.mail-edit header .actions-container {
+    padding: 0 12px 0 4px;
+    display: flex;
+}
+
+.mail-edit header .actions-container button {
+    background-color: inherit;
+    padding: 0;
+    height: 1rem;
+    width: 1rem;
+    font-size: 16px;
+    color: #4d504f;
+    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+    margin-left: 10px;
+    line-height: 1;
+}
+
+.mail-edit header button:hover {
+    background-color: rgba(230, 234, 239, 0.8);
 }
 
 .mail-edit header h1 {
