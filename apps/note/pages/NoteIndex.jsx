@@ -62,7 +62,7 @@ export function NoteIndex() {
                 showSuccessMsg('Note from Mail successfully added!')
         })
         .catch(error => {
-            console.error('Failed to save the note:', error);
+            console.error('Failed to save the note:', error)
             showErrorMsg('Failed to add note. Please try again.')
         })
     }

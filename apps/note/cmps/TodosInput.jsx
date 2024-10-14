@@ -9,7 +9,7 @@ export function TodosInput({ handleInput, newNote, onSubmitForm, isEditing }) {
         setTodos(prevTodos => {
             const updatedTodos = prevTodos.map((todo,index) => {
                 if(index === todoIndex){
-                    return { ...todo, txt: value };
+                    return { ...todo, txt: value }
                 }
                 return todo
             })
