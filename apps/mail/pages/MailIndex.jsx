@@ -5,6 +5,7 @@ import { mailService } from "../services/mail.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
+import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
@@ -223,7 +224,10 @@ export function MailIndex() {
     const { folder, txt, isRead } = filterBy
     return (
         <section className="mail-index">
-            {/* <MailHeader /> */}
+            <MailHeader
+                onSetFilterBy={onSetFilterBy} 
+                filterBy={{ folder }} 
+            />
 
             <MailFolderList 
                 onSetFilterBy={onSetFilterBy} 
@@ -240,12 +244,7 @@ export function MailIndex() {
             }  
 
             {!params.mailId &&
-                <div className="mail-filter-and-list-container">
-                    <MailFilterSearch 
-                        onSetFilterBy={onSetFilterBy} 
-                        filterBy={{ txt }} 
-                    />
-
+                <div>
                     <MailList 
                         mails={mails} 
                         onSetSortBy={onSetSortBy}

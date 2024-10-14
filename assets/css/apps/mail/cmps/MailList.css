@@ -10,7 +10,7 @@
     /* padding-right: 50px; */
     padding-inline-end: 7px;
     
-    height: calc(100vh - 192px);
+    height: calc(100vh - 193px);
     overflow-y: scroll;
     
     scrollbar-gutter: stables;
