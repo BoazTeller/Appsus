@@ -30,6 +30,7 @@
 @import './apps/mail/cmps/MailSort.css';
 @import './apps/mail/cmps/MailFilterSearch.css';
 @import './apps/mail/cmps/MailEdit.css';
+@import './apps/mail/cmps/MailHeader.css';
 
 /*** Note ***/
 /* Note Pages */

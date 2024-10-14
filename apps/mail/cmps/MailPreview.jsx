@@ -4,7 +4,7 @@ const { useSearchParams } = ReactRouterDOM
 import { mailService } from "../services/mail.service.js"
 import { utilService } from "../../../services/util.service.js"
 
-export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead }) {
+export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead, onSaveAsNote }) {
     const [searchParams] = useSearchParams()
 
     const [isHovered, setIsHovered] = useState(false)
@@ -27,6 +27,7 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead 
 
     function onSaveAsNoteClick(ev) {
         ev.stopPropagation()
+        onSaveAsNote(mail)
     }
 
     function getToOrFromDetails() {

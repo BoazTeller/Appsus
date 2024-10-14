@@ -33,8 +33,6 @@
     color: #0000EE;
 }
 
-
-
 /* Scollbar */
 .mail-list::-webkit-scrollbar {
     width: var(--mail-scrollbar-width);

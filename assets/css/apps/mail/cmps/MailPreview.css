@@ -17,11 +17,12 @@
 }
 
 .mail-preview.un-read {
-    background-color: white;
+    background-color: #f2f6fc;
+
 }
 
 .mail-preview.is-read {
-    background-color: #f2f6fc;
+    background-color: white;
 }
 
 .mail-preview.is-read .mail-subject,
@@ -33,6 +34,7 @@
 
 .mail-preview .mail-from.draft {
     color: #DD4B39;
+    font-family: GoogleSans-Reg;
 }
 
 .mail-preview .mail-from {
@@ -151,3 +153,4 @@
 .mail-preview:hover .btn-star.starred::before {
     color: #f4b400;
 }
+
