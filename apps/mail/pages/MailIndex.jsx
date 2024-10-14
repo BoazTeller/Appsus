@@ -72,10 +72,12 @@ export function MailIndex() {
         if (!draftToSave) return
         
         showSuccessMsg('Saving draft...')
-
+        
         mailService.save(draftToSave)
             .then(() => {
-                setMails(prevMails => [draftToSave, ...mails])
+                if (searchParams.get('folder') === 'drafts') {
+                    setMails(prevMails => [...mails, draftToSave])
+                }
                 showSuccessMsg('Draft saved')
             })
             .catch(err => {
@@ -100,7 +102,9 @@ export function MailIndex() {
 
         mailService.save(mailToSend)
             .then(() => {
-                setMails(prevMails => [mailToSend, ...prevMails])
+                setMails(prevMails => 
+                    mailService.getSortedMails([...prevMails, mailToSend], sortBy)
+                )
                 onCloseMailEdit()
                 showSuccessMsg('Message sent')
             })
@@ -199,9 +203,28 @@ export function MailIndex() {
             })
     }
     
+    function onSaveAsNote(mail) {
+        const newNoteParams = new URLSearchParams({
+            subject: mail.subject || '',
+            body: mail.body || '',
+            from: mail.from || '',
+            to: mail.to || ''
+        })
+
+        setSearchParams(newNoteParams)
+
+        navigate({
+            pathname: '/note',
+            search: `?${newNoteParams.toString()}`,
+            replace: true
+        })
+    }
+
     const { folder, txt, isRead } = filterBy
     return (
         <section className="mail-index">
+            {/* <MailHeader /> */}
+
             <MailFolderList 
                 onSetFilterBy={onSetFilterBy} 
                 filterBy={{ folder }} 
@@ -235,6 +258,7 @@ export function MailIndex() {
                         onToggleStarred={onToggleStarred}
                         onToggleRead={onToggleRead}
                         onReadMail={onReadMail}
+                        onSaveAsNote={onSaveAsNote}
                         folder={folder}
                         isLoading={isLoading}
                     />

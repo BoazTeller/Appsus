@@ -6,9 +6,11 @@ import { Navbar } from "../cmps/Navbar.jsx"
 import { CanvasDrawing } from "../cmps/CanvasDrawing.jsx"
 
 import { noteService } from "../services/note-service.js"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 const { useNavigate } = ReactRouter
+const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
 
@@ -20,12 +22,51 @@ export function NoteIndex() {
     const [isFilteredByType, setIsFilteredByType] = useState(false)
     const [isCanvasOpen, setIsCanvasOpen] = useState(false)
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
 
 
     useEffect(() => {
         noteService.query().then(notes => setNotes(notes))
     }, [])
 
+    useEffect(() => {
+        const mailAsNote = {
+            subject: searchParams.get('subject') || '',
+            body: searchParams.get('body') || '',
+            from: searchParams.get('from') || '',
+            to: searchParams.get('to') || ''
+        }
+
+        if (mailAsNote.subject && mailAsNote.body) {
+            createAndSaveMailNote(mailAsNote)
+        }
+    }, [searchParams])
+    
+    function createAndSaveMailNote(mailAsNote) {
+        const backgroundColor = '#eaded4'
+    
+        const newNote = {
+            type: 'NoteTxt',
+            createdAt: Date.now(),
+            isPinned: true,
+            style: { backgroundColor: backgroundColor },
+            info: {
+                title: mailAsNote.subject,
+                txt: mailAsNote.body,   
+            }
+        }
+    
+        noteService.post(newNote)
+            .then(savedNote => {
+                setNotes(prevNotes => [...prevNotes, savedNote])
+                showSuccessMsg('Note from Mail successfully added!')
+        })
+        .catch(error => {
+            console.error('Failed to save the note:', error);
+            showErrorMsg('Failed to add note. Please try again.')
+        })
+    }
+    
     function onOpenInput(type) {
         setIsOpen(true) //chancing the isOpen to its negative value
         setInputType(type)
