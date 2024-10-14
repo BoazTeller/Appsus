@@ -97,10 +97,10 @@ export function CanvasDrawing({ onCloseCanvas, onAddNote,noteToEdit,onEditNote }
                 onMouseUp={stopDrawing}
                 onMouseLeave={stopDrawing}
             ></canvas>
-            <div style={{ position: "absolute", top: "10px", left: "10px", zIndex: 1 }}>
-                <button onClick={clearCanvas}>Clear</button>
-                <button onClick={saveCanvas}>Save as Note</button>
-                <button onClick={onCloseCanvas}>Close</button>
+            <div className="canvas-actions-container">
+                <button className='canvas-btn' onClick={clearCanvas}>Clear</button>
+                <button className='canvas-btn' onClick={saveCanvas}>Save as Note</button>
+                <button className='canvas-btn' onClick={onCloseCanvas}>Close</button>
             </div>
         </div>
     )

@@ -1,0 +1,12 @@
+.canvas-actions-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+}
+
+.canvas-btn{
+    background: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 17px;
+}
