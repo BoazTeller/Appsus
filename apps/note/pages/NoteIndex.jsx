@@ -41,10 +41,10 @@ export function NoteIndex() {
             createAndSaveMailNote(mailAsNote)
         }
     }, [searchParams])
-    
+
     function createAndSaveMailNote(mailAsNote) {
         const backgroundColor = '#eaded4'
-    
+
         const newNote = {
             type: 'NoteTxt',
             createdAt: Date.now(),
@@ -52,21 +52,21 @@ export function NoteIndex() {
             style: { backgroundColor: backgroundColor },
             info: {
                 title: mailAsNote.subject,
-                txt: mailAsNote.body,   
+                txt: mailAsNote.body,
             }
         }
-    
+
         noteService.post(newNote)
             .then(savedNote => {
                 setNotes(prevNotes => [...prevNotes, savedNote])
                 showSuccessMsg('Note from Mail successfully added!')
-        })
-        .catch(error => {
-            console.error('Failed to save the note:', error)
-            showErrorMsg('Failed to add note. Please try again.')
-        })
+            })
+            .catch(error => {
+                console.error('Failed to save the note:', error);
+                showErrorMsg('Failed to add note. Please try again.')
+            })
     }
-    
+
     function onOpenInput(type) {
         setIsOpen(true) //chancing the isOpen to its negative value
         setInputType(type)
@@ -171,17 +171,32 @@ export function NoteIndex() {
     }
 
     function filterByTxt(txtToFilter) {
+        const newSearchParams = new URLSearchParams(searchParams)
+        if (!txtToFilter) {
+            newSearchParams.delete('txt');
+        } else {
+            newSearchParams.set('txt', txtToFilter);
+        }
         return noteService.query(txtToFilter)
-            .then(notes => setNotes(notes))
+            .then(notes => {
+                navigate({ search: newSearchParams.toString() })
+                setNotes(notes)
+            }
+            )
     }
 
     function onFilterType(ev, noteType) {
+        const newSearchParams = new URLSearchParams(searchParams)
         if (!noteType) {
             return noteService.query().then(notes => {
                 setNotes(notes)
                 setIsFilteredByType(false)
+                newSearchParams.delete('type')
+                navigate({ search: newSearchParams.toString() })
             })
         }
+        newSearchParams.set('type', noteType)
+        navigate({ search: newSearchParams.toString() })
         setIsFilteredByType(true)
         ev.stopPropagation()
         console.log('filtering for type:', noteType)

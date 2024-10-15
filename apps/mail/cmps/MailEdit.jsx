@@ -119,7 +119,7 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
         >
     
             <header className="compose-header">
-                <h1>{isLoading ? 'Loading draft...' : draftSubject}</h1>
+                <h1>{isLoading ? 'Loading...' : draftSubject}</h1>
 
                 <section className="actions-container">
                     <button 
@@ -138,43 +138,40 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
                 </section>
             </header>
 
-            {!isMinimized && !isLoading && 
-                <form onSubmit={onSubmitMail} onKeyDown={handleKeyDown}>
-                    <div className="email">
-                        <input
-                            ref={toInputRef}
-                            type="email"
-                            placeholder="Recipients"
-                            name="to"
-                            onChange={handleChange}
-                            value={to}
-                        />
-                    </div>
 
-                    <div className="subject">
-                        <input
-                            type="text"
-                            placeholder="Subject"
-                            name="subject"
-                            onChange={handleChange}
-                            value={subject}
-                        />
-                    </div>
-                    
-                    <textarea
-                        type="text"
-                        name="body"
+            <form onSubmit={onSubmitMail} onKeyDown={handleKeyDown} style={{ opacity: isLoading ? 0 : 1 }}>
+                <div className="email">
+                    <input
+                        ref={toInputRef}
+                        type="email"
+                        placeholder="Recipients"
+                        name="to"
                         onChange={handleChange}
-                        value={body}
+                        value={to}
                     />
+                </div>
 
-                    <div className="btn-container flex align-center">
-                        <button className="send-btn" title="Send {Ctrl-Enter}">Send</button>
-                    </div>
-                </form>
-            }
+                <div className="subject">
+                    <input
+                        type="text"
+                        placeholder="Subject"
+                        name="subject"
+                        onChange={handleChange}
+                        value={subject}
+                    />
+                </div>
+                
+                <textarea
+                    type="text"
+                    name="body"
+                    onChange={handleChange}
+                    value={body}
+                />
 
-            {isLoading && <Loader loaderNum={3} />}
+                <div className="btn-container flex align-center">
+                    <button className="send-btn" title="Send {Ctrl-Enter}">Send</button>
+                </div>
+            </form>
         </section>
     )
 }
