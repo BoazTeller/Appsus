@@ -1,19 +1,17 @@
 .mail-list {
     display: flex;
     flex-direction: column;
-    flex-direction: column;
 
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    padding-block-end: 24px;    
-    /* padding-right: calc(16px - var(--mail-scrollbar-width)); */
-    /* padding-right: 50px; */
-    padding-inline-end: 7px;
     
+    padding-block-end: 24px;
+    padding-inline-end: 7px;
+
     height: calc(100vh - 193px);
     overflow-y: scroll;
-    
-    scrollbar-gutter: stables;
+
+    scrollbar-gutter: stable;
     background-color: white;
     z-index: 1;
 }
@@ -22,6 +20,7 @@
     padding: 10px 8px;
     text-align: center;
     vertical-align: middle;
+
     width: 100%;
     color: var(--mail-gray1);
     border-bottom: 1px solid var(--mail-color6);

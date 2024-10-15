@@ -2,15 +2,14 @@
     position: relative;
     display: flex;
 
-    border-bottom: 1px solid var(--mail-color6);
-
     padding: 0;
     margin: 0;
-
     padding-block-start: 1em;
     padding-block-end: 0.5rem;
     padding-inline: 0.5rem;
 
+    border-bottom: 1px solid var(--mail-color6);
+    
     background-color: white;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -20,13 +19,16 @@
 .mail-sort button {
     display: flex;
     align-items: center;
+    gap: 8px;
+
+    padding: 0.5em 1em;
+    margin-inline: 0.3em;
+
     border-radius: 10px;
     background-color: white;
     color: rgb(95, 99, 104);
     border: 1px solid rgb(95, 99, 104);
-    padding: 0.5em 1em;
-    margin-inline: 0.3em;
-    gap: 8px;
+
     font-size: 0.875rem;
     max-height: 32px;
 }
@@ -36,12 +38,14 @@ most right side of the sort list (10px scroll + 7px padding) */
 .mail-sort::before {
     content: '';
     position: absolute;
-    bottom: -1px; 
+    bottom: -1px;
     right: 0;
+
     width: 17px;
-    height: 1px; 
+    height: 1px;
+
     box-shadow: inset 0 -2px 0 0 white;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .mail-sort select {
@@ -59,12 +63,15 @@ most right side of the sort list (10px scroll + 7px padding) */
 .mail-sort select {
     display: flex;
     align-items: center;
+
+    padding: 0.5em 1em;
+    margin-inline: 0.3em;
+
     border-radius: 10px;
     background-color: white;
     color: rgb(95, 99, 104);
     border: 1px solid rgb(95, 99, 104);
-    padding: 0.5em 1em;
-    margin-inline: 0.3em;
+
     font-size: 0.875rem;
     cursor: pointer;
 }
@@ -72,6 +79,7 @@ most right side of the sort list (10px scroll + 7px padding) */
 .mail-sort select::-ms-expand {
     display: none; 
 }
+
 .mail-sort select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #000;

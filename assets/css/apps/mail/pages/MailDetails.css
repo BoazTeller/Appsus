@@ -1,21 +1,18 @@
 .mail-details {
-    background-color: #fff;
-    font-weight: 400;
-
-    min-height: 500px;
-    min-width:300px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    min-height: 500px;
+    min-width: 300px;
     border-radius: 20px;
 
-    margin-bottom: 14px;
-    
     padding: 2em;
     margin: 15px;
+    margin-bottom: 14px;
 
-    /* height: 100%; */
-    /* max-height: 100vh; */
+    background-color: #fff;
+    font-weight: 400;
 }
 
 .mail-details > * {
@@ -34,10 +31,11 @@
     font-size: 1.375rem; /* 22px */
     line-height: 1.75rem; /* 28px */
     color: #1f1f1f;
-    -webkit-font-smoothing: antialiased;
 
     white-space: normal;
     word-break: break-word;
+
+    -webkit-font-smoothing: antialiased;
 }
 
 /* to, from */
@@ -45,43 +43,18 @@
     font-size: 1rem;
 }
 
-.mail-details .mail-from span {
-    /* font-size: 30px; 
-    color: #5E5E5E; 
-    line-height: 20px; 
-
-    padding-right: 8px; 
-    vertical-align: top;
-
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap; */
-}
 .mail-details .mail-body {
     flex-grow: 1;
 
 }
+
 .mail-details .mail-body pre {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5em;
     margin: 0;
     white-space: pre-wrap;
-    line-height: 1.5em;
-    font-size: 0.9rem;
-
 }
-
-
-/* 
-.mail-details .mail-send-info::before {
-    grid-row: span 2;
-    font-size: 2rem;
-}
-
-.mail-details .mail-send-info {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    grid-template-rows: 20px 20px;
-} */
 
 .mail-details .mail-actions {
     display: flex;
@@ -91,23 +64,23 @@
 
 .mail-details .mail-actions button {
     font-family: 'GoogleSans-Reg';
-    color: #444746;
     font-weight: 600;
     font-size: 0.875rem; /* 14px */
+    color: #444746;
+    
     background: none;
+    border: 0.909091px solid rgb(116, 119, 117);
+    border-radius: 18px;
+    
+    height: 36px;
     padding: 6px 16px;
     line-height: 20px;
 
-    height: 36px;
-
-    -webkit-font-smoothing: antialiased;
-
-    border: 0.909091px solid rgb(116, 119, 117);
-    border-radius: 18px;
-    transition: background-color 0.2s, box-shadow 0.2s;
-
     align-self: end;
     justify-self: end;
+
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .mail-details .mail-actions button:hover {

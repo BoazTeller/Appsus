@@ -3,14 +3,17 @@
     padding-bottom: 40px;
 }
 
-.card{
+.card {
     position: relative;
-    border: 1px solid #e0e0e0;
-    font-family: var(--note-input-font);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;    
     width: 100%;
     height: max-content;
+
+    font-family: var(--note-input-font);
+
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .image-card{
@@ -28,31 +31,35 @@
 
 .note-txt {
     font-size: 14px;
-    word-wrap: break-word; /* Ensure long words break and wrap */
-    word-break: break-word; /* Also ensure that long words will break */
-    white-space: normal; /* Ensure the text wraps */
+
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
-.note-img{
+
+.note-img {
     display: block;
     border-radius: 10px;
     object-fit: cover;
+
     height: 200px;
     min-height: 200px;
     max-height: 238px;
 }
 
-
-.card-navbar{
+.card-navbar {
     display: none;
     position: absolute;
+
     width: 100%;
     height: 25px;
     bottom: 0;
     left: 0;
+
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.card:hover .card-navbar{
+.card:hover .card-navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,9 +69,10 @@
     visibility: visible;
 }
 
-.fa{
+.fa {
     background: none;
     border: none;
+
     font-size: 1em;
     color: rgb(112, 109, 109);
 }
@@ -75,28 +83,30 @@
 
 .fa-thumbtack {
     position: absolute;
-    visibility: hidden;
     top: 0;
     right: 0;
+    visibility: hidden;
+
+    width: 32px;
     padding: 5px;
     font-size: 1.2em;
     color: rgb(150, 148, 148);
-    opacity: 0.6;  /* Initial opacity */
-    width: 32px;
+    opacity: 0.6;
+
     background-color: transparent;
-    border: 1px solid transparent;  /* Initially transparent border */
+    border: 1px solid transparent;
     border-radius: 50%;
-    transition: opacity 0.4s ease, background-color 0.4s ease,   /* Smooth transition for opacity, background, and border */
+
+    transition: opacity 0.4s ease, background-color 0
 }
 
 .fa-thumbtack:hover {
-    opacity: 1;  /* Change opacity to 1 on hover */
-    background-color: rgba(230, 227, 227,0.9);  /* Background fills in */
+    opacity: 1; 
+    background-color: rgba(230, 227, 227,0.9); 
     color: black;
 }
 
 /*todo-card*/
-
 .todo-txt{
     display: flex;
     gap: 0.4em;

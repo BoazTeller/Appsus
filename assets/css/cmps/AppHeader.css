@@ -3,30 +3,37 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    
     padding: 1em;
     background-color: var(--mail-color1);
-    max-height: 56px;
+    
+    max-height: 56px;    
 }
 
 .app-header .logo {
+    font-family: GoogleSans-Bold;
     font-size: 1.3rem;
     font-weight: lighter;
-    color: var(--logo-clr-blue);
+    
     padding-inline-start: 0.5em;
-    font-family: GoogleSans-Bold;
+    
+    color: var(--logo-clr-blue);
 }
 
 .app-header nav a {
-    color: #5F6267;
     font-family: GoogleSans-Med;
+    color: #5F6267;
+    
     padding: 0.4em 0.6em;
 }
 
 .app-header nav a:hover {
     background-color: var(--mail-gray3);
-    border-radius: 20px;
+    border-radius: 20px;    
 }
 
 .app-header nav a.active {
     color: var(--logo-clr-blue);
 }
+
+

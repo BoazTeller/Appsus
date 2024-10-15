@@ -244,7 +244,7 @@ export function MailIndex() {
             }  
 
             {!params.mailId &&
-                <div>
+                <div className="mail-list-and-sort-container">
                     <MailList 
                         mails={mails} 
                         onSetSortBy={onSetSortBy}

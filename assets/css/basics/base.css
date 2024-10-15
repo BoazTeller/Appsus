@@ -49,11 +49,11 @@ button {
 
 /* Inherit font for input and select elements */
 input {
-  border: none;
+    border: none;
 }
 
 input,
-select {
-  font-family: inherit;
+select {  
+    font-family: inherit;
 }
 

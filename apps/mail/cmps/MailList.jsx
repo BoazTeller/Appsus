@@ -38,7 +38,7 @@ export function MailList({
             />
 
             <ul className="mail-list clean-list">
-                {isLoading && <Loader />}
+                {isLoading && <Loader loaderNum={3} />}
 
                 {!isLoading && mails && mails.length > 0 && (
                     mails.map(mail => (

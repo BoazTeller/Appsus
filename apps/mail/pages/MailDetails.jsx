@@ -3,6 +3,7 @@ const { useParams, useOutletContext, useNavigate  } = ReactRouter
 
 import { mailService } from "../services/mail.service.js"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
+import { Loader } from "../cmps/Loader.jsx"
 
 export function MailDetails() {
     const { mailId } = useParams()
@@ -32,7 +33,7 @@ export function MailDetails() {
 			})
 	}
     
-    if (isLoading) return <div className="loader1"></div>
+    if (isLoading) return  <Loader loaderNum={3} />
     if (!mail) return <div>Mail deleted</div>
 
 	return (

@@ -1,7 +1,6 @@
 const { Link } = ReactRouterDOM
 
 export function NotFound() {
-
     return (
         <section className="not-found-container">
             <section className="not-found">

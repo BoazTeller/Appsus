@@ -1,19 +1,13 @@
-/* Mail index layout */
 .mail-index {
     display: grid;
     grid-template-columns: 256px 1fr 16px; 
     grid-template-rows: 64px 1fr auto; 
     height: 100%; 
     overflow: hidden; 
+
     font-family: var(--mail-font1);
-    background-color: var(--mail-color1);
     font-size: 14px;
-
+    background-color: var(--mail-color1);
+    
     user-select: none;
-}
-
-/* No idea how but somehow h1 have 1rem magins despite having it disabled in base */
-/* Couldn't find the issue and didn't want to waste valuable time on it */
-h1 {
-    margin: 0;
 }

@@ -1,18 +1,20 @@
-.header-section{
+.header-section {
     display: flex;
-    /* grid-auto-columns: repeat(2,2fr,1fr) ; */
-    border-bottom: rgba(136, 136, 136, 0.4) solid 1px;
-    background-color: var(--mail-color1);
     align-items: center;
-    height: 64px;
     gap: 30px;
-    padding-bottom: 20px;
+
+    height: 64px;
     width: 100%;
+    padding-bottom: 20px;
+
+    background-color: var(--mail-color1);
+    border-bottom: rgba(136, 136, 136, 0.4) solid 1px;
+
     position: fixed;
     z-index: 1;
 }
 
-.logo{
+.logo {
     grid-column: 2;
     justify-self: end;
     padding-right: 40px;
@@ -22,55 +24,61 @@
     align-items: center;
 }
 
-.keep{
-    color: #5F6368;
-    font-size: 22px;
+.keep {
     font-family: 'GoogleSans-Reg';
+    font-size: 22px;
+    color: #5F6368;
+    
     padding-right: 8px;
 }
 
-.input-filter-container{
+.input-filter-container {
     position: relative;
     border-radius: 10px;
 }
 
-.fa-search{
-    top: 50%; /* Center the icon vertically */
+.fa-search {
+    top: 50%;
     left: 16px;
-    transform: translateY(-50%); /* Correct vertical alignment */
     position: absolute;
+    transform: translateY(-50%);
+    
     color: #5F6368;
 }
 
-.input-filter-container input{
+.input-filter-container input {
     width: 250px;
     height: 48px;
-    border-radius: 8px;
-    background-color: rgb(241, 243, 244);
-    font-size: 14px;
-    font-family: var( --note-input-font);
-    padding-left: 40px;
     border-radius: 10px;
+
+    background-color: rgb(241, 243, 244);
+
+    font-size: 14px;
+    font-family: var(--note-input-font);
+
+    padding-left: 40px;
 }
 
-.input-filter-container input:focus{
+.input-filter-container input:focus {
     background-color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Slight shadow increase on focus */
-    border-bottom-color: #888; 
-    outline: none
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    
+    border-bottom-color: #888;
+    outline: none;
+    
 }
-
 
 @media screen and (min-width: 768px) {
     .input-filter-container input{
         width: 500px;
+
         font-size: 16px;
-        padding-left: 60px;
+        padding-left: 60px;        
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .input-filter-container input{
+    .input-filter-container input {
         width: 722px;
         padding-left: 60px;
     }

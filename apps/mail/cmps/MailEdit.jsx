@@ -3,6 +3,7 @@ const { useParams, useNavigate } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+import { Loader } from './Loader.jsx'
 
 export function MailEdit({ onCloseMailEdit, onSendMail }) {
     const params = useParams() 
@@ -173,7 +174,7 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
                 </form>
             }
 
-            {isLoading && <span className="loader1"></span>}
+            {isLoading && <Loader loaderNum={3} />}
         </section>
     )
 }

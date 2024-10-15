@@ -1,8 +1,10 @@
 section.mail-header {
     display: flex;
+    align-items: center;
+
     padding: 8px;
     padding-right: 16px;
-    align-items: center; 
+
     background-color: var(--mail-color-2);
     grid-column: 1 / -1;
     min-height: 64px;
@@ -12,9 +14,10 @@ section.mail-header .logo-menu-container {
     cursor: pointer;
     min-width: 238px;
     display: flex;
+    align-items: center;
+
     justify-content: start;
     padding-right: 30px;
-    align-items: center;
 }
 
 section.mail-header .logo-menu-container img {
@@ -22,20 +25,21 @@ section.mail-header .logo-menu-container img {
     height: 40px;
 }
 
-svg {
+section.mail-header .logo-menu-container svg {
     width: 24px;
     height: 24px;
     fill: #5f6368;
 }
 
-.ham-menu-container {
+section.mail-header .logo-menu-container .ham-menu-container {
     cursor: pointer;
     padding: 12px;
     margin: 4px;
+    
     max-width: 48px;
-    border-radius: 50%;
+    border-radius: 50%;    
 }
 
-.ham-menu-container:hover {
+section.mail-header .logo-menu-container .ham-menu-container:hover {
     background-color: rgba(60, 64, 67, .1);
 }

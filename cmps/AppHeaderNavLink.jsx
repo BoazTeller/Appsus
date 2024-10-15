@@ -1,7 +1,6 @@
 const { NavLink } = ReactRouterDOM
 
 export function AppHeaderNavLink({ navLink }) {
-
     return(
         <NavLink
             to={`/${navLink.path}`}
