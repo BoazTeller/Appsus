@@ -31,7 +31,7 @@ section.mail-header .logo-menu-container svg {
     fill: #5f6368;
 }
 
-section.mail-header .logo-menu-container .ham-menu-container {
+section.mail-header .logo-menu-container .ham-menu-btn {
     cursor: pointer;
     padding: 12px;
     margin: 4px;
@@ -40,6 +40,20 @@ section.mail-header .logo-menu-container .ham-menu-container {
     border-radius: 50%;    
 }
 
-section.mail-header .logo-menu-container .ham-menu-container:hover {
+section.mail-header .logo-menu-container .ham-menu-btn:hover {
     background-color: rgba(60, 64, 67, .1);
+}
+
+@media (max-width: 670px) {
+    section.mail-header .logo-menu-container {
+        min-width: 187px;
+        width: 187px;
+    }
+}
+
+@media (max-width: 550px) {
+    section.mail-header .logo-menu-container {
+        min-width: 157px;
+        width: 157px;
+    }
 }

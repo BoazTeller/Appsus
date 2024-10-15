@@ -11,3 +11,13 @@
     
     user-select: none;
 }
+
+.mail-index.collapsed {
+    display: grid;
+    grid-template-columns: 72px 1fr 16px; 
+    grid-template-rows: 64px 1fr auto; 
+}
+
+.mail-index.mail-index.collapsed {
+    transition: grid 150ms
+}

@@ -4,7 +4,9 @@ const { useNavigate } = ReactRouterDOM
 import { MailComposeButton } from "./MailComposeButton.jsx" 
 import { MailFolderItem } from "./MailFolderItem.jsx"
 
-export function MailFolderList({ onSetFilterBy, filterBy, mailCount, onOpenMailEdit }) {
+export function MailFolderList({ 
+    onSetFilterBy, filterBy, mailCount, onOpenMailEdit, isSideBarCollapsed 
+}) {
     const navigate = useNavigate()
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
@@ -27,9 +29,11 @@ export function MailFolderList({ onSetFilterBy, filterBy, mailCount, onOpenMailE
         { key: 'trash', icon: 'delete', label: 'Trash' }
     ]    
 
+    const collapsedClass = isSideBarCollapsed ? 'collapsed' : ''
     const { folder: currFolder } = filterByToEdit 
+   
     return (
-        <section className="folder-list">
+        <section className={`folder-list ${collapsedClass}`}>
             <MailComposeButton onOpenMailEdit={onOpenMailEdit} />
 
             {folders.map(folderItem => (
@@ -38,6 +42,7 @@ export function MailFolderList({ onSetFilterBy, filterBy, mailCount, onOpenMailE
                     folderItem={folderItem}
                     handleFilter={handleFilter}
                     currFolder={currFolder}
+                    collapsedClass={collapsedClass}
                 />
             ))}
         </section>

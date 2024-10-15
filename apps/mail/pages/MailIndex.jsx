@@ -21,6 +21,7 @@ export function MailIndex() {
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
 
     const [isMailEdit, setIsMailEdit] = useState(false)
+    const [isSideBarCollapsed, setIsSidebarCollapsed] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [mailCount, setMailCount] = useState(0)
 
@@ -223,10 +224,11 @@ export function MailIndex() {
 
     const { folder, txt, isRead } = filterBy
     return (
-        <section className="mail-index">
+        <section className={`mail-index ${isSideBarCollapsed ? 'collapsed' : ''}`}>
             <MailHeader
                 onSetFilterBy={onSetFilterBy} 
                 filterBy={{ folder }} 
+                onToggleSideBarCollapse={() => setIsSidebarCollapsed(!isSideBarCollapsed)}
             />
 
             <MailFolderList 
@@ -234,6 +236,7 @@ export function MailIndex() {
                 filterBy={{ folder }} 
                 mailCount={mailCount}
                 onOpenMailEdit={onOpenMailEdit}
+                isSideBarCollapsed={isSideBarCollapsed}
             />
 
             {isMailEdit &&
