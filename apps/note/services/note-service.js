@@ -129,10 +129,11 @@ function filterByType(typeToFilter){
 function _getFilteredNotesByTxt(notes,filterBy){
     let filteredNotes = []
     filterBy = filterBy.toLowerCase()
-
+    console.log('notes in filter txt', notes)
     notes.filter(note => {
-        const title = note.info.title.toLowerCase()
-        const noteTxt = note.info.txt
+        const title = note.info && note.info.title ? note.info.title.toLowerCase() : null
+        const noteTxt = note.info && note.info.txt ? note.info.txt.toLowerCase() : null
+
         let todosTxt = ''
         if(note.info.todos) {
             todosTxt = note.info.todos.map(todo => todo.txt ? todo.txt.toLowerCase() : '').join(' ') // join all the todos.txt info a string

@@ -18,6 +18,7 @@ import { NoteIndex } from "./apps/note/pages/NoteIndex.jsx"
 // Utility Components (UserMsg, NotFound)
 import { UserMsg } from "./cmps/UserMsg.jsx"
 import { NotFound } from "./cmps/NotFound.jsx"
+import { CanvasDrawing } from "./apps/note/cmps/CanvasDrawing.jsx"
 
 export function App() {
     return (
@@ -34,7 +35,6 @@ export function App() {
                             <Route path="/mail/:mailId" element={<MailDetails />} />
                         </Route>
                         <Route path="/note" element={<NoteIndex />} />
-
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
