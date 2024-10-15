@@ -116,6 +116,7 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
             id="mailEdit"
             className={`mail-edit ${isMinimized ? 'minimized' : ''}`} 
             title={isMinimized ? 'Maximize' : ''}
+            onClick={isMinimized ? onToggleIsMinimized : undefined}
         >
     
             <header className="compose-header">
@@ -138,40 +139,42 @@ export function MailEdit({ onCloseMailEdit, onSendMail }) {
                 </section>
             </header>
 
+            {!isMinimized &&
+                <form onSubmit={onSubmitMail} onKeyDown={handleKeyDown} style={{ opacity: isLoading ? 0 : 1 }}>
+                    <div className="email">
+                        <input
+                            ref={toInputRef}
+                            type="email"
+                            placeholder="Recipients"
+                            name="to"
+                            onChange={handleChange}
+                            value={to}
+                        />
+                    </div>
 
-            <form onSubmit={onSubmitMail} onKeyDown={handleKeyDown} style={{ opacity: isLoading ? 0 : 1 }}>
-                <div className="email">
-                    <input
-                        ref={toInputRef}
-                        type="email"
-                        placeholder="Recipients"
-                        name="to"
-                        onChange={handleChange}
-                        value={to}
-                    />
-                </div>
-
-                <div className="subject">
-                    <input
+                    <div className="subject">
+                        <input
+                            type="text"
+                            placeholder="Subject"
+                            name="subject"
+                            onChange={handleChange}
+                            value={subject}
+                        />
+                    </div>
+                    
+                    <textarea
                         type="text"
-                        placeholder="Subject"
-                        name="subject"
+                        name="body"
                         onChange={handleChange}
-                        value={subject}
+                        value={body}
                     />
-                </div>
-                
-                <textarea
-                    type="text"
-                    name="body"
-                    onChange={handleChange}
-                    value={body}
-                />
 
-                <div className="btn-container flex align-center">
-                    <button className="send-btn" title="Send {Ctrl-Enter}">Send</button>
-                </div>
-            </form>
+                    <div className="btn-container flex align-center">
+                        <button className="send-btn" title="Send {Ctrl-Enter}">Send</button>
+                    </div>
+                </form>
+
+            }
         </section>
     )
 }
