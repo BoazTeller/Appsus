@@ -7,6 +7,7 @@
     padding-block-start: 1em;
     padding-block-end: 0.5rem;
     padding-inline: 0.5rem;
+    min-width: 200px;
 
     border-bottom: 1px solid var(--mail-color6);
     
@@ -31,18 +32,18 @@
 
     font-size: 0.875rem;
     max-height: 32px;
-    width: fit-content;
+    /* width: fit-content; */
 
-    min-width: 20px; /* Initial width of the button */
-    transition: width 30000ms ease; /* Smooth width transition */
-    transition: padding 30000ms ease; /* Smooth width transition */
-    transition: margin 30000ms ease; /* Smooth width transition */
+    min-width: 20px; 
+    transition: width 300ms ease; 
+    transition: padding 300ms ease; 
+    transition: margin 300ms ease; 
 
-    overflow: hidden; /* Ensure no content overflows */
+    overflow: hidden; 
 }
 
 .mail-sort button::before {
-    transition: before 30000ms ease; /* Smooth width transition */
+    transition: before 300ms ease; 
 
 }
 /* All this just to eliminate 17px of border shadow from the

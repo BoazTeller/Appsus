@@ -1,0 +1,29 @@
+.mail-details-container .actions-container {
+    height: 40px;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mail-details-container .actions-container button {
+    background-color: inherit;
+    border-radius: 50%;
+
+    height: 40px;
+    width: 40px;
+
+    transition: opacity 0.2s ease;
+}
+
+.mail-details-container .actions-container button:hover {
+    background-color: rgba(230, 234, 239, 0.8); 
+}
+
+.mail-details-container .actions-container .material-symbols-outlined {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1;
+
+    color: #5f6368;
+}

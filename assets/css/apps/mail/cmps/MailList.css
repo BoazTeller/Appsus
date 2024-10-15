@@ -11,7 +11,7 @@
 
     height: calc(100vh - 193px);
     overflow-y: scroll;
-
+    width: auto;
     scrollbar-gutter: stable;
     background-color: white;
     z-index: 1;

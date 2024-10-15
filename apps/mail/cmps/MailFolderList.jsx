@@ -29,7 +29,6 @@ export function MailFolderList({
     ]    
 
     const collapsedClass = isSidebarOpen ? 'collapsed' : ''
-    console.log('hola', collapsedClass)
     const { folder: currFolder } = filterByToEdit 
    
     return (

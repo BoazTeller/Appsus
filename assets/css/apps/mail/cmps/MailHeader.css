@@ -51,9 +51,11 @@ section.mail-header .logo-menu-container .ham-menu-btn:hover {
     }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 565px) {
     section.mail-header .logo-menu-container {
-        min-width: 157px;
-        width: 157px;
+        padding: 0;
+        min-width: 160px;
+        width: 160px;
     }
 }
+

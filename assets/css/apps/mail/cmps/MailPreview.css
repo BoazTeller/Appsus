@@ -201,7 +201,7 @@
     .mail-preview {
         display: grid;
         /* 43px for empty space where the checkbox should be */
-        grid-template-columns: 43px minmax(361px, 1fr) minmax(40px, auto);
+        grid-template-columns: 43px minmax(361px, 1fr) minmax(60px, auto);
         grid-template-rows: 20px 20px 20px; 
         position: relative;
 
@@ -266,6 +266,19 @@
     .mail-preview .mail-content :is(.mail-subject, .mail-body, .mail-from) {
         line-height: 20px;
         max-width: 361px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 565px) {
+
+    .mail-preview {
+        grid-template-columns: 43px minmax(300px, 1fr) minmax(60px, auto);
+    }
+
+    .mail-preview .mail-content :is(.mail-subject, .mail-body, .mail-from) {
+        line-height: 20px;
+        max-width: 300px;
         width: 100%;
     }
 }

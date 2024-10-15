@@ -288,7 +288,10 @@ export function MailIndex() {
                 <Outlet 
                     context={{
                         onOpenMailEdit,
-                        onRemoveMail
+                        onRemoveMail,
+                        onToggleStarred,
+                        onToggleRead,
+                        onSaveAsNote
                     }} 
                 />
             )}    
