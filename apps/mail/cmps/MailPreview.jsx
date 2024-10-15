@@ -120,9 +120,9 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead,
                     {mail.subject || '(no subject)'}
                 </p>
 
-                {mail.body && (
-                    <p className="mail-body">{mail.body}</p>
-                )}
+                <p className={`mail-body ${mail.body ? 'mail-dash' : ''}`}>
+                    {mail.body || '\u00A0'}
+                </p>
             </section>
 
             {/* When not hovered: display sent at date or nothing at all for drafts
