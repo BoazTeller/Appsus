@@ -60,11 +60,19 @@ export function NoteIndex() {
             .then(savedNote => {
                 setNotes(prevNotes => [...prevNotes, savedNote])
                 showSuccessMsg('Note from Mail successfully added!')
+<<<<<<< HEAD
             })
             .catch(error => {
                 console.error('Failed to save the note:', error);
                 showErrorMsg('Failed to add note. Please try again.')
             })
+=======
+        })
+        .catch(error => {
+            console.error('Failed to save the note:', error)
+            showErrorMsg('Failed to add note. Please try again.')
+        })
+>>>>>>> f6a0c53eecbc0be58db3a8dfb1e9511877737749
     }
 
     function onOpenInput(type) {

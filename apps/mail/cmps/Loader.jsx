@@ -1,6 +1,6 @@
-export function Loader() {
+export function Loader({ loaderNum = 3}) {
     
     return (
-        <span className="loader1"></span>
+        <span className={`loader${loaderNum}`}></span>
     )
 }

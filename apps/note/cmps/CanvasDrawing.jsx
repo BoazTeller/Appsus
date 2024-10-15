@@ -1,6 +1,6 @@
-const { useState, useRef, useEffect } = React;
+const { useState, useRef, useEffect } = React
 
-import { noteService } from "../services/note-service.js";
+import { noteService } from "../services/note-service.js"
 
 export function CanvasDrawing({ onCloseCanvas, onAddNote,noteToEdit,onEditNote }) {
     const canvasRef = useRef(null)
@@ -48,14 +48,14 @@ export function CanvasDrawing({ onCloseCanvas, onAddNote,noteToEdit,onEditNote }
 
     // Clear the canvas
     const clearCanvas = () => {
-        const canvas = canvasRef.current;
+        const canvas = canvasRef.current
         const context = canvas.getContext("2d")
         context.clearRect(0, 0, canvas.width, canvas.height)
     }
 
     // Save the canvas as an image
     const saveCanvas = () => {
-        const canvas = canvasRef.current;
+        const canvas = canvasRef.current
         const imageUrl = canvas.toDataURL("image/png") // Get the image URL directly
         if (isEditingCanvas){
             triggerEditNote(imageUrl)
