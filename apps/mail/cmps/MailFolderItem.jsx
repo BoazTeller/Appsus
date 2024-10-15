@@ -2,7 +2,7 @@ export function MailFolderItem(props) {
     const { folderItem, handleFilter, currFolder, collapsedClass } = props
 
     // count of unread mails in inbox or drafts in drafts folder
-    const isCount = folderItem.count !== undefined && folderItem.count 
+    const isCount = folderItem.count !== undefined && folderItem.count > 0
     
     // class that will change the folder item background if active
     const activeClass = currFolder === folderItem.key ? 'active' : ''

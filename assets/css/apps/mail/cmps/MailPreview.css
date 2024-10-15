@@ -1,8 +1,7 @@
 .mail-preview {
     cursor: pointer;
-    position: relative;
     display: grid;
-    grid-template-columns: auto 200px 1fr minmax(85px, auto);
+    grid-template-columns: auto 200px minmax(361px, auto) minmax(85px, auto);
     align-items: center;
 
     color: var(--mail-gray1);
@@ -43,9 +42,9 @@
 }
 
 /* Enter empty char at the start if mail body is rendered */
-.mail-preview .mail-body::before {
+/* .mail-preview .mail-body::before {
     content: '\00a0'; 
-}
+} */
 
 .mail-preview .mail-body {
     color: var(--mail-gray4);
@@ -69,6 +68,7 @@
     text-overflow: ellipsis;
 
     color: var(--mail-gray4);
+    /* z-index: 10000000000; */
 }
 
 .mail-preview .mail-sent-at {
@@ -146,7 +146,7 @@
 
 /* Unread Mails */
 .mail-preview.un-read {
-    background-color: var(--mail-color2);
+    background-color: white;
 }
 
 .mail-preview.un-read .mail-subject,
@@ -157,7 +157,8 @@
 
 /* Read Mails */
 .mail-preview.is-read {
-    background-color: white;
+    background-color: var(--mail-color2);
+
 }
 
 .mail-preview.is-read .mail-subject,
@@ -184,4 +185,84 @@
 .mail-preview.is-read.draft .mail-subject,
 .mail-preview.is-read.draft .mail-sent-at {
     font-family: GoogleSans-Bold;
+}
+
+/* remove the " - " at the start of mail-body */
+@media (min-width: 801px) {
+    .mail-preview .mail-body::before {
+        content: '\00a0-\00a0'
+    }
+}
+
+@media (max-width: 800px) {
+    .mail-preview {
+        display: grid;
+        /* 43px for empty space where the checkbox should be */
+        grid-template-columns: auto minmax(361px, 1fr) minmax(40px, auto);
+        grid-template-rows: 20px 20px 20px; 
+        position: relative;
+
+        height: 80px;
+        padding: 0;
+        padding-block: 10px;
+    }
+
+    /* First row: mail-from and mail-sent-at */
+    .mail-preview .mail-from {
+        grid-column: 2;
+        grid-row: 1;
+        max-width: 353px;
+        padding-right: 16px;
+    }
+
+    .mail-preview .mail-sent-at {
+        grid-column: 3; 
+        grid-row: 1;
+        justify-self: end;
+        padding-right: 16px;
+    }
+
+    .mail-preview .actions-container {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2; 
+        
+        position: absolute;
+        justify-self: end;
+        padding-right: 6px;
+    }
+
+    /* Second row: mail-content containing mail-subject and mail-body */
+    .mail-preview .mail-content {
+        grid-column: 2 / 4; 
+        grid-row: 2 / 4; 
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .mail-preview .mail-content :is(.mail-subject, .mail-body, .mail-from) {
+        line-height: 20px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .mail-preview .mail-body {
+        justify-self: start;
+        align-self: flex-start;
+    }
+
+    .mail-preview .btn-star {
+        grid-column: 3; 
+        grid-row: 3; 
+        justify-self: end;
+    }
+}
+
+
+/* Not an ideal solution but had issues trying to get the from, subject, body to shrink automatically */
+@media (max-width: 670px) {
+    .mail-preview .mail-content :is(.mail-subject, .mail-body, .mail-from) {
+        line-height: 20px;
+        max-width: 361px;
+        width: 100%;
+    }
 }

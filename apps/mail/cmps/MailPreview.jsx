@@ -44,7 +44,7 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead,
     function displayDateOrHoveredBtns() {
         if (isHovered) {
             return (
-                <div className="actions-container flex align-center">
+                <div className="actions-container flex align center">
                     {/* Remove mail hover button */}
                     <button 
                         className="btn-delete" 
@@ -121,7 +121,7 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead,
                 </p>
 
                 {mail.body && (
-                    <p className="mail-body">{'- '}{mail.body}</p>
+                    <p className="mail-body">{mail.body}</p>
                 )}
             </section>
 

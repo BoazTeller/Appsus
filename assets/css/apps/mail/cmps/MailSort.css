@@ -31,8 +31,20 @@
 
     font-size: 0.875rem;
     max-height: 32px;
+    width: fit-content;
+
+    min-width: 20px; /* Initial width of the button */
+    transition: width 30000ms ease; /* Smooth width transition */
+    transition: padding 30000ms ease; /* Smooth width transition */
+    transition: margin 30000ms ease; /* Smooth width transition */
+
+    overflow: hidden; /* Ensure no content overflows */
 }
 
+.mail-sort button::before {
+    transition: before 30000ms ease; /* Smooth width transition */
+
+}
 /* All this just to eliminate 17px of border shadow from the
 most right side of the sort list (10px scroll + 7px padding) */
 .mail-sort::before {

@@ -1,14 +1,13 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useNavigate } = ReactRouterDOM
 
 import { MailComposeButton } from "./MailComposeButton.jsx" 
 import { MailFolderItem } from "./MailFolderItem.jsx"
 
 export function MailFolderList({ 
-    onSetFilterBy, filterBy, mailCount, onOpenMailEdit, isSideBarCollapsed 
+    onSetFilterBy, filterBy, mailCount, onOpenMailEdit, isSidebarOpen
 }) {
     const navigate = useNavigate()
-
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
@@ -19,7 +18,7 @@ export function MailFolderList({
         setFilterByToEdit(prevFilter => ({...prevFilter, folder: value }))
         navigate('/mail')
     }
-    
+
     const { unreadCount, draftsCount } = mailCount
     const folders = [
         { key: 'inbox', icon: 'inbox', label: 'Inbox', count: unreadCount },
@@ -29,7 +28,8 @@ export function MailFolderList({
         { key: 'trash', icon: 'delete', label: 'Trash' }
     ]    
 
-    const collapsedClass = isSideBarCollapsed ? 'collapsed' : ''
+    const collapsedClass = isSidebarOpen ? 'collapsed' : ''
+    console.log('hola', collapsedClass)
     const { folder: currFolder } = filterByToEdit 
    
     return (
@@ -42,7 +42,7 @@ export function MailFolderList({
                     folderItem={folderItem}
                     handleFilter={handleFilter}
                     currFolder={currFolder}
-                    collapsedClass={collapsedClass}
+                    collapsedClass={isSidebarOpen}
                 />
             ))}
         </section>

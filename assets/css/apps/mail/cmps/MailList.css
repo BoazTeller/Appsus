@@ -1,7 +1,8 @@
 .mail-list {
     display: flex;
     flex-direction: column;
-
+    min-width: 100%;
+    
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
     

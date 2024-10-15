@@ -21,7 +21,7 @@ export function MailIndex() {
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
 
     const [isMailEdit, setIsMailEdit] = useState(false)
-    const [isSideBarCollapsed, setIsSidebarCollapsed] = useState(false)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 800)
     const [isLoading, setIsLoading] = useState(true)
     const [mailCount, setMailCount] = useState(0)
 
@@ -54,6 +54,19 @@ export function MailIndex() {
                 setIsLoading(false)
             })
     }
+
+    useEffect(() => {
+        function adjustSidebarForScreenSize() {
+            const shouldOpenSidebar = window.innerWidth <= 800
+            setIsSidebarOpen(shouldOpenSidebar)
+        }
+
+        window.addEventListener('resize', adjustSidebarForScreenSize)
+
+        adjustSidebarForScreenSize()
+
+        return () => window.removeEventListener('resize', adjustSidebarForScreenSize)
+    }, [])
 
     function onSetFilterBy(fieldsToUpdate) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
@@ -222,13 +235,17 @@ export function MailIndex() {
         })
     }
 
+    function onToggleIsSidebarOpen() {
+        setIsSidebarOpen(!isSidebarOpen)
+    }
+
     const { folder, txt, isRead } = filterBy
     return (
-        <section className={`mail-index ${isSideBarCollapsed ? 'collapsed' : ''}`}>
+        <section className={`mail-index ${isSidebarOpen ? 'collapsed' : ''}`}>
             <MailHeader
                 onSetFilterBy={onSetFilterBy} 
                 filterBy={{ folder }} 
-                onToggleSideBarCollapse={() => setIsSidebarCollapsed(!isSideBarCollapsed)}
+                onToggleIsSidebarOpen={onToggleIsSidebarOpen}
             />
 
             <MailFolderList 
@@ -236,7 +253,7 @@ export function MailIndex() {
                 filterBy={{ folder }} 
                 mailCount={mailCount}
                 onOpenMailEdit={onOpenMailEdit}
-                isSideBarCollapsed={isSideBarCollapsed}
+                isSidebarOpen={isSidebarOpen}
             />
 
             {isMailEdit &&
