@@ -119,13 +119,10 @@ function _getFilteredMails(mails, filterBy) {
         mails = _searchMailsByWords(mails, filterBy.txt)
     }
 
-    // Filter by read/unread (skip if empty)
-    if (filterBy.isRead === 'read') {
-        mails = mails.filter(mail => mail.isRead)
-    }
-    if (filterBy.isRead === 'unread') {
-        mails = mails.filter(mail => !mail.isRead)
-    }
+    // Filter by read (true)/unread (false), (skip if null)
+if (filterBy.isRead !== null) {
+    mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+}
 
     return mails
 }
@@ -173,7 +170,7 @@ function getDefaultFilter() {
     return {
         folder: 'inbox',
         txt: '',
-        isRead: ''
+        isRead: null
     } 
 }
 
@@ -197,15 +194,15 @@ function getEmptyMail() {
     }
 }
 
-function getFilterFromParams(searchParams = {}, params = {}) {
-    const folder = params.folder || 'inbox'
+function getFilterFromParams(searchParams = {}) {
+    const folder = searchParams.get('folder') || 'inbox'
     const txt = searchParams.get('txt') || ''
-    const isRead = searchParams.get('isRead') || ''
+    const isRead = utilService.convertStrToNullableBool(searchParams.get('isRead'))
 
     return {
         folder,
         txt,
-        isRead: ''
+        isRead
     }
 }
 

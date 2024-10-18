@@ -1,5 +1,7 @@
 const { useState, useEffect } = React
 
+import { utilService } from "../../../services/util.service.js"
+
 export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
@@ -18,7 +20,11 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
 
     function handleReadFilterChange({ target }) {
         const { value, name: field } = target
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
+
+        setFilterByToEdit(prevFilter => ({ 
+            ...prevFilter, 
+            [field]: utilService.convertStrToNullableBool(value)
+        }))
     }
   
     const sortOpts = [
@@ -43,9 +49,9 @@ export function MailSort({ onSetSortBy, sortBy, onSetFilterBy, filterBy }) {
 
             {/* Filter - Read/Unread/All */}
             <select name="isRead" onChange={handleReadFilterChange}>
-                <option value="">All</option>
-                <option value="read">Read</option>
-                <option value="unread">Unread</option>
+                <option value="null">All</option>
+                <option value="true">Read</option>
+                <option value="false">Unread</option>
             </select>
         </section>
     )
