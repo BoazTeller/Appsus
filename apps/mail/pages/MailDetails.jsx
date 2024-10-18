@@ -1,5 +1,6 @@
 const { useState, useEffect } = React
 const { useParams, useOutletContext, useNavigate  } = ReactRouter
+const { Link  } = ReactRouterDOM
 
 import { MailDetailsActionBar } from "../cmps/MailDetailsActionsBar.jsx"
 
@@ -47,7 +48,7 @@ export function MailDetails() {
                 onToggleRead={onToggleRead}
                 onSaveAsNote={onSaveAsNote}
             />
-            
+
             <section className="mail-details">
 
                 <div className="mail-subject-container">
@@ -68,10 +69,14 @@ export function MailDetails() {
 
                 <section className="mail-actions">
                     {!mail.sentAt && <button className="btn-edit" onClick={onOpenMailEdit}>Edit</button>}
-                    <button className="btn-delete" onClick={() => onRemoveMail(mail.id)}>
+                    
+                    <button className="btn-delete" onClick={() => onRemoveMail(mail)}>
                         {!mail.removedAt ? 'Delete' : 'Delete Forever'}
                     </button>
-                    <button className="btn-back-inbox" onClick={() => {navigate('/mail')}}>Back</button>
+                    
+                    <button className="btn-back-inbox">
+                        <Link to="/mail">Back</Link>
+                    </button>
                 </section>
             </section>  
         </section>
