@@ -4,7 +4,7 @@ const { useSearchParams } = ReactRouterDOM
 import { mailService } from "../services/mail.service.js"
 import { utilService } from "../../../services/util.service.js"
 
-export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead, onSaveAsNote }) {
+export function MailPreview({ mail, onRemoveMail, onToggleMailField, onSaveAsNote }) {
     const [searchParams] = useSearchParams()
 
     const [isHovered, setIsHovered] = useState(false)
@@ -12,12 +12,12 @@ export function MailPreview({ mail, onRemoveMail, onToggleStarred, onToggleRead,
     function onStarClick(ev) {
         // Prevent navigating to MailDetails when CTE button is clicked
         ev.stopPropagation()
-        onToggleStarred(mail)
+        onToggleMailField(mail, 'isStarred')
     }
 
     function onReadClick(ev) {
         ev.stopPropagation()
-        onToggleRead(mail)
+        onToggleMailField(mail, 'isRead') 
     }
 
     function onRemoveClick(ev) {

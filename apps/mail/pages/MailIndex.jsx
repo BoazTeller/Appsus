@@ -50,7 +50,7 @@ export function MailIndex() {
                 showErrorMsg(`Oops! Couldn't load mails. Please try again.`)
             })
             .finally(() => setIsLoading(false))
-    }   
+    }
 
     useEffect(() => {
         function adjustSidebarForScreenSize() {

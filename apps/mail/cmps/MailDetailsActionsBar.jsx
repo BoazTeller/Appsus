@@ -1,7 +1,7 @@
 const { useNavigate } = ReactRouterDOM
 
 export function MailDetailsActionBar({ 
-    mail, onRemoveMail, onToggleRead, onToggleStarred, onSaveAsNote
+    mail, onRemoveMail, onToggleMailField, onSaveAsNote
  }) {
     const navigate = useNavigate()
 
@@ -14,7 +14,7 @@ export function MailDetailsActionBar({
     // }
 
     function onReadClick() {
-        onToggleRead(mail)
+        onToggleMailField(mail, 'isRead')
     }
 
     function onRemoveClick() {

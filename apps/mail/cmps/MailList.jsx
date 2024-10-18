@@ -7,7 +7,7 @@ import { Loader } from "./Loader.jsx"
 
 export function MailList({
     mails, filterBy, sortBy, folder, isLoading, onOpenMailEdit, onOpenMailDetails,
-    onRemoveMail, onToggleStarred, onToggleRead, onSaveAsNote, onSetFilterBy, onSetSortBy
+    onRemoveMail, onToggleMailField, onSaveAsNote, onSetFilterBy, onSetSortBy
 }) {
     function getEmptyFolderMessage() {
         switch (folder) {
@@ -48,8 +48,7 @@ export function MailList({
                             <MailPreview 
                                 mail={mail}
                                 onRemoveMail={onRemoveMail}
-                                onToggleStarred={onToggleStarred}
-                                onToggleRead={onToggleRead}
+                                onToggleMailField={onToggleMailField}
                                 onSaveAsNote={onSaveAsNote}
                             />
                         </li>

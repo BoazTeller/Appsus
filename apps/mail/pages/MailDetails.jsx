@@ -10,7 +10,7 @@ import { Loader } from "../cmps/Loader.jsx"
 
 export function MailDetails() {
     const { mailId } = useParams()
-    const { onOpenMailEdit, onRemoveMail, onToggleRead, onToggleStarred, onSaveAsNote } = useOutletContext()
+    const { onOpenMailEdit, onRemoveMail, onToggleMailField, onSaveAsNote } = useOutletContext()
 	const navigate = useNavigate()
 
 	const [mail, setMail] = useState(null)
@@ -44,8 +44,7 @@ export function MailDetails() {
             <MailDetailsActionBar 
                 mail={mail}
                 onRemoveMail={onRemoveMail} 
-                onToggleStarred={onToggleStarred}
-                onToggleRead={onToggleRead}
+                onToggleMailField={onToggleMailField}
                 onSaveAsNote={onSaveAsNote}
             />
 
