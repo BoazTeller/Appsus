@@ -173,36 +173,26 @@ export function MailIndex() {
     }
 
     function onRemoveMail(mail) {
-        mail.removedAt ? removeMail(mail.id) : moveToTrash(mail)
-    }
+        mailService.remove(mail)
+            // When moving to trash, the service will return the msdId and also updatedMail entity with removedAt field updated
+            // Currently there isn't any use for the updatedMail tho
+            .then(({ msgId }) => {
+                setMails(prevMails => prevMails.filter(currMail => currMail.id !== mail.id))
 
-    function removeMail(mailId) {
-        mailService.remove(mailId)
-            .then(() => {
-                setMails(prevMails =>prevMails.filter(mail => mail.id !== mailId))
-                showSuccessMsg('Conversation deleted forever.')
-                navigate('/mail')
+                if (msgId === 'deleted') {
+                    showSuccessMsg('Conversation deleted forever.')
+                } else if (msgId === 'trashed') {
+                    showSuccessMsg('Conversation moved to Trash.')
+                }
             })
             .catch(err => {
-                console.error('Had issues removing mail', err)
-                showErrorMsg(`Oops! Couldn't delete mail. Please try again.`)
-            })
-    }
-
-    function moveToTrash(mail) {
-        const updatedMail = { ...mail, removedAt: Date.now() }
-
-        mailService.save(updatedMail)
-            .then(() => {
-                setMails(prevMails =>
-                    prevMails.filter(currMail => currMail.id !== updatedMail.id)
-                )  
-                showSuccessMsg(`Conversation moved to Trash.`)
-                navigate('/mail')
-            })
-            .catch(err => {
-                console.error('Had issues removing mail to trash', err)
-                showErrorMsg(`Oops! Couldn't move to trash. Please try again.`)
+                if (mail.removedAt) {
+                    console.error('Had issues deleting mail:', err)
+                    showErrorMsg(`Oops! Couldn't delete mail. Please try again.`)
+                } else {
+                    console.error('Had issues moving mail to trash:', err)
+                    showErrorMsg(`Oops! Couldn't move mail to trash. Please try again.`)
+                }
             })
     }
     
