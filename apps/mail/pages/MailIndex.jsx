@@ -48,9 +48,9 @@ export function MailIndex() {
             .catch(err => {
                 console.error('Had issues loading mails', err)
                 showErrorMsg(`Oops! Couldn't load mails. Please try again.`)
-                setIsLoading(false)
             })
-    }
+            .finally(() => setIsLoading(false))
+    }   
 
     useEffect(() => {
         function adjustSidebarForScreenSize() {
