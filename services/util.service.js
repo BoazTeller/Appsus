@@ -9,6 +9,7 @@ export const utilService = {
     getFormattedDate,
     getNewSortDir,
     getTruthyValues,
+    convertStrToNullableBool,
     loadFromStorage,
     saveToStorage
 }
@@ -112,4 +113,12 @@ function getTruthyValues(obj) {
         }
         return acc
     }, {})
+}
+
+function convertStrToNullableBool(str) {
+    return str === 'true' 
+        ? true 
+        : str === 'false' 
+            ? false 
+            : null
 }
