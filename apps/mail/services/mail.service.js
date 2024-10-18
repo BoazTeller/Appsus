@@ -43,8 +43,15 @@ function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
 }
 
-function remove(mailId) {
-    return storageService.remove(MAIL_KEY, mailId)
+function remove(mail) {
+    if (mail.removedAt) {
+        return storageService.remove(MAIL_KEY, mail.id)
+            .then(() => ({ msgId: 'deleted' }))
+    } else {
+        const updatedMail = { ...mail, removedAt: Date.now() }
+        return storageService.put(MAIL_KEY, updatedMail) 
+            .then(() => ({ msgId: 'trashed', updatedMail }))
+    }
 }
 
 function save(mail) {
