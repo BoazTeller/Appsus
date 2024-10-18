@@ -8,7 +8,6 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailList } from "../cmps/MailList.jsx"
-import { MailFilterSearch } from "../cmps/MailFilterSearch.jsx"
 import { MailEdit } from "../cmps/MailEdit.jsx"
 
 export function MailIndex() {
@@ -26,11 +25,10 @@ export function MailIndex() {
     const [mailCount, setMailCount] = useState(0)
 
     mailService.getUnreadAndDraftCounts()
-        .then(count =>
-            setMailCount(count))
-            .catch(err => {
+        .then(count => setMailCount(count))
+        .catch(err => {
                 console.error('Had issues getting unread mails and drafts count', err)
-            })
+        })
               
     useEffect(() => {
         setSearchParams(utilService.getTruthyValues(filterBy))
@@ -46,7 +44,6 @@ export function MailIndex() {
         mailService.query(filterBy, sortBy)
             .then(mails => {
                 setMails(mails)
-                setIsLoading(false)
             })
             .catch(err => {
                 console.error('Had issues loading mails', err)
@@ -58,6 +55,8 @@ export function MailIndex() {
     useEffect(() => {
         function adjustSidebarForScreenSize() {
             const shouldOpenSidebar = window.innerWidth <= 800
+            if (shouldOpenSidebar === isSidebarOpen) return
+            
             setIsSidebarOpen(shouldOpenSidebar)
         }
 
@@ -103,6 +102,7 @@ export function MailIndex() {
 
     function onOpenMailDetails(mail) {
         if (!mail.isRead && mail.sentAt) onReadMail(mail)
+
         navigate(`/mail/${mail.id}`)
     }
 
@@ -148,38 +148,26 @@ export function MailIndex() {
             })
     }
     
-    // Toggles read status optimistically and reverts on error
-    function onToggleRead(mail) {
-        const updatedMail = { ...mail, isRead: !mail.isRead }
-    
-        setMails(prevMails =>
-            prevMails.map(m => m.id === mail.id ? updatedMail : m)
-        )
-    
-        mailService.save(updatedMail)
-            .catch((err) => {
-                console.error('Error updating mail read status:', err)
-                showErrorMsg(`Oops! Couldn't update read status. Please try again.`)
-                setMails(prevMails =>
-                    prevMails.map(m => m.id === mail.id ? mail : m) 
-                )
-            })
-    }
-
-    // Toggles starred status optimistically and reverts on error
-    function onToggleStarred(mail) {
-        const updatedMail = { ...mail, isStarred: !mail.isStarred }
+    /**
+     * Toggles a specified mail field (isRead, isStarred) and updates the mail.
+     * Reverts the change on error.
+     */
+    function onToggleMailField(mail, field) {
+        const mailBackup = structuredClone(mail)
+        const updatedMail = { ...mail, [field]: !mail[field] }
 
         setMails(prevMails =>
             prevMails.map(m => m.id === mail.id ? updatedMail : m)
         )
-        
+
         mailService.save(updatedMail)
             .catch((err) => {
-                console.error('Error updating mail star status:', err)
-                showErrorMsg(`Oops! Couldn't update starred status. Please try again.`)
+                console.error(`Error updating mail ${field} status:`, err)
+                showErrorMsg(`Oops! Couldn't update ${field === 'isRead' ? 'read' : 'starred'} status.`
+                    + ' Please try again.')
+
                 setMails(prevMails =>
-                    prevMails.map(m => m.id === mail.id ? mail : m) 
+                    prevMails.map(m => m.id === mail.id ? mailBackup : m)
                 )
             })
     }
@@ -225,8 +213,6 @@ export function MailIndex() {
             from: mail.from || '',
             to: mail.to || ''
         })
-
-        setSearchParams(newNoteParams)
 
         navigate({
             pathname: '/note',
@@ -274,8 +260,7 @@ export function MailIndex() {
                         onRemoveMail={onRemoveMail}
                         onOpenMailEdit={onOpenMailEdit}
                         onOpenMailDetails={onOpenMailDetails}
-                        onToggleStarred={onToggleStarred}
-                        onToggleRead={onToggleRead}
+                        onToggleMailField={onToggleMailField}
                         onReadMail={onReadMail}
                         onSaveAsNote={onSaveAsNote}
                         folder={folder}
@@ -289,8 +274,7 @@ export function MailIndex() {
                     context={{
                         onOpenMailEdit,
                         onRemoveMail,
-                        onToggleStarred,
-                        onToggleRead,
+                        onToggleMailField,
                         onSaveAsNote
                     }} 
                 />
